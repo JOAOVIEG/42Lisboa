@@ -6,7 +6,7 @@
 /*   By: joaocard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 14:32:37 by joaocard          #+#    #+#             */
-/*   Updated: 2023/04/19 15:52:11 by joaocard         ###   ########.fr       */
+/*   Updated: 2023/04/20 14:46:31 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,24 +14,22 @@
 
 size_t	ft_strlcpy(char *dest, const char *src, size_t size)
 {
-	char		*ptr_dest;
-	int			src_len;
-	size_t		dest_counter;
+	size_t		src_c;
 
-	dest_counter = 0;
-	src_len = 0;
-	ptr_dest = dest;
-	while (src[src_len])
+	src_c = 0;
+	if (size <= 0)
+		return (ft_strlen(src));
+	while (src_c < (size - 1) && *(src + src_c))
 	{
-		src_len++;
+		*(dest + src_c) = *(src + src_c);
+		src_c++;
 	}
-	while (dest_counter < (size - 1) && *src)
+	*(dest + src_c) = '\0';
+	while (*(src + src_c))
 	{
-		*ptr_dest++ = *src++;
-		dest_counter++;
+		src_c++;
 	}
-	*ptr_dest = 0;
-	return (src_len);
+	return (ft_strlen(src));
 }
 
 /*int	main()

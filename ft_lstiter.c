@@ -6,7 +6,7 @@
 /*   By: joaocard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/19 13:36:21 by joaocard          #+#    #+#             */
-/*   Updated: 2023/04/19 13:50:48 by joaocard         ###   ########.fr       */
+/*   Updated: 2023/04/20 13:18:17 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 void	ft_lstiter(t_list *lst, void (*f)(void *))
 {
+	if (lst == NULL || f == NULL)
+		return ;
 	while (lst && lst->next)
 	{
 		(f)(lst->content);

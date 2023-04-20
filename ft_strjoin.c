@@ -6,7 +6,7 @@
 /*   By: joaocard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/11 12:29:04 by joaocard          #+#    #+#             */
-/*   Updated: 2023/04/11 13:52:53 by joaocard         ###   ########.fr       */
+/*   Updated: 2023/04/20 13:24:19 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	i2 = 0;
 	s3len = ft_strlen(s1) + ft_strlen(s2);
 	s3 = (char *)malloc(sizeof(char) * s3len + 1);
+	if (!s3)
+		return (NULL);
 	while (i1 < (int)(ft_strlen(s1)))
 	{
 		*(s3 + i1) = *(char *)(s1 + i1);
@@ -34,6 +36,7 @@ char	*ft_strjoin(char const *s1, char const *s2)
 		i1++;
 		i2++;
 	}
+	*(s3 + i1) = 0;
 	return (s3);
 }
 

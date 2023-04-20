@@ -6,7 +6,7 @@
 /*   By: joaocard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/01 14:00:13 by joaocard          #+#    #+#             */
-/*   Updated: 2023/04/19 10:24:02 by joaocard         ###   ########.fr       */
+/*   Updated: 2023/04/20 15:20:40 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,19 +14,20 @@
 
 char	*ft_strchr(const char *str, int chr)
 {
-	if (*str == 0)
-		return (NULL);
-	while (*(str++))
+	while (*str)
 	{
-		if (*str == (char) chr)
-			return ((char *) str);
+		if (*(char *)str == (unsigned char)chr)
+			return ((char *)str);
+		str++;
 	}
-	return ((char *) str);
+	if (*(char *)str == (unsigned char)chr)
+		return ((char *)str);
+	return (NULL);
 }
 
 /*int	main(void)
 {
-	const char	*str = "Hello C How are yoC";
+	const char	*str = "Hello C H\0ow are yoC";
 	
 	printf("%s", ft_strchr(str, 'C'));
 	printf("%s", strchr(str, 'C'));

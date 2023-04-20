@@ -6,7 +6,7 @@
 /*   By: joaocard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 12:55:23 by joaocard          #+#    #+#             */
-/*   Updated: 2023/03/14 14:30:48 by joaocard         ###   ########.fr       */
+/*   Updated: 2023/04/20 11:40:12 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,29 +15,19 @@
 
 void	*ft_memmove(void *destination, const void *source, size_t b)
 {
-	size_t	bytes;
+	char	*dest;
+	char	*src;
 
-	bytes = 0;
-	if (!destination && !source)
+	dest = (char *)(destination);
+	src = (char *)(source);
+	if (!dest && !src)
 		return (NULL);
+	if (destination == source)
+		return (destination);
 	if (destination < source)
-	{
-		while (bytes < b)
-		{
-			*(char *)(destination + bytes) = *(char *) \
-													(source + bytes);
-			bytes++;
-		}
-	}
+		ft_memcpy(dest, src, b);
 	else
-	{
-		bytes = b;
-		while (bytes > 0)
-		{
-			*(char *)(destination + bytes) = *(char *) \
-													(source + bytes);
-			bytes--;
-		}
-	}
-	return (destination);
+		while (b--)
+			*(dest + b) = *(src + b);
+	return ((void *)dest);
 }

@@ -6,7 +6,7 @@
 /*   By: joaocard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/19 13:52:43 by joaocard          #+#    #+#             */
-/*   Updated: 2023/04/19 15:47:27 by joaocard         ###   ########.fr       */
+/*   Updated: 2023/04/20 13:42:47 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,10 @@ t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *))
 
 	if (!lst)
 		return (NULL);
-	new = NULL;
+	new = ft_lstnew(f(lst->content));
 	while (lst != 0)
 	{
-		temp = ft_lstnew(f(lst->content));
+		temp = new;
 		if (!temp)
 		{
 			ft_lstclear(&new, del);

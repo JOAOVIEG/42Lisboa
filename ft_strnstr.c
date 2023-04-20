@@ -6,7 +6,7 @@
 /*   By: joaocard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 09:46:50 by joaocard          #+#    #+#             */
-/*   Updated: 2023/04/06 12:18:55 by joaocard         ###   ########.fr       */
+/*   Updated: 2023/04/20 17:53:54 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,10 @@ char	*ft_strnstr(const char *big, const char *little, size_t len)
 	size_t	i;
 
 	i = ft_strlen((char *)little);
-	if (i == 0)
+	if (*little == 0)
 		return ((char *) big);
+	if (len == 0)
+		return (0);
 	while (*(char *)big && (int)(len - i) != -1)
 	{
 		if (ft_strncmp((char *)big, (char *)little, i) == 0)

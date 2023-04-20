@@ -6,7 +6,7 @@
 /*   By: joaocard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/18 11:39:58 by joaocard          #+#    #+#             */
-/*   Updated: 2023/04/18 13:10:45 by joaocard         ###   ########.fr       */
+/*   Updated: 2023/04/20 13:40:38 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,24 @@
 
 void	ft_putnbr_fd(int n, int fd)
 {
-	char	*nbr;
-	int		i;
-
-	i = n;
-	if (i >= INT_MIN && i <= INT_MAX)
+	if (n == -2147483648)
 	{
-		nbr = ft_itoa(i);
-		write(fd, nbr, ft_strlen(nbr));
+		ft_putchar_fd('-', fd);
+		ft_putchar_fd('2', fd);
+		ft_putnbr_fd(147483648, fd);
 	}
+	else if (n < 0)
+	{
+		ft_putchar_fd('-', fd);
+		ft_putnbr_fd(-n, fd);
+	}
+	else if (n >= 10)
+	{
+		ft_putnbr_fd(n / 10, fd);
+		ft_putnbr_fd(n % 10, fd);
+	}
+	else if (n >= 0 && n <= 9)
+		ft_putchar_fd(n + '0', fd);
 }
 
 /*int main()
