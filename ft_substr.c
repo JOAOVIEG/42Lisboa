@@ -6,7 +6,7 @@
 /*   By: joaocard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/11 10:24:28 by joaocard          #+#    #+#             */
-/*   Updated: 2023/04/20 13:24:00 by joaocard         ###   ########.fr       */
+/*   Updated: 2023/04/21 15:37:07 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,15 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 	size_t	slen;
 
 	i = 0;
+	if (!s)
+		return (NULL);
 	slen = ft_strlen(s);
-	if (start >= slen)
-		subs = (char *)malloc(sizeof(char));
+	if (start >= slen || len == 0)
+	{
+		subs = malloc(1);
+		*subs = 0;
+		return (subs);
+	}
 	else
 	{
 		if (len > slen)

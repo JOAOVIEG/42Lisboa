@@ -6,7 +6,7 @@
 /*   By: joaocard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/17 15:16:31 by joaocard          #+#    #+#             */
-/*   Updated: 2023/04/18 12:26:36 by joaocard         ###   ########.fr       */
+/*   Updated: 2023/04/21 14:17:00 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ static size_t	get_len(int n)
 
 	i = n;
 	len = 0;
+	if (i == 0)
+		return (1);
 	if (i < 0)
 	{
 		len++;
@@ -31,33 +33,46 @@ static size_t	get_len(int n)
 	return (len - 1);
 }
 
+static	char	*check_zero_add_memory(nlong, len)
+{
+	char	*istr;
+
+	if (nlong == 0)
+	{
+		istr = (char *)malloc(sizeof(char) * len);
+		istr[0] = 48;
+		istr[len - 1] = '\0';
+		return (istr);
+	}
+	istr = (char *)malloc(sizeof(char) * len + 1);
+	return (istr);
+}
+
 char	*ft_itoa(int n)
 {
 	long	nlong;
-	char	*istr;
+	char	*str;
 	int		len;
 
 	len = get_len(n) + 1;
-	istr = (char *)malloc(sizeof(char) * len + 1);
-	if (!istr)
-		return (NULL);
 	nlong = n;
-	if (nlong == 0)
-		*(istr + 0) = '0';
+	str = check_zero_add_memory(nlong, len);
+	if (!str)
+		return (NULL);
 	if (nlong < 0)
 	{
-		*(istr + 0) = '-';
+		*(str + 0) = '-';
 		nlong *= -1;
 	}
-	*(istr + len) = '\0';
+	*(str + len) = '\0';
 	len -= 1;
 	while (nlong)
 	{
-		istr[len] = (nlong % 10) + '0';
+		str[len] = (nlong % 10) + '0';
 		len--;
 		nlong /= 10;
 	}
-	return (istr);
+	return (str);
 }
 
 /*int main()

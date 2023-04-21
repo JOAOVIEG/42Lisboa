@@ -6,7 +6,7 @@
 /*   By: joaocard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 12:37:36 by joaocard          #+#    #+#             */
-/*   Updated: 2023/04/20 19:07:05 by joaocard         ###   ########.fr       */
+/*   Updated: 2023/04/21 13:07:00 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,13 +22,12 @@ int	ft_atoi(const char *nptr)
 	integer = 0;
 	while (*(char *)nptr == 32 || (*(char *)nptr >= 9 && *(char *)nptr <= 13))
 		nptr++;
-	if (*(char *)nptr == '-')
+	if (*(char *)nptr == '-' || *(char *)nptr == '+')
 	{
-		sign = -1;
+		if (*(char *)nptr == '-')
+			sign = -1;
 		nptr++;
 	}
-	if ((*(char *)nptr == '+'))
-		nptr++;
 	while (*(char *)nptr)
 	{
 		if (ft_isdigit(*(char *)nptr))
