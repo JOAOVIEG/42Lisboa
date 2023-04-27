@@ -6,7 +6,7 @@
 /*   By: joaocard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/17 15:16:31 by joaocard          #+#    #+#             */
-/*   Updated: 2023/04/21 14:17:00 by joaocard         ###   ########.fr       */
+/*   Updated: 2023/04/21 18:59:27 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ static size_t	get_len(int n)
 	return (len - 1);
 }
 
-static	char	*check_zero_add_memory(nlong, len)
+static	char	*check_zero_add_memory(long nlong, int len)
 {
 	char	*istr;
 
