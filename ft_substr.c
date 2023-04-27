@@ -6,49 +6,61 @@
 /*   By: joaocard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/11 10:24:28 by joaocard          #+#    #+#             */
-/*   Updated: 2023/04/21 15:37:07 by joaocard         ###   ########.fr       */
+/*   Updated: 2023/04/27 15:33:04 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
+static int	subs_count(char const *s, unsigned int start, size_t len)
+{
+	size_t	count;
+
+	count = 0;
+	s += start;
+	while (*s++ && count < len)
+		count++;
+	return (count);
+}
+
+static char	*memory_check(void)
+{
+	char	*string;
+
+	string = (char *)malloc((sizeof(char) * 1));
+	if (!string)
+		return (0);
+	string[0] = '\0';
+	return (string);
+}
+
 char	*ft_substr(char const *s, unsigned int start, size_t len)
 {
-	char	*subs;
-	int		i;
-	size_t	slen;
+	unsigned int		i;
+	int					subslen;
+	char				*subs;
 
 	i = 0;
-	if (!s)
-		return (NULL);
-	slen = ft_strlen(s);
-	if (start >= slen || len == 0)
+	if (start > ft_strlen(s))
+		return (memory_check());
+	subslen = subs_count(s, start, len);
+	subs = (char *)malloc((sizeof(char) * subslen) + 1);
+	if (!subs)
+		return (0);
+	s += start;
+	while (*s && i < len)
 	{
-		subs = malloc(1);
-		*subs = 0;
-		return (subs);
+		subs[i] = *s++;
+		i++;
 	}
-	else
-	{
-		if (len > slen)
-			len = slen - start;
-		subs = (char *)malloc(sizeof(char) * len + 1);
-		if (!subs)
-			return (NULL);
-		while (i < (int)(len))
-		{
-			*(subs + i) = *(char *)(s + start + i);
-			i++;
-		}
-		*(subs + i) = 0;
-	}
+	subs[i] = '\0';
 	return (subs);
 }
 
 /*int main()
 {
     char    *s = "Hello World. Good Morning";
-    unsigned int    start = 13;
-    printf("Should Be Good: %s\n", ft_substr(s, start, 4));
+    unsigned int    start = 589;
+    printf("Should Be Good: %s\n", ft_substr(s, start, 0));
     return (0);
 }*/
