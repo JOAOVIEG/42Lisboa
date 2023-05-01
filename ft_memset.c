@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_memset.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: joaocard <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: joaocard <joaocard@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/09 10:24:31 by joaocard          #+#    #+#             */
-/*   Updated: 2023/03/09 11:14:39 by joaocard         ###   ########.fr       */
+/*   Updated: 2023/05/02 00:18:07 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,3 +24,18 @@ void	*ft_memset(void *s, int c, size_t n)
 	}
 	return (s);
 }
+
+/*int main()
+{
+    char s[3];
+    int i;
+    
+    ft_memset(s, 'o', sizeof(char) * 3);
+    i = 0;
+    while(i < 3)
+    {
+        printf("%c", s[i]);
+        i++;
+    }
+    printf("\n");
+}*/

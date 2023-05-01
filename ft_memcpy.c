@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_memcpy.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: joaocard <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: joaocard <joaocard@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 11:57:14 by joaocard          #+#    #+#             */
-/*   Updated: 2023/04/19 15:52:13 by joaocard         ###   ########.fr       */
+/*   Updated: 2023/05/01 23:32:45 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#include <string.h>
 
 void	*ft_memcpy(void *destination, const void *source, size_t b)
 {
@@ -28,3 +27,12 @@ void	*ft_memcpy(void *destination, const void *source, size_t b)
 	}
 	return (destination);
 }
+
+/*int main()
+{
+	char	*myname = "Joao Viegas";
+	char	*dest = (char *)malloc(sizeof(char) * 11);
+	ft_memcpy(dest, myname, sizeof(*dest) * 10);
+	printf("%s\n", dest);
+	return (0);
+}*/

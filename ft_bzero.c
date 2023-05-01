@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_bzero.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: joaocard <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: joaocard <joaocard@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/09 11:16:09 by joaocard          #+#    #+#             */
-/*   Updated: 2023/03/09 11:42:25 by joaocard         ###   ########.fr       */
+/*   Updated: 2023/05/01 17:52:55 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,3 +23,12 @@ void	ft_bzero(void *s, size_t n)
 		bytes++;
 	}
 }
+
+/*int main()
+{
+	//int number = 42;
+	char name = 'J';
+	ft_bzero(&name, sizeof(name));
+	printf("%d\n", name);
+	return (0);
+}*/

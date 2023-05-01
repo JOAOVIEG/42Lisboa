@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_memmove.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: joaocard <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: joaocard <joaocard@42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/14 12:55:23 by joaocard          #+#    #+#             */
-/*   Updated: 2023/04/20 11:40:12 by joaocard         ###   ########.fr       */
+/*   Updated: 2023/05/02 00:15:01 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,3 +31,12 @@ void	*ft_memmove(void *destination, const void *source, size_t b)
 			*(dest + b) = *(src + b);
 	return ((void *)dest);
 }
+
+/*int main()
+{
+	char	*name = "Joao Viegas";
+	char	*move = "Joaso";
+	ft_memmove((void *)&name, (void *)&move, 11);
+	printf("%s\n", name);
+	return (0);
+}*/
