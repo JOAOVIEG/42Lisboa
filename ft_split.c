@@ -6,77 +6,125 @@
 /*   By: joaocard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/13 14:56:03 by joaocard          #+#    #+#             */
-/*   Updated: 2023/04/17 14:44:25 by joaocard         ###   ########.fr       */
+/*   Updated: 2023/05/01 16:58:39 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static int	get_index(char const *s, char c)
+static int	index_count(char const *s, char c)
 {
-	size_t	i;
-	size_t	index;
+	int	i;
+	int	index;
 
 	i = 0;
-	while (*s)
+	index = 0;
+	while (s[i])
 	{
-		if (*s == c && (*(s + 1) != c || *(s + 1) == 0))
+		if (s[i] != c)
+		{
+			index++;
+			while (s[i] && s[i] != c)
+				i++;
+		}
+		else
 			i++;
-		s++;
 	}
-	index = i + 1;
 	return (index);
 }
 
-static char	*get_word(char const *s, int i0_word, int in_word, int len)
+static int	word_len(char const *s, char c, int i)
 {
-	char		*word;
-	int			i_word;
+	while (*(s + i) && *(s + i) != c)
+	{
+		i++;
+	}
+	return (i);
+}
 
-	i_word = 0;
-	word = (char *)malloc(sizeof(char) * (len + 1));
-	if (!word)
+static void	get_array_elements(char **array, char const *s, char c)
+{
+	int	i;
+	int	len;
+
+	i = 0;
+	while (s[i])
+	{
+		if (s[i] != c)
+		{
+			len = word_len(s, c, i);
+			*array = ft_calloc(sizeof(**array), len - i + 1);
+			if (!*array)
+				return ;
+			ft_memcpy(*array, s + i, len - i);
+			array++;
+			i = len - 1;
+		}
+		i++;
+	}
+	return ;
+}
+
+static char	**free_array(char **array)
+{
+	int	i;
+
+	i = 0;
+	if (!array)
 		return (NULL);
-	while (i0_word < in_word)
-		word[i_word++] = s[i0_word++];
-	word[i_word] = 0;
-	return (word);
+	while (*(array + i))
+	{
+		free(*(array + i));
+		*(array + i) = NULL;
+		i++;
+	}
+	free (array);
+	return (NULL);
 }
 
 char	**ft_split(char const *s, char c)
 {
 	char	**array;
-	int		i_array;
-	int		i0_word;
-	int		in_word;
 
-	array = (char **)malloc(sizeof(char *) * get_index(s, c));
-	i_array = 0;
-	i0_word = 0;
+	if (!s || s == NULL)
+		return (NULL);
+	array = ft_calloc(sizeof(*array), index_count(s, c) + 1);
 	if (!array)
 		return (NULL);
-	while (s[i0_word])
-	{
-		if (s[i0_word] != c && s[i0_word] != 0)
-		{
-			in_word = i0_word;
-			while (s[in_word] != c && s[in_word])
-				in_word++;
-			array[i_array++] = get_word(s, i0_word, in_word, \
-										(in_word - i0_word));
-			i0_word = in_word;
-		}
-		i0_word++;
-	}
-	array[i_array] = 0;
+	get_array_elements(array, s, c);
+	if (!array)
+		return (free_array(array));
 	return (array);
 }
 
 /*int main ()
 {
-    char    *s = "CCCHello C You C How are youC";
-    char    c = 'C';
+	int	i = 0;
+	int index = 4;
+    char    *case0 = "CCCHello C You C How are youC";
+	char	del0 = 'C';
 
-    printf("Index 0: %s;\nIndex 1: %s;\nIndex 2: %s;\n", \
-	 ft_split(s, c)[0], ft_split(s, c)[1], ft_split(s, c)[2]);
+    char	*case1 = "Hello";
+	char 	del1 = 'C'; //no character found
+
+	char	*case2 = "		 Hello	World";
+	char	del2 = '	';//tab
+
+	char	*case3 = "Hello World. Good Morning";
+	char	del3 = '.';//dot
+
+	char	*case4 = "Hello World";
+	char	del4 = ' ';//space
+
+	char 	**c0 = ft_split(case0, del0);
+	char 	**c1 = ft_split(case1, del1);
+	char 	**c2 = ft_split(case2, del2);
+	char 	**c3 = ft_split(case3, del3);
+	char 	**c4 = ft_split(case4, del4);
+	while(i < index - 1)
+	{
+		printf("%s\n", c0[i]);
+		++i;
+	}
+	return (0);
 }*/
