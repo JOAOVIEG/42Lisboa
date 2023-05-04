@@ -1,4 +1,4 @@
-# 42 Lisbon
+# 42 Lisboa
 
 ## 42 ?
 <sub> Projects I am developing being a student @ 42 Lisbon peer-to-peer awesome school.
