@@ -1,7 +1,7 @@
-# 42 Lisboa
+# 42Lisboa
 
 ## 42 ?
-<sub> Projects I am developing being a student @ 42 Lisbon peer-to-peer awesome school.
+<sub> Projects I am developing being a student @ 42Lisboa peer-to-peer awesome school.
 Feel free to visit :swimming_man: https://www.42lisboa.com/ :swimming_woman: </sub>
 
 ## Common Core 42 cursus projects
