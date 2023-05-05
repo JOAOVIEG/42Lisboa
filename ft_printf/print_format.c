@@ -6,7 +6,7 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 13:14:16 by joaocard          #+#    #+#             */
-/*   Updated: 2023/05/05 16:22:02 by joaocard         ###   ########.fr       */
+/*   Updated: 2023/05/05 18:37:53 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,14 @@ int	printchar(char c)
 
 int	printstr(char *s)
 {
-	size_t	len;
+	size_t	i;
 
-	len = ft_strlen(s);
+	i = 0;
 	if (!s)
 		return (NULL);
-	return (write(1, s, len));
+	while (*(s + i))
+		i++;
+	return (write(1, s, i));
 }
 
 int	printnbr(int n)
@@ -52,7 +54,7 @@ int	printnbr(int n)
 
 int	print_format(const char format, va_list ptr)
 {
-	int output;
+	int	output;
 
 	output = 0;
 	if (format == 'c')
