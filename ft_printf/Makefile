@@ -1,12 +1,26 @@
-# **************************************************************************** #
-#                                                                              #
-#                                                         :::      ::::::::    #
-#    Makefile                                           :+:      :+:    :+:    #
-#                                                     +:+ +:+         +:+      #
-#    By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+         #
-#                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2023/05/05 10:45:32 by joaocard          #+#    #+#              #
-#    Updated: 2023/05/05 10:45:33 by joaocard         ###   ########.fr        #
-#                                                                              #
-# **************************************************************************** #
+NAME = libftprintf.a
+
+CC = cc
+
+CFLAGS = -Wall -Wextra -Werror -I.
+
+SRC = ft_printf.c \
+		print_format.c \
+
+OBJ = $(SRC:.c=.o)
+
+$(NAME):	$(OBJ)
+	ar rcs $(NAME)	$(OBJ)
+
+all:	$(NAME)
+
+clean:
+	rm -f *.o
+
+fclean:	clean
+	rm -f $(NAME)
+
+re:	fclean $(NAME)
+
+.PHONY: all clean fclean re
 

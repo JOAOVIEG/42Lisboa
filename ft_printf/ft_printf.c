@@ -6,7 +6,7 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 11:28:11 by joaocard          #+#    #+#             */
-/*   Updated: 2023/05/05 16:22:08 by joaocard         ###   ########.fr       */
+/*   Updated: 2023/05/08 13:13:52 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	ft_printf(const char *fixed_arg, ...)
 		if (*fixed_arg == '%')
 			output += print_format(*(fixed_arg + 1), ptr);
 		else
-			output += write(1, *fixed_arg, 1);
+			output += write(1, fixed_arg, 1);
 		fixed_arg++;
 	}
 	va_end(ptr);

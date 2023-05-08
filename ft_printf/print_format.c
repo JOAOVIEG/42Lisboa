@@ -6,7 +6,7 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 13:14:16 by joaocard          #+#    #+#             */
-/*   Updated: 2023/05/05 18:37:53 by joaocard         ###   ########.fr       */
+/*   Updated: 2023/05/08 23:37:24 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 int	printchar(char c)
 {
 	write(1, &c, 1);
+	return (0);
 }
 
 int	printstr(char *s)
@@ -23,7 +24,7 @@ int	printstr(char *s)
 
 	i = 0;
 	if (!s)
-		return (NULL);
+		return (0);
 	while (*(s + i))
 		i++;
 	return (write(1, s, i));
@@ -59,6 +60,8 @@ int	print_format(const char format, va_list ptr)
 	output = 0;
 	if (format == 'c')
 		output = printchar(va_arg(ptr, int));
+	if (format == '%')
+		output = printchar('%');
 	if (format == 's')
 		output = printstr(va_arg(ptr, char *));
 	if (format == 'i' || format == 'd')
