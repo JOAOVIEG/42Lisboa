@@ -1,21 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   print_format.c                                     :+:      :+:    :+:   */
+/*   print_functions.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: joaocard <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 13:14:16 by joaocard          #+#    #+#             */
-/*   Updated: 2023/05/08 23:37:24 by joaocard         ###   ########.fr       */
+/*   Updated: 2023/05/09 15:04:24 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <ft_printf.h>
+#include "ft_printf.h"
 
 int	printchar(char c)
 {
-	write(1, &c, 1);
-	return (0);
+	return (write(1, &c, 1));
 }
 
 int	printstr(char *s)
@@ -24,13 +23,13 @@ int	printstr(char *s)
 
 	i = 0;
 	if (!s)
-		return (0);
+		return (write(1, "(null)", 6));
 	while (*(s + i))
 		i++;
 	return (write(1, s, i));
 }
 
-int	printnbr(int n)
+int	printnbr(long n)
 {
 	if (n == -2147483648)
 	{
@@ -53,20 +52,25 @@ int	printnbr(int n)
 	return (0);
 }
 
-int	print_format(const char format, va_list ptr)
+int	printhexa(int decimal, char *hexadecimal)
 {
 	int	output;
+	int	remainder;
 
 	output = 0;
-	if (format == 'c')
-		output = printchar(va_arg(ptr, int));
-	if (format == '%')
-		output = printchar('%');
-	if (format == 's')
-		output = printstr(va_arg(ptr, char *));
-	if (format == 'i' || format == 'd')
-		output = printnbr(va_arg(ptr, int));
-	if (format == 'u')
-		output = printnbr(va_arg(ptr, unsigned int));
+	remainder = decimal % 16;
+	if (decimal / 16 >= 16)
+	{
+		output += printchar(hexadecimal[remainder]);
+		printhexa(decimal / 16, hexadecimal);
+	}
+	output += printchar(hexadecimal[remainder]);
 	return (output);
+}
+
+int	printptr(uintptr_t ptr, char *hexadecimal)
+{
+	if (!ptr)
+		return (printstr("nill"));
+	return (printstr("0x") + printhexa(ptr, hexadecimal));
 }

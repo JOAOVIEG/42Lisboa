@@ -5,7 +5,7 @@ CC = cc
 CFLAGS = -Wall -Wextra -Werror -I.
 
 SRC = ft_printf.c \
-		print_format.c \
+		print_functions.c \
 
 OBJ = $(SRC:.c=.o)
 
@@ -23,4 +23,3 @@ fclean:	clean
 re:	fclean $(NAME)
 
 .PHONY: all clean fclean re
-
