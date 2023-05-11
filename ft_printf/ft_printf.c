@@ -6,7 +6,7 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 11:28:11 by joaocard          #+#    #+#             */
-/*   Updated: 2023/05/10 23:50:03 by joaocard         ###   ########.fr       */
+/*   Updated: 2023/05/11 16:30:25 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,15 +24,17 @@ static int	print_format(const char format, va_list ptr)
 	if (format == 's')
 		output += printstr(va_arg(ptr, char *));
 	if (format == 'i' || format == 'd')
-		output = printnbr(va_arg(ptr, int));
+		output = print_base_nbr(va_arg(ptr, int), 10, DECIMAL);
 	if (format == 'u')
-		output = printnbr(va_arg(ptr, unsigned int));
+		output = print_base_u_nbr(va_arg(ptr, unsigned int), 10, DECIMAL);
 	if (format == 'x')
-		output = printhexa(va_arg(ptr, unsigned int), LOWER_HEXADECIMAL);
+		output = print_base_u_nbr(va_arg(ptr, unsigned int), \
+													16, LOWER_HEXADECIMAL);
 	if (format == 'X')
-		output = printhexa(va_arg(ptr, unsigned int), UPPER_HEXADECIMAL);
+		output = print_base_u_nbr(va_arg(ptr, unsigned int), \
+													16, UPPER_HEXADECIMAL);
 	if (format == 'p')
-		output = printptr(va_arg(ptr, uintptr_t), LOWER_HEXADECIMAL);
+		output = printptr(va_arg(ptr, unsigned long int), LOWER_HEXADECIMAL);
 	return (output);
 }
 
@@ -62,7 +64,7 @@ int	ft_printf(const char *fixed_arg, ...)
 
 /*int	main(void)
 {
-	int i = INT32_MAX;
-    ft_printf("Printing the simple example: %d", i);
+	int i = INT_MIN;
+    ft_printf("Printing the simple example: %d\n", i);
     printf("Printing the simple example: %d", i);
 }*/

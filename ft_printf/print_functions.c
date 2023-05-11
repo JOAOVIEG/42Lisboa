@@ -6,7 +6,7 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 13:14:16 by joaocard          #+#    #+#             */
-/*   Updated: 2023/05/10 23:49:54 by joaocard         ###   ########.fr       */
+/*   Updated: 2023/05/11 16:34:25 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,48 +29,38 @@ int	printstr(char *s)
 	return (write(1, s, i));
 }
 
-int	printnbr(long n)
+int	print_base_nbr(long long int n, long long int base, char *format)
 {
-	if (n == -2147483648)
-	{
-		printchar('-');
-		printchar('2');
-		printnbr(147483648);
-	}
-	else if (n < 0)
-	{
-		printchar('-');
-		printchar(-n);
-	}
-	else if (n >= 10)
-	{
-		printnbr(n / 10);
-		printnbr(n % 10);
-	}
-	else if (n >= 0 && n <= 9)
-		printchar(n + '0');
-	return (0);
-}
-
-int	printhexa(int decimal, char *hexadecimal)
-{
-	int	output;
-	int	remainder;
+	int		output;
 
 	output = 0;
-	remainder = decimal % 16;
-	if (decimal / 16 >= 16)
+	if (n < 0)
 	{
-		output += printchar(hexadecimal[remainder]);
-		printhexa(decimal / 16, hexadecimal);
+		output = printchar('-');
+		n *= -1;
 	}
-	output += printchar(hexadecimal[remainder]);
+	return (print_base_u_nbr(n, base, format));
+}
+
+int	print_base_u_nbr(unsigned long long int n, unsigned long long int base, \
+															char *format)
+{
+	int		output;
+
+	output = 0;
+	if (n >= base)
+	{
+		output += print_base_nbr(n / base, base, format);
+		output += print_base_nbr(n % base, base, format);
+	}
+	else
+		output += printchar(format[n]);
 	return (output);
 }
 
-int	printptr(uintptr_t ptr, char *hexadecimal)
+int	printptr(uintptr_t ptr, char *format)
 {
 	if (!ptr)
 		return (printstr("nill"));
-	return (printstr("0x") + printhexa(ptr, hexadecimal));
+	return (printstr("0x") + print_base_u_nbr(ptr, 16, format));
 }
