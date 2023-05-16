@@ -6,7 +6,7 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 11:28:11 by joaocard          #+#    #+#             */
-/*   Updated: 2023/05/11 16:30:25 by joaocard         ###   ########.fr       */
+/*   Updated: 2023/05/16 20:05:26 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,25 +24,23 @@ static int	print_format(const char format, va_list ptr)
 	if (format == 's')
 		output += printstr(va_arg(ptr, char *));
 	if (format == 'i' || format == 'd')
-		output = print_base_nbr(va_arg(ptr, int), 10, DECIMAL);
+		output = print_base_nbr(va_arg(ptr, int), DECIMAL);
 	if (format == 'u')
-		output = print_base_u_nbr(va_arg(ptr, unsigned int), 10, DECIMAL);
+		output = print_base_u_nbr(va_arg(ptr, unsigned int), DECIMAL);
 	if (format == 'x')
-		output = print_base_u_nbr(va_arg(ptr, unsigned int), \
-													16, LOWER_HEXADECIMAL);
+		output = print_base_u_nbr(va_arg(ptr, unsigned int), LOWER_HEXADECIMAL);
 	if (format == 'X')
-		output = print_base_u_nbr(va_arg(ptr, unsigned int), \
-													16, UPPER_HEXADECIMAL);
+		output = print_base_u_nbr(va_arg(ptr, unsigned int), UPPER_HEXADECIMAL);
 	if (format == 'p')
-		output = printptr(va_arg(ptr, unsigned long int), LOWER_HEXADECIMAL);
+		output = printptr(va_arg(ptr, uintptr_t), LOWER_HEXADECIMAL);
 	return (output);
 }
 
-int	ft_printf(const char *fixed_arg, ...)
+size_t	ft_printf(const char *fixed_arg, ...)
 {
 	va_list	ptr;
-	int		output;
-	int		i;
+	size_t	output;
+	size_t	i;
 
 	output = 0;
 	i = 0;
@@ -61,10 +59,3 @@ int	ft_printf(const char *fixed_arg, ...)
 	va_end(ptr);
 	return (output);
 }
-
-/*int	main(void)
-{
-	int i = INT_MIN;
-    ft_printf("Printing the simple example: %d\n", i);
-    printf("Printing the simple example: %d", i);
-}*/
