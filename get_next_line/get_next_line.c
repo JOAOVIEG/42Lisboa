@@ -6,7 +6,7 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 23:22:06 by joaocard          #+#    #+#             */
-/*   Updated: 2023/05/29 19:17:53 by joaocard         ###   ########.fr       */
+/*   Updated: 2023/05/30 02:13:29 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,47 +14,52 @@
 
 char	*get_next_line(int fd)
 {
-	static char	buffer[BUFFER_SIZE];
-	static int	bytes_read;
-	static int	eof;
-	char		*line;
-	int			line_capacity;
-
-	bytes_read = 0;
-	eof = 0;
-	line = NULL;
-	line_capacity = 0;
-	if (eof && bytes_read == 0)
-		return (NULL);
-	while (1)
-	{
-		bytes_read = read_bytes(fd, bytes_read, buffer[BUFFER_SIZE]);
-		if (bytes_read == 0)
-		{
-			eof == 1;
-			break ;
-		}
-		if (bytes_read < 0)
-			return (NULL);
-		line = buffer_c_process(bytes_read, buffer, line_capacity);
-	}
+    static char buffer[BUFFER_SIZE];
+    static int bytes_read = 0;
+    static int eof = 0;
+    char *line = NULL;
+    int line_length = 0;
+    int line_capacity = 0;
+    if (eof && bytes_read == 0)
+        return NULL;
+    while (1) {
+        if (bytes_read == 0) {
+            line = read_line(fd, buffer, &bytes_read, &eof);
+            if (line == NULL)
+                return NULL;
+            if (eof)
+                break ;
+        }
+        line = buffer_process(buffer, bytes_read, &line_length, &line_capacity);
+        if (line != NULL) {
+            line = resize_line_buffer(line, line_length, bytes_read, &line_capacity);
+            return line;
+        }
+        line = (char *)malloc((line_length + bytes_read) * sizeof(char));
+        if (line == NULL)
+            return NULL;
+        for (int i = 0; i < bytes_read; i++) {
+            line[line_length++] = buffer[i];
+        }
+        bytes_read = 0;
+    }
+    return NULL;
 }
 
-/*int main() {
-    FILE *file = fopen("example.txt", "r");
+int main() {
+    FILE *file = fopen("sample.txt", "r");
     if (file == NULL) {
-        perror("Failed to open file");
+        printf("Failed to open the file.\n");
         return 1;
     }
 
-    int fd = fileno(file);
     char *line;
-
-    while ((line = get_next_line(fd)) != NULL) {
+    while ((line = get_next_line(fileno(file))) != NULL) {
         printf("%s\n", line);
         free(line);
     }
 
     fclose(file);
+
     return 0;
-}*/
+}
