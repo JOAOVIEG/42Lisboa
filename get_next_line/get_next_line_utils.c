@@ -6,101 +6,80 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 23:22:02 by joaocard          #+#    #+#             */
-/*   Updated: 2023/05/30 01:59:14 by joaocard         ###   ########.fr       */
+/*   Updated: 2023/05/31 15:15:12 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-char	*read_line(int fd, char *buffer, int *bytes_read, int *eof)
+void	set_buffer_zero(char *buffer)
 {
-	*bytes_read = read(fd, buffer, BUFFER_SIZE);
-	if (*bytes_read == 0)
+	int	i;
+
+	i = 0;
+	while (buffer[i])
 	{
-		*eof = 1;
-		return (NULL);
+		buffer[i++] = 0;
 	}
-	if (*bytes_read < 0)
-		return (NULL);
-	return (buffer);
 }
 
-char	*buffer_process(char *buffer, int bytes_read, int *line_lenght, \
-														int *line_capacity)
+char	*buffer_to_line_process(char *line, char *buffer)
 {
-	char	*line;
+	char	*new_line;
+	int		line_len;
 	int		i;
 	int		j;
-	int		k;
-	int		line_len;
-	int		remaining_bytes;
-	int		s;
-	char	*new_line;
 
-	line = NULL;
+	line_len = (line_lenght(line) + line_lenght(buffer)) + 1;
 	i = 0;
-	j = 0;
-	k = 0;
-	s = 0;
-	while (i < bytes_read)
+	j = -1;
+	new_line = (char *)malloc(sizeof(char) * line_len);
+	if (!new_line)
+		return (NULL);
+	while (line && line[i])
 	{
-		if (buffer[i] == '\n')
-		{
-			line_len = *line_lenght + i;
-			new_line = (char *)malloc((line_len + 2) * sizeof(char));
-			if (new_line != NULL)
-			{
-				while (j < i)
-				{
-					new_line[k] = buffer[j];
-					k++;
-					j++;
-				}
-				new_line[k] = '\0';
-				line = new_line;
-				*line_capacity = line_len + 2;
-			}
-			remaining_bytes = bytes_read - (i + 1);
-			while (s < remaining_bytes)
-			{
-				buffer[s] = buffer[i + s + 1];
-				s++;
-			}
-			*line_lenght = remaining_bytes;
-			return (line);
-		}
+	new_line[i] = line[i];
 		i++;
 	}
-	return (NULL);
+	while (buffer[++j])
+	{
+		new_line[i++] = buffer[j];
+		if (buffer[j] == '\n')
+			break ;
+	}
+	new_line[i] = '\0';
+	free(line);
+	return (new_line);
 }
 
-char	*resize_line_buffer(char *line, int line_lenght, int bytes_read, \
-													int *line_capacity)
+int	line_lenght(char *line)
 {
-	int		new_capacity;
-	int		j;
-	char	*new_line;
+	int	i;
 
+	i = 0;
+	if (!line)
+		return (0);
+	while (line[i] && line[i] != '\n')
+		i++;
+	return (i + (line[i] == '\n'));
+}
+
+int	ft_buffer_shift(char *buffer)
+{
+	int	i;
+	int	j;
+	int	newline;
+
+	i = 0;
 	j = 0;
-	if (line_lenght + bytes_read + 1 > *line_capacity)
+	newline = 0;
+	while (buffer[i])
 	{
-		new_capacity = line_lenght + bytes_read + 1;
-		new_line = (char *)malloc(new_capacity * sizeof(char));
-		if (new_line != NULL)
-		{
-			while (j < line_lenght)
-			{
-				new_line[j] = line[j];
-			}
-			free(line);
-			line = new_line;
-			*line_capacity = new_capacity;
-		}
-		else
-		{
-			free(line);
-			return (NULL);
-		}
+		if (newline)
+			buffer[j++] = buffer[i];
+		if (buffer[i] == '\n')
+			newline = 1;
+		buffer[i++] = '\0';
 	}
-	return (line);
+	return (newline);
 }
