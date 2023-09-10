@@ -1,20 +1,45 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstlast.c                                       :+:      :+:    :+:   */
+/*   actions1.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/04/18 16:36:26 by joaocard          #+#    #+#             */
-/*   Updated: 2023/09/10 09:54:08 by joaocard         ###   ########.fr       */
+/*   Created: 2023/09/10 11:30:44 by joaocard          #+#    #+#             */
+/*   Updated: 2023/09/10 11:35:46 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include"libft.h"
+#include "../inc/push_swap.h"
+#include "../libft/libft.h"
 
-t_list	*ft_lstlast(t_list *lst)
+void	rr(t_list **stack_a, t_list **stack_b)
 {
-	while (lst && lst->next)
-		lst = lst->next;
-	return (lst);
+	ra(stack_a);
+	rb(stack_b);
 }
+
+/*void	rra(t_list **stack_a)
+{
+
+}*/
+
+/*void	rrb(t_list *stack_b)
+{
+	
+}*/
+
+/*void	rrr(t_list *stack_a, t_list *stack_b)
+{
+
+}*/
+
+/*void	pa(t_list *stack_a, t_list *stack_b)
+{
+
+}*/
+
+/*void	pb(t_list *stack_a, t_list *stack_b)
+{
+
+}*/

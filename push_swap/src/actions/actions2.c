@@ -1,20 +1,15 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstlast.c                                       :+:      :+:    :+:   */
+/*   actions2.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/04/18 16:36:26 by joaocard          #+#    #+#             */
-/*   Updated: 2023/09/10 09:54:08 by joaocard         ###   ########.fr       */
+/*   Created: 2023/09/10 20:27:27 by joaocard          #+#    #+#             */
+/*   Updated: 2023/09/10 23:38:07 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include"libft.h"
+#include "../inc/push_swap.h"
+#include "../libft/libft.h"
 
-t_list	*ft_lstlast(t_list *lst)
-{
-	while (lst && lst->next)
-		lst = lst->next;
-	return (lst);
-}

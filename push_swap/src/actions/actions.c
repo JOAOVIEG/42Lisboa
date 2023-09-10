@@ -1,20 +1,44 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstlast.c                                       :+:      :+:    :+:   */
+/*   actions.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/04/18 16:36:26 by joaocard          #+#    #+#             */
-/*   Updated: 2023/09/10 09:54:08 by joaocard         ###   ########.fr       */
+/*   Created: 2023/09/01 11:02:57 by joaocard          #+#    #+#             */
+/*   Updated: 2023/09/10 20:16:44 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include"libft.h"
+#include "../inc/push_swap.h"
+#include "../libft/libft.h"
 
-t_list	*ft_lstlast(t_list *lst)
+void	sa(t_list **stack_a)
 {
-	while (lst && lst->next)
-		lst = lst->next;
-	return (lst);
+	swap(stack_a);
+	write(1, "sa\n", 3);
+}
+
+void	sb(t_list **stack_b)
+{
+	swap(stack_b);
+	write(1, "sb\n", 3);
+}
+
+void	ss(t_list **stack_a, t_list **stack_b)
+{
+	sa(stack_a);
+	sb(stack_b);
+}
+
+void	ra(t_list **stack_a)
+{
+	rotate(stack_a);
+	write(1, "ra\n", 3);
+}
+
+void	rb(t_list **stack_b)
+{
+	rotate(stack_b);
+	write(1, "rb\n", 3);
 }

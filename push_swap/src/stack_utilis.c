@@ -6,7 +6,7 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/17 20:39:58 by joaocard          #+#    #+#             */
-/*   Updated: 2023/09/08 20:37:22 by joaocard         ###   ########.fr       */
+/*   Updated: 2023/09/10 20:05:16 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,9 +75,6 @@ int	is_unique(t_list *stack, int value)
 	return (1);
 }
 
-/*The error is in this part: the first element of the stack has to be 
-added if == 0, in the begginning.
-only then it enters addfront part*/
 void	first_push(t_list **stack, int value)
 {
 	t_list	*new_element;
