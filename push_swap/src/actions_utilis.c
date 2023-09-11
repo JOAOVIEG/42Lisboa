@@ -6,7 +6,7 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/10 09:04:52 by joaocard          #+#    #+#             */
-/*   Updated: 2023/09/10 11:17:52 by joaocard         ###   ########.fr       */
+/*   Updated: 2023/09/11 13:05:58 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,3 +37,11 @@ void	rotate(t_list **stack)
 	tail->next = current_top;
 	current_top->next = NULL;
 }
+
+/*void	push(t_list **stack)
+{
+	t_list *to_push;
+	
+	to_push = *stack;
+	*stack = ft_lstnew(to_push->content);
+}*/
