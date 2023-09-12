@@ -1,29 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_lstclear.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/17 12:23:26 by joaocard          #+#    #+#             */
-/*   Updated: 2023/09/12 13:33:12 by joaocard         ###   ########.fr       */
+/*   Created: 2023/04/19 13:12:00 by joaocard          #+#    #+#             */
+/*   Updated: 2023/09/12 11:12:45 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/push_swap.h"
+#include "libft.h"
 
-int	main(int argc, char **argv)
+void	ft_lstclear(t_list **lst, int (*del)(int*))
 {
-	t_list	*stack_a;
-	t_list	*stack_b;
+	t_list	*next_node;
 
-	stack_a = NULL;
-	stack_b = NULL;
-	if (argc < 2)
+	while (*lst)
 	{
-		exit(EXIT_FAILURE);
+		next_node = (*lst)->next;
+		ft_lstdelone(*lst, del);
+		*lst = next_node;
 	}
-	push_to_stack(argv, argc, &stack_a);
-	rev_rotate(&stack_a);
-	free_stacks(&stack_a, &stack_b);
+	*lst = NULL;
 }

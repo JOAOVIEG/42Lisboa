@@ -6,7 +6,7 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/10 09:04:52 by joaocard          #+#    #+#             */
-/*   Updated: 2023/09/11 13:05:58 by joaocard         ###   ########.fr       */
+/*   Updated: 2023/09/12 13:51:16 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,22 +26,39 @@ void	swap(t_list **stack)
 
 void	rotate(t_list **stack)
 {
-	t_list	*current_top;
+	t_list	*top_top;
 	t_list	*tail;
 
 	if (!(*stack)->next || !(*stack))
 		return ;
-	current_top = *stack;
+	top_top = *stack;
 	*stack = (*stack)->next;
 	tail = ft_lstlast(*stack);
-	tail->next = current_top;
-	current_top->next = NULL;
+	tail->next = top_top;
+	top_top->next = NULL;
 }
 
-/*void	push(t_list **stack)
+void	push(t_list **from_stack, t_list **to_stack)
 {
-	t_list *to_push;
+	t_list *new_top;
 	
-	to_push = *stack;
-	*stack = ft_lstnew(to_push->content);
-}*/
+	new_top = (*from_stack)->next;
+	ft_lstadd_front(to_stack, *from_stack);
+	(*from_stack) = new_top;
+}
+
+void	rev_rotate(t_list **stack)
+{
+	t_list	*top = *stack;
+    t_list *tail = NULL;
+    if (!(*stack) || !((*stack)->next))
+		return ;
+	while (top->next)
+	{
+		tail = top;
+		top = top->next;
+	}
+    tail->next = NULL;
+    top->next = *stack;
+    *stack = top;
+}

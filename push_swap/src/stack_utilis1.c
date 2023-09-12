@@ -6,25 +6,20 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/11 12:57:11 by joaocard          #+#    #+#             */
-/*   Updated: 2023/09/11 16:05:59 by joaocard         ###   ########.fr       */
+/*   Updated: 2023/09/12 11:21:36 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/push_swap.h"
 #include "../libft/libft.h"
 
-void	free_stack(t_list **stack)
+void	free_stacks(t_list **stack_a, t_list **stack_b)
 {
-	t_list	*temp;
-	
-	temp = *stack;
-	if (!(*stack))
-		return ;
-	while (temp)
-	{
-		temp = (*stack)->next;
-		(*stack)->content = 0;
-		free(temp);
-	}
-	*stack = temp; 
+	ft_lstclear(stack_a, to_zero);
+	ft_lstclear(stack_b, to_zero);
+}
+
+int	to_zero(int *zero)
+{
+	return (*ft_memset(zero, 0, 4));
 }

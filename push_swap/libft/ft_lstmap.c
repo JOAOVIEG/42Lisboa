@@ -1,41 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memset.c                                        :+:      :+:    :+:   */
+/*   ft_lstmap.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/09 10:24:31 by joaocard          #+#    #+#             */
-/*   Updated: 2023/09/12 11:14:08 by joaocard         ###   ########.fr       */
+/*   Created: 2023/04/19 13:52:43 by joaocard          #+#    #+#             */
+/*   Updated: 2023/09/12 11:38:38 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	*ft_memset(int *s, int c, size_t n)
+t_list	*ft_lstmap(t_list *lst, int *(*f)(int *), int (*del)(int *))
 {
-	size_t	bytes;
+	t_list	*new;
+	t_list	*temp;
 
-	bytes = 0;
-	while (bytes < n)
+	if (lst == NULL || f == NULL)
+		return (NULL);
+	new = ft_lstnew(*f(&lst->content));
+	if (new == NULL)
+		return (NULL);
+	temp = new;
+	lst = lst->next;
+	while (lst)
 	{
-		*(unsigned char *)(s + bytes) = (unsigned char) c;
-		bytes++;
+		new = ft_lstnew(*f(&lst->content));
+		if (!temp)
+		{
+			ft_lstclear(&temp, del);
+			return (NULL);
+		}
+		ft_lstadd_back(&temp, new);
+		lst = lst->next;
 	}
-	return (s);
+	return (temp);
 }
-
-/*int main()
-{
-    char s[3];
-    int i;
-    
-    ft_memset(s, 'o', sizeof(char) * 3);
-    i = 0;
-    while(i < 3)
-    {
-        printf("%c", s[i]);
-        i++;
-    }
-    printf("\n");
-}*/

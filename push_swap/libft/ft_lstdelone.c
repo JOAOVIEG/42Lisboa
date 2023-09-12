@@ -1,29 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_lstdelone.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/17 12:23:26 by joaocard          #+#    #+#             */
-/*   Updated: 2023/09/12 13:33:12 by joaocard         ###   ########.fr       */
+/*   Created: 2023/04/19 12:33:27 by joaocard          #+#    #+#             */
+/*   Updated: 2023/09/12 11:19:38 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/push_swap.h"
+#include "libft.h"
 
-int	main(int argc, char **argv)
+void	ft_lstdelone(t_list *lst, int (*del)(int*))
 {
-	t_list	*stack_a;
-	t_list	*stack_b;
-
-	stack_a = NULL;
-	stack_b = NULL;
-	if (argc < 2)
-	{
-		exit(EXIT_FAILURE);
-	}
-	push_to_stack(argv, argc, &stack_a);
-	rev_rotate(&stack_a);
-	free_stacks(&stack_a, &stack_b);
+	if (!lst && !del)
+		return ;
+	del(&(lst->content));
+	free(lst);
 }
