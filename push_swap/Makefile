@@ -7,11 +7,12 @@ LIBFT = $(LIBFT_DIR)/libft.a
 SRC =	$(SRC_DIR)/main.c \
 				$(SRC_DIR)/stack_utilis.c \
 				$(SRC_DIR)/stack_utilis1.c \
-				$(SRC_DIR)/actions.c \
-				$(SRC_DIR)/actions1.c \
-				$(SRC_DIR)/actions2.c \
-				$(SRC_DIR)/actions_utilis.c \
-				
+				$(SRC_DIR)/actions/actions.c \
+				$(SRC_DIR)/actions/actions1.c \
+				$(SRC_DIR)/actions/actions2.c \
+				$(SRC_DIR)/actions/actions_utilis.c \
+				$(SRC_DIR)/sorts/sorts_utilis.c \
+				$(SRC_DIR)/sorts/sort.c \
 
 OBJ = $(patsubst $(SRC_DIR)%.c, $(OBJ_DIR)%.o, $(SRC))
 
@@ -27,7 +28,7 @@ $(NAME): $(OBJ) $(LIBFT)
 		@$(CC) $(OBJ) $(HEAD) $(CFLAGS) $(LFLAGS) -o $(NAME)
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
-		@mkdir -p $(OBJ_DIR)
+		@mkdir -p $(@D)
 		@$(CC) $(CFLAGS) $(HEAD) -c $< -o $@
 
 $(LIBFT):

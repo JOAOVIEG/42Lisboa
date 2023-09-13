@@ -6,7 +6,7 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/10 09:04:52 by joaocard          #+#    #+#             */
-/*   Updated: 2023/09/12 13:51:16 by joaocard         ###   ########.fr       */
+/*   Updated: 2023/09/13 09:38:09 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,8 @@ void	rotate(t_list **stack)
 
 void	push(t_list **from_stack, t_list **to_stack)
 {
-	t_list *new_top;
-	
+	t_list	*new_top;
+
 	new_top = (*from_stack)->next;
 	ft_lstadd_front(to_stack, *from_stack);
 	(*from_stack) = new_top;
@@ -49,16 +49,19 @@ void	push(t_list **from_stack, t_list **to_stack)
 
 void	rev_rotate(t_list **stack)
 {
-	t_list	*top = *stack;
-    t_list *tail = NULL;
-    if (!(*stack) || !((*stack)->next))
+	t_list	*top;
+	t_list	*tail;
+
+	top = *stack;
+	tail = NULL;
+	if (!(*stack) || !((*stack)->next))
 		return ;
 	while (top->next)
 	{
 		tail = top;
 		top = top->next;
 	}
-    tail->next = NULL;
-    top->next = *stack;
-    *stack = top;
+	tail->next = NULL;
+	top->next = *stack;
+	*stack = top;
 }

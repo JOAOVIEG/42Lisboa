@@ -6,7 +6,7 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 19:11:53 by joaocard          #+#    #+#             */
-/*   Updated: 2023/09/12 13:48:30 by joaocard         ###   ########.fr       */
+/*   Updated: 2023/09/13 15:35:38 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int		args_checks(char *args, t_list *stack, int value);
 int		is_unique(t_list *stack, int value);
 void	first_push(t_list **stack, int value);
 void	free_stacks(t_list **stack_a, t_list **stack_b);
-int	    to_zero(int *zero);
+int		to_zero(int *zero);
 void	sa(t_list **stack);
 void	swap(t_list **stack);
 void	sb(t_list **stack_b);
@@ -43,5 +43,17 @@ void	rb(t_list **stack_b);
 void	rr(t_list **stack_a, t_list **stack_b);
 void	pa(t_list **stack_a, t_list **stack_b);
 void	pb(t_list **stack_a, t_list **stack_b);
+void	sort(t_list **stack_a, t_list **stack_b);
+void	sort2(t_list **stack_a);
+void	sort3(t_list **stack_a);
+int		case1(t_list **stack_a);
+int		case2(t_list **stack_a);
+int		case3(t_list **stack_a);
+int		case4(t_list **stack_a);
+int		case5(t_list **stack_a);
 
 #endif
+/*
+void	sort5(t_list **stack_a, t_list **stack_b);
+void	my_insertation_sort(t_list **stack_a, t_list **stack_b);
+*/

@@ -6,7 +6,7 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/10 11:30:44 by joaocard          #+#    #+#             */
-/*   Updated: 2023/09/12 13:47:10 by joaocard         ###   ########.fr       */
+/*   Updated: 2023/09/13 12:51:08 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,4 +28,3 @@ void	rrb(t_list **stack_b)
 {
 	rev_rotate(stack_b);
 }
-

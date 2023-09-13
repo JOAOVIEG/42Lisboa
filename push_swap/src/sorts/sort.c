@@ -1,29 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   sort.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/17 12:23:26 by joaocard          #+#    #+#             */
-/*   Updated: 2023/09/13 12:59:56 by joaocard         ###   ########.fr       */
+/*   Created: 2023/09/13 12:46:36 by joaocard          #+#    #+#             */
+/*   Updated: 2023/09/13 15:42:31 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "../libft/libft.h"
 #include "../inc/push_swap.h"
 
-int	main(int argc, char **argv)
-{
-	t_list	*stack_a;
-	t_list	*stack_b;
+/***TODO***/
+/*I have to check if stack is sorted in the first place as well*/
 
-	stack_a = NULL;
-	stack_b = NULL;
-	if (argc < 2)
-	{
-		exit(EXIT_FAILURE);
-	}
-	push_to_stack(argv, argc, &stack_a);
-	sort(&stack_a, &stack_b);
-	free_stacks(&stack_a, &stack_b);
+void	sort(t_list **stack_a, t_list **stack_b)
+{
+	if (!*stack_a || !(*stack_a)->next)
+		return ;
+	if (ft_lstsize(*stack_a) == 2)
+		sort2(stack_a);
+	if (ft_lstsize(*stack_a) <= 3)
+		sort3(stack_a);
+	if (ft_lstsize(*stack_a) <= 5)
+		sort5(stack_a, stack_b);
+	if (ft_lstsize(*stack_a) > 5)
+		my_insertation_sort(stack_a, stack_b);
 }
