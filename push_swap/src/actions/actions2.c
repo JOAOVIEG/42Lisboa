@@ -6,7 +6,7 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/10 20:27:27 by joaocard          #+#    #+#             */
-/*   Updated: 2023/09/12 13:41:59 by joaocard         ###   ########.fr       */
+/*   Updated: 2023/09/14 10:12:20 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ void	pb(t_list **stack_a, t_list **stack_b)
 
 void	rrr(t_list **stack_a, t_list **stack_b)
 {
-	rra(stack_a);
-	rrb(stack_b);
+	rev_rotate(stack_a);
+	rev_rotate(stack_b);
+	write(1, "rrr\n", 4);
 }

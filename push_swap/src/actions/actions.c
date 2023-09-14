@@ -6,7 +6,7 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/01 11:02:57 by joaocard          #+#    #+#             */
-/*   Updated: 2023/09/10 20:16:44 by joaocard         ###   ########.fr       */
+/*   Updated: 2023/09/14 10:11:09 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,9 @@ void	sb(t_list **stack_b)
 
 void	ss(t_list **stack_a, t_list **stack_b)
 {
-	sa(stack_a);
-	sb(stack_b);
+	swap(stack_a);
+	swap(stack_b);
+	write(1, "ss\n", 3);
 }
 
 void	ra(t_list **stack_a)

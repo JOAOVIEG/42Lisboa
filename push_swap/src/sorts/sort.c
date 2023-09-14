@@ -6,7 +6,7 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/13 12:46:36 by joaocard          #+#    #+#             */
-/*   Updated: 2023/09/13 15:42:31 by joaocard         ###   ########.fr       */
+/*   Updated: 2023/09/14 13:10:08 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ void	sort(t_list **stack_a, t_list **stack_b)
 		sort3(stack_a);
 	if (ft_lstsize(*stack_a) <= 5)
 		sort5(stack_a, stack_b);
-	if (ft_lstsize(*stack_a) > 5)
-		my_insertation_sort(stack_a, stack_b);
 }
+
+	/*if (ft_lstsize(*stack_a) > 5)
+		my_insertation_sort(stack_a, stack_b);*/

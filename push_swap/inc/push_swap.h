@@ -6,7 +6,7 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 19:11:53 by joaocard          #+#    #+#             */
-/*   Updated: 2023/09/13 15:35:38 by joaocard         ###   ########.fr       */
+/*   Updated: 2023/09/14 15:38:55 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,14 +46,16 @@ void	pb(t_list **stack_a, t_list **stack_b);
 void	sort(t_list **stack_a, t_list **stack_b);
 void	sort2(t_list **stack_a);
 void	sort3(t_list **stack_a);
+void	sort5(t_list **stack_a, t_list **stack_b);
 int		case1(t_list **stack_a);
 int		case2(t_list **stack_a);
 int		case3(t_list **stack_a);
 int		case4(t_list **stack_a);
 int		case5(t_list **stack_a);
+int     find_max_a(t_list **stack_a);
+int     elem_pos(t_list **stack_a, int extreme);
+void	case_size4(int elem_pos, t_list **stack_a, t_list **stack_b);
+void	case_size5(int elem_pos, t_list **stack_a, t_list **stack_b);
+int     find_min_a(t_list **stack_a);
 
 #endif
-/*
-void	sort5(t_list **stack_a, t_list **stack_b);
-void	my_insertation_sort(t_list **stack_a, t_list **stack_b);
-*/

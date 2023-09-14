@@ -6,11 +6,12 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/17 12:23:26 by joaocard          #+#    #+#             */
-/*   Updated: 2023/09/13 12:59:56 by joaocard         ###   ########.fr       */
+/*   Updated: 2023/09/14 13:03:58 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/push_swap.h"
+#include "../libft/libft.h"
 
 int	main(int argc, char **argv)
 {
