@@ -6,7 +6,7 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/10 09:04:52 by joaocard          #+#    #+#             */
-/*   Updated: 2023/09/13 09:38:09 by joaocard         ###   ########.fr       */
+/*   Updated: 2023/09/15 20:28:15 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,11 @@ void	swap(t_list **stack)
 	first = *stack;
 	*stack = (*stack)->next;
 	if (!(*stack)->next)
+	{
+		(*stack)->next = first;
+		first->next = NULL;
 		return ;
+	}
 	ft_lstadd_front(&(*stack)->next, first);
 }
 

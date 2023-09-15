@@ -6,7 +6,7 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 19:11:53 by joaocard          #+#    #+#             */
-/*   Updated: 2023/09/14 15:38:55 by joaocard         ###   ########.fr       */
+/*   Updated: 2023/09/15 11:04:58 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,6 @@ int		case2(t_list **stack_a);
 int		case3(t_list **stack_a);
 int		case4(t_list **stack_a);
 int		case5(t_list **stack_a);
-int     find_max_a(t_list **stack_a);
 int     elem_pos(t_list **stack_a, int extreme);
 void	case_size4(int elem_pos, t_list **stack_a, t_list **stack_b);
 void	case_size5(int elem_pos, t_list **stack_a, t_list **stack_b);
