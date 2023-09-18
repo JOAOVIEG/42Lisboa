@@ -6,7 +6,7 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 19:11:53 by joaocard          #+#    #+#             */
-/*   Updated: 2023/09/15 11:04:58 by joaocard         ###   ########.fr       */
+/*   Updated: 2023/09/18 18:21:44 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,5 +56,10 @@ int     elem_pos(t_list **stack_a, int extreme);
 void	case_size4(int elem_pos, t_list **stack_a, t_list **stack_b);
 void	case_size5(int elem_pos, t_list **stack_a, t_list **stack_b);
 int     find_min_a(t_list **stack_a);
-
+int     find_min(t_list **stack_a);
+void	insertion_sort(t_list **stack_a, t_list **stack_b);
+int     find_min_second(t_list *stack_a);
+int     get_middle(int size);
+t_list	*get_minimal_sort(t_list **stack_a, t_list **stack_b, int pos_min_a_first, int pos_min_a_second, int middle);
+int     is_sorted(t_list **stack);
 #endif

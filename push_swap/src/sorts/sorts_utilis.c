@@ -6,7 +6,7 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/13 12:46:29 by joaocard          #+#    #+#             */
-/*   Updated: 2023/09/15 20:12:14 by joaocard         ###   ########.fr       */
+/*   Updated: 2023/09/17 20:04:36 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,8 +64,3 @@ void	sort5(t_list **stack_a, t_list **stack_b)
 		pa(stack_a, stack_b);
 	}
 }
-
-/*void	my_insertation_sort(t_list **stack_a, t_list **stack_b)
-{
-
-}*/

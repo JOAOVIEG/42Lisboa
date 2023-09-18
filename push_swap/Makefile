@@ -15,6 +15,7 @@ SRC =	$(SRC_DIR)/main.c \
 				$(SRC_DIR)/sorts/sort.c \
 				$(SRC_DIR)/sorts/sort3_utilis.c \
 				$(SRC_DIR)/sorts/sort5_utilis.c \
+				$(SRC_DIR)/sorts/insertation_sort.c \
 				
 OBJ = $(patsubst $(SRC_DIR)%.c, $(OBJ_DIR)%.o, $(SRC))
 

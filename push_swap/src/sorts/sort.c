@@ -6,7 +6,7 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/13 12:46:36 by joaocard          #+#    #+#             */
-/*   Updated: 2023/09/15 19:59:13 by joaocard         ###   ########.fr       */
+/*   Updated: 2023/09/18 17:34:26 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,21 @@ void	sort(t_list **stack_a, t_list **stack_b)
 	else if (ft_lstsize(*stack_a) <= 3)
 			sort3(stack_a);
 	else if (ft_lstsize(*stack_a) <= 5)
-			sort5(stack_a, stack_b);	
+			sort5(stack_a, stack_b);
+	else if (ft_lstsize(*stack_a) > 5)
+			insertion_sort(stack_a, stack_b);
 }
 
-	/*if (ft_lstsize(*stack_a) > 5)
-		my_insertation_sort(stack_a, stack_b);*/
+int	is_sorted(t_list **stack)
+{
+	t_list	*current;
+
+	current = *stack;
+	while (current->next)
+	{
+		if (current->content > current->next->content)
+			return (0);
+		current = current->next;
+	}
+	return (1);
+}
