@@ -6,15 +6,12 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/13 12:46:36 by joaocard          #+#    #+#             */
-/*   Updated: 2023/09/18 17:34:26 by joaocard         ###   ########.fr       */
+/*   Updated: 2023/09/19 14:01:51 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libft/libft.h"
 #include "../inc/push_swap.h"
-
-/***TODO***/
-/*I have to check if stack is sorted in the first place as well*/
 
 void	sort(t_list **stack_a, t_list **stack_b)
 {

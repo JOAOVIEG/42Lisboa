@@ -6,7 +6,7 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/17 15:16:28 by joaocard          #+#    #+#             */
-/*   Updated: 2023/09/18 18:27:55 by joaocard         ###   ########.fr       */
+/*   Updated: 2023/09/19 13:49:29 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void insertion_sort(t_list **stack_a, t_list **stack_b)
     int pos_min_a_second;
     int middle;
     
-    while (ft_lstsize(*stack_a) > 5)
+    while (*stack_a)
     {
         size = ft_lstsize(*stack_a);
         middle = get_middle(size);
@@ -28,9 +28,8 @@ void insertion_sort(t_list **stack_a, t_list **stack_b)
         pos_min_a_second = find_min_second(*stack_a);
         *stack_a = get_minimal_sort(stack_a, stack_b, pos_min_a_first, pos_min_a_second, middle);
     }
-	if (ft_lstsize(*stack_a) == 5)
+	if (!stack_a)
 	{
-		sort5(stack_a, stack_b);
 		while (*stack_b)
 		{
 			pa(stack_a, stack_b);
