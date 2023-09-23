@@ -6,7 +6,7 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/17 15:16:28 by joaocard          #+#    #+#             */
-/*   Updated: 2023/09/19 13:49:29 by joaocard         ###   ########.fr       */
+/*   Updated: 2023/09/23 20:30:52 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void insertion_sort(t_list **stack_a, t_list **stack_b)
     int pos_min_a_second;
     int middle;
     
-    while (*stack_a)
+    while (ft_lstsize(*stack_a) >= 3)
     {
         size = ft_lstsize(*stack_a);
         middle = get_middle(size);
@@ -28,13 +28,21 @@ void insertion_sort(t_list **stack_a, t_list **stack_b)
         pos_min_a_second = find_min_second(*stack_a);
         *stack_a = get_minimal_sort(stack_a, stack_b, pos_min_a_first, pos_min_a_second, middle);
     }
-	if (!stack_a)
+	while ((ft_lstsize(*stack_a) < 3) && (ft_lstsize(*stack_a) != 1) && (*stack_a))
 	{
-		while (*stack_b)
+		if ((*stack_a)->content > (*stack_a)->next->content)
 		{
-			pa(stack_a, stack_b);
+			pb(stack_a, stack_b);
 		}
+		else if ((*stack_a)->content < (*stack_a)->next->content)
+		{
+			sa(stack_a);
+			pb(stack_a, stack_b);
+		}	
 	}
+	pb(stack_a, stack_b);
+	while (*stack_b)
+		pa(stack_a, stack_b);
 }
 
 int	find_min_second(t_list *stack_a)
