@@ -6,7 +6,7 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 19:11:53 by joaocard          #+#    #+#             */
-/*   Updated: 2023/09/18 18:21:44 by joaocard         ###   ########.fr       */
+/*   Updated: 2023/09/25 20:29:00 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,5 +61,7 @@ void	insertion_sort(t_list **stack_a, t_list **stack_b);
 int     find_min_second(t_list *stack_a);
 int     get_middle(int size);
 t_list	*get_minimal_sort(t_list **stack_a, t_list **stack_b, int pos_min_a_first, int pos_min_a_second, int middle);
+t_list	*update_stack_b(t_list *stack_b);
 int     is_sorted(t_list **stack);
+
 #endif

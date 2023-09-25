@@ -6,7 +6,7 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/17 15:16:28 by joaocard          #+#    #+#             */
-/*   Updated: 2023/09/23 20:30:52 by joaocard         ###   ########.fr       */
+/*   Updated: 2023/09/25 20:30:53 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,11 +38,15 @@ void insertion_sort(t_list **stack_a, t_list **stack_b)
 		{
 			sa(stack_a);
 			pb(stack_a, stack_b);
-		}	
+		}
+
 	}
 	pb(stack_a, stack_b);
+	*stack_b = update_stack_b(*stack_b);
 	while (*stack_b)
+	{
 		pa(stack_a, stack_b);
+	}
 }
 
 int	find_min_second(t_list *stack_a)
@@ -56,6 +60,8 @@ int	find_min_second(t_list *stack_a)
 	current = stack_a->next;
 	while (current)
 	{
+		if (min2 == min)
+			min2 = stack_a->next->content;
 		if (current->content < min2 && current->content != min)
 			min2 = current->content;
 		current = current->next;
@@ -76,40 +82,53 @@ int	get_middle(int size)
 
 t_list	*get_minimal_sort(t_list **stack_a, t_list **stack_b, int pos_min_a_first, int pos_min_a_second, int middle)
 {
-	if (pos_min_a_first <= middle && pos_min_a_second <= middle)
+	if ((pos_min_a_first <= middle && pos_min_a_second <= middle) && pos_min_a_first < pos_min_a_second)
 	{
 		while (pos_min_a_first-- != 1)
 			ra(stack_a);
 		pb(stack_a, stack_b);
+	}
+	else if ((pos_min_a_first <= middle && pos_min_a_second <= middle) && pos_min_a_first > pos_min_a_second)
+	{
 		while (pos_min_a_second-- != 1)
 			ra(stack_a);
 		pb(stack_a, stack_b);
 	}
-	else if (pos_min_a_first > middle && pos_min_a_second > middle)
+	else if ((pos_min_a_first > middle && pos_min_a_second > middle) && pos_min_a_first < pos_min_a_second)
 	{
-		while (pos_min_a_first-- != 1)
-			rra(stack_a);
-		pb(stack_a, stack_b);
-		while (pos_min_a_second-- != 1)
+		while (pos_min_a_second++ != (ft_lstsize(*stack_a) + 1))
 			rra(stack_a);
 		pb(stack_a, stack_b);
 	}
-	else if (pos_min_a_first <= middle && pos_min_a_second > middle)
+	else if ((pos_min_a_first > middle && pos_min_a_second > middle) && pos_min_a_first > pos_min_a_second)
+	{
+		while (pos_min_a_first++ != (ft_lstsize(*stack_a) + 1))
+			rra(stack_a);
+		pb(stack_a, stack_b);
+	}
+	else if ((pos_min_a_first <= middle && pos_min_a_second > middle) && (middle - pos_min_a_first) <= (pos_min_a_second - middle))
 	{
 		while (pos_min_a_first-- != 1)
 			ra(stack_a);
 		pb(stack_a, stack_b);
-		while (pos_min_a_second-- != 1)
+		
+	}
+	else if ((pos_min_a_first <= middle && pos_min_a_second > middle) && (middle - pos_min_a_first) > (pos_min_a_second - middle))
+	{
+		while (pos_min_a_second++ != (ft_lstsize(*stack_a) + 1))
 			rra(stack_a);
 		pb(stack_a, stack_b);
 	}
-	else if (pos_min_a_first > middle && pos_min_a_second <= middle)
+	else if ((pos_min_a_first > middle && pos_min_a_second <= middle) && (middle - pos_min_a_second) < (pos_min_a_first - middle))
 	{
-		while (pos_min_a_first-- != 1)
-			rra(stack_a);
-		pb(stack_a, stack_b);
 		while (pos_min_a_second-- != 1)
 			ra(stack_a);
+		pb(stack_a, stack_b);
+	}
+	else if ((pos_min_a_first > middle && pos_min_a_second <= middle) && (middle - pos_min_a_second) >= (pos_min_a_first - middle))
+	{
+		while (pos_min_a_first++ != (ft_lstsize(*stack_a) + 1))
+			rra(stack_a);
 		pb(stack_a, stack_b);
 	}
 	return (*stack_a);
