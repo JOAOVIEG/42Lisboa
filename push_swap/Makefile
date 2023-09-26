@@ -17,7 +17,8 @@ SRC =	$(SRC_DIR)/main.c \
 				$(SRC_DIR)/sorts/sort5_utilis.c \
 				$(SRC_DIR)/sorts/insertion_sort.c \
 				$(SRC_DIR)/sorts/insertion_sort_utilis.c \
-				
+				$(SRC_DIR)/sorts/get_minimal_sort_utilis.c \
+
 OBJ = $(patsubst $(SRC_DIR)%.c, $(OBJ_DIR)%.o, $(SRC))
 
 CC = clang

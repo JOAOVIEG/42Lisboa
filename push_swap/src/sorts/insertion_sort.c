@@ -1,58 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   insertation_sort.c                                 :+:      :+:    :+:   */
+/*   insertion_sort.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/17 15:16:28 by joaocard          #+#    #+#             */
-/*   Updated: 2023/09/25 20:30:53 by joaocard         ###   ########.fr       */
+/*   Updated: 2023/09/26 16:45:02 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libft/libft.h"
 #include "../inc/push_swap.h"
 
-void insertion_sort(t_list **stack_a, t_list **stack_b)
+void	insertion_sort(t_list **stack_a, t_list **stack_b)
 {
-    int size;
-    int pos_min_a_first;
-    int pos_min_a_second;
-    int middle;
-    
-    while (ft_lstsize(*stack_a) >= 3)
-    {
-        size = ft_lstsize(*stack_a);
-        middle = get_middle(size);
-        pos_min_a_first = find_min_a(stack_a);
-        pos_min_a_second = find_min_second(*stack_a);
-        *stack_a = get_minimal_sort(stack_a, stack_b, pos_min_a_first, pos_min_a_second, middle);
-    }
-	while ((ft_lstsize(*stack_a) < 3) && (ft_lstsize(*stack_a) != 1) && (*stack_a))
-	{
-		if ((*stack_a)->content > (*stack_a)->next->content)
-		{
-			pb(stack_a, stack_b);
-		}
-		else if ((*stack_a)->content < (*stack_a)->next->content)
-		{
-			sa(stack_a);
-			pb(stack_a, stack_b);
-		}
-
-	}
+	sort_and_push2b_big(stack_a, stack_b);
+	sort_and_push2b_small(stack_a, stack_b);
 	pb(stack_a, stack_b);
-	*stack_b = update_stack_b(*stack_b);
 	while (*stack_b)
 	{
+		sort_b_max_on_top(stack_b);
 		pa(stack_a, stack_b);
 	}
 }
 
 int	find_min_second(t_list *stack_a)
 {
-	int	min;
-	int min2;
+	int		min;
+	int		min2;
 	t_list	*current;
 
 	min = find_min(&stack_a);
@@ -72,7 +48,7 @@ int	find_min_second(t_list *stack_a)
 int	get_middle(int size)
 {
 	int	middle;
-	
+
 	if (size % 2 == 0)
 		middle = (size / 2);
 	else
@@ -80,52 +56,24 @@ int	get_middle(int size)
 	return (middle);
 }
 
-t_list	*get_minimal_sort(t_list **stack_a, t_list **stack_b, int pos_min_a_first, int pos_min_a_second, int middle)
+t_list	*get_minimal_sort(t_list **stack_a, t_list **stack_b, \
+				int pos_min_a_first, int pos_min_a_second)
 {
-	if ((pos_min_a_first <= middle && pos_min_a_second <= middle) && pos_min_a_first < pos_min_a_second)
-	{
-		while (pos_min_a_first-- != 1)
-			ra(stack_a);
-		pb(stack_a, stack_b);
-	}
-	else if ((pos_min_a_first <= middle && pos_min_a_second <= middle) && pos_min_a_first > pos_min_a_second)
-	{
-		while (pos_min_a_second-- != 1)
-			ra(stack_a);
-		pb(stack_a, stack_b);
-	}
-	else if ((pos_min_a_first > middle && pos_min_a_second > middle) && pos_min_a_first < pos_min_a_second)
-	{
-		while (pos_min_a_second++ != (ft_lstsize(*stack_a) + 1))
-			rra(stack_a);
-		pb(stack_a, stack_b);
-	}
-	else if ((pos_min_a_first > middle && pos_min_a_second > middle) && pos_min_a_first > pos_min_a_second)
-	{
-		while (pos_min_a_first++ != (ft_lstsize(*stack_a) + 1))
-			rra(stack_a);
-		pb(stack_a, stack_b);
-	}
-	else if ((pos_min_a_first <= middle && pos_min_a_second > middle) && (middle - pos_min_a_first) <= (pos_min_a_second - middle))
-	{
-		while (pos_min_a_first-- != 1)
-			ra(stack_a);
-		pb(stack_a, stack_b);
-		
-	}
-	else if ((pos_min_a_first <= middle && pos_min_a_second > middle) && (middle - pos_min_a_first) > (pos_min_a_second - middle))
-	{
-		while (pos_min_a_second++ != (ft_lstsize(*stack_a) + 1))
-			rra(stack_a);
-		pb(stack_a, stack_b);
-	}
-	else if ((pos_min_a_first > middle && pos_min_a_second <= middle) && (middle - pos_min_a_second) < (pos_min_a_first - middle))
+	int	middle;
+
+	first_bucket(stack_a, stack_b, pos_min_a_first, pos_min_a_second);
+	second_bucket(stack_a, stack_b, pos_min_a_first, pos_min_a_second);
+	both_buckets(stack_a, stack_b, pos_min_a_first, pos_min_a_second);
+	middle = get_middle(ft_lstsize(*stack_a));
+	if ((pos_min_a_first > middle && pos_min_a_second <= middle) \
+				&& (middle - pos_min_a_second) < (pos_min_a_first - middle))
 	{
 		while (pos_min_a_second-- != 1)
 			ra(stack_a);
 		pb(stack_a, stack_b);
 	}
-	else if ((pos_min_a_first > middle && pos_min_a_second <= middle) && (middle - pos_min_a_second) >= (pos_min_a_first - middle))
+	else if ((pos_min_a_first > middle && pos_min_a_second <= middle) \
+				&& (middle - pos_min_a_second) >= (pos_min_a_first - middle))
 	{
 		while (pos_min_a_first++ != (ft_lstsize(*stack_a) + 1))
 			rra(stack_a);
@@ -134,18 +82,23 @@ t_list	*get_minimal_sort(t_list **stack_a, t_list **stack_b, int pos_min_a_first
 	return (*stack_a);
 }
 
-int	find_min(t_list **stack_a)
+void	sort_b_max_on_top(t_list **stack_b)
 {
-	int		min_a;
-	t_list	*current;
+	int	max;
+	int	pos_max;
+	int	size;
 
-	min_a = (*stack_a)->content;
-	current = (*stack_a)->next;
-	while (current)
+	size = ft_lstsize(*stack_b);
+	max = find_max(stack_b);
+	pos_max = elem_pos(stack_b, max);
+	if (pos_max <= (size / 2))
 	{
-		if (current->content < min_a)
-			min_a = current->content;
-		current = current->next;
+		while (pos_max-- != 1)
+			rb(stack_b);
 	}
-	return (min_a);
+	else
+	{
+		while (pos_max++ != (size + 1))
+			rrb(stack_b);
+	}
 }

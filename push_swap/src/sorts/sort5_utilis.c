@@ -6,13 +6,12 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 10:47:49 by joaocard          #+#    #+#             */
-/*   Updated: 2023/09/15 19:33:51 by joaocard         ###   ########.fr       */
+/*   Updated: 2023/09/26 16:49:58 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../libft/libft.h"
 #include "../inc/push_swap.h"
-
 
 int	find_min_a(t_list **stack_a)
 {

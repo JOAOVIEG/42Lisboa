@@ -6,7 +6,7 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 19:11:53 by joaocard          #+#    #+#             */
-/*   Updated: 2023/09/25 20:29:00 by joaocard         ###   ########.fr       */
+/*   Updated: 2023/09/26 16:42:46 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,16 +52,25 @@ int		case2(t_list **stack_a);
 int		case3(t_list **stack_a);
 int		case4(t_list **stack_a);
 int		case5(t_list **stack_a);
-int     elem_pos(t_list **stack_a, int extreme);
+int		elem_pos(t_list **stack_a, int extreme);
 void	case_size4(int elem_pos, t_list **stack_a, t_list **stack_b);
 void	case_size5(int elem_pos, t_list **stack_a, t_list **stack_b);
-int     find_min_a(t_list **stack_a);
-int     find_min(t_list **stack_a);
+int		find_min_a(t_list **stack_a);
+int		find_min(t_list **stack_a);
 void	insertion_sort(t_list **stack_a, t_list **stack_b);
-int     find_min_second(t_list *stack_a);
-int     get_middle(int size);
-t_list	*get_minimal_sort(t_list **stack_a, t_list **stack_b, int pos_min_a_first, int pos_min_a_second, int middle);
-t_list	*update_stack_b(t_list *stack_b);
-int     is_sorted(t_list **stack);
-
+int		find_min_second(t_list *stack_a);
+int		get_middle(int size);
+t_list	*get_minimal_sort(t_list **stack_a, t_list **stack_b, \
+					int pos_min_a_first, int pos_min_a_second);
+int		is_sorted(t_list **stack);
+void	sort_b_max_on_top(t_list **stack_b);
+int		find_max(t_list **stack_b);
+void	sort_and_push2b_big(t_list **stack_a, t_list **stack_b);
+void	sort_and_push2b_small(t_list **stack_a, t_list **stack_b);
+void	first_bucket(t_list **stack_a, t_list **stack_b, \
+					int pos_min_a_first, int pos_min_a_second);
+void	second_bucket(t_list **stack_a, t_list **stack_b, \
+					int pos_min_a_first, int pos_min_a_second);
+void	both_buckets(t_list **stack_a, t_list **stack_b, \
+					int pos_min_a_first, int pos_min_a_second);
 #endif
