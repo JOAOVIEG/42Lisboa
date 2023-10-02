@@ -7,6 +7,7 @@ LIBFT = $(LIBFT_DIR)/libft.a
 SRC =	$(SRC_DIR)/main.c \
 				$(SRC_DIR)/stack_utilis.c \
 				$(SRC_DIR)/stack_utilis1.c \
+				$(SRC_DIR)/index.c \
 				$(SRC_DIR)/actions/actions.c \
 				$(SRC_DIR)/actions/actions1.c \
 				$(SRC_DIR)/actions/actions2.c \
@@ -15,9 +16,7 @@ SRC =	$(SRC_DIR)/main.c \
 				$(SRC_DIR)/sorts/sort.c \
 				$(SRC_DIR)/sorts/sort3_utilis.c \
 				$(SRC_DIR)/sorts/sort5_utilis.c \
-				$(SRC_DIR)/sorts/insertion_sort.c \
-				$(SRC_DIR)/sorts/insertion_sort_utilis.c \
-				$(SRC_DIR)/sorts/get_minimal_sort_utilis.c \
+				$(SRC_DIR)/sorts/radix_sort.c \
 
 OBJ = $(patsubst $(SRC_DIR)%.c, $(OBJ_DIR)%.o, $(SRC))
 

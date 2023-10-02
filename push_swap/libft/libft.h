@@ -6,7 +6,7 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/08 21:59:33 by joaocard          #+#    #+#             */
-/*   Updated: 2023/09/14 13:08:43 by joaocard         ###   ########.fr       */
+/*   Updated: 2023/10/02 11:56:23 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 typedef struct s_list
 {
 	int				content;
+	int				index;
 	struct s_list	*next;
 }t_list;
 int		ft_isalpha(int str);

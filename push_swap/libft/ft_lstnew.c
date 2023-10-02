@@ -6,7 +6,7 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/18 15:17:08 by joaocard          #+#    #+#             */
-/*   Updated: 2023/09/07 13:28:50 by joaocard         ###   ########.fr       */
+/*   Updated: 2023/10/02 11:55:35 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ t_list	*ft_lstnew(int content)
 	if (!node)
 		exit (EXIT_FAILURE);
 	node->content = content;
+	node->index = -1;
 	node->next = NULL;
 	return (node);
 }

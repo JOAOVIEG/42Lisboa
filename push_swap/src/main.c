@@ -6,7 +6,7 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/17 12:23:26 by joaocard          #+#    #+#             */
-/*   Updated: 2023/09/26 16:58:22 by joaocard         ###   ########.fr       */
+/*   Updated: 2023/10/02 12:48:49 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,12 +25,13 @@ int	main(int argc, char **argv)
 		exit(EXIT_FAILURE);
 	}
 	push_to_stack(argv, argc, &stack_a);
-	if (is_sorted(stack_a))
+	index_stack(&stack_a);
+	if (is_sorted(&stack_a))
 	{
 		free_stacks(&stack_a, &stack_b);
 		exit(EXIT_SUCCESS);
 	}
 	sort(&stack_a, &stack_b);
-	write(1, "\n", 1);
+	print_list(&stack_a);
 	free_stacks(&stack_a, &stack_b);
 }
