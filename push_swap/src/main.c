@@ -25,12 +25,12 @@ int	main(int argc, char **argv)
 		exit(EXIT_FAILURE);
 	}
 	push_to_stack(argv, argc, &stack_a);
-	index_stack(&stack_a);
 	if (is_sorted(&stack_a))
 	{
 		free_stacks(&stack_a, &stack_b);
 		exit(EXIT_SUCCESS);
 	}
+	index_stack(&stack_a);
 	sort(&stack_a, &stack_b);
 	free_stacks(&stack_a, &stack_b);
 }

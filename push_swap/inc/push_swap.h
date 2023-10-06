@@ -21,9 +21,9 @@
 
 void	push_to_stack(char **argv, int argc, t_list **stack);
 int		is_number(char *argv);
-int		args_checks(char *args, t_list *stack, int value);
-int		is_unique(t_list *stack, int value);
-void	first_push(t_list **stack, int value);
+int		args_checks(char *args, t_list *stack, long int value);
+int		is_unique(t_list *stack, long int value);
+void	first_push(t_list **stack, long int value);
 void	free_stacks(t_list **stack_a, t_list **stack_b);
 int		to_zero(int *zero);
 void	sa(t_list **stack);
