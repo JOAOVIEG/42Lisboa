@@ -37,9 +37,9 @@ void	push_to_stack(char **argv, int argc, t_list **stack)
 
 int	args_checks(char *args, t_list *stack, int value)
 {
-	if ((ft_isdigit(*args) || negative_digit(args)) && \
-		((is_unique(stack, value) && value <= MAX) \
-		|| (is_unique(stack, value) && value >= MIN)))
+	if ((is_number(args)) && \
+		((is_unique(stack, value) && (value < INT_MIN \
+		|| value > INT_MAX))))
 	{
 		return (1);
 	}
@@ -49,16 +49,19 @@ int	args_checks(char *args, t_list *stack, int value)
 	}
 }
 
-int	negative_digit(char *argv)
+int	is_number(char *argv)
 {
-	if (*argv == '-' && ft_isdigit(*(argv + 1)))
-	{
-		return (1);
-	}
-	else
-	{
+	if (*argv == '-')
+		argv++;
+	if (!*argv)
 		return (0);
+	while (*argv)
+	{
+		if (!ft_isdigit(*argv))
+			return (0);
+		argv++;
 	}
+	return (1);
 }
 
 int	is_unique(t_list *stack, int value)

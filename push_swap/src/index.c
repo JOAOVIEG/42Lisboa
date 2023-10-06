@@ -51,16 +51,3 @@ void	index_stack(t_list **stack)
 		head = get_next_min(stack);
 	}
 }
-
-void	print_list(t_list **stack)
-{
-	t_list	*head;
-
-	head = *stack;
-	while (head)
-	{
-		ft_putnbr_fd(head->content, 1);
-		ft_putchar_fd(' ', 1);
-		head = head->next;
-	}	
-}

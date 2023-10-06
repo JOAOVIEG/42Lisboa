@@ -28,7 +28,7 @@ char	*ft_strdup(const char *string)
 	{
 		*(ptr + i) = *(char *)(string + i);
 		i++;
-	}	
+	}
 	return (ptr);
 }
 

@@ -13,16 +13,14 @@
 #ifndef PUSH_SWAP_H
 # define PUSH_SWAP_H
 
-# define MAX 2147483647
-# define MIN -2147483648
-
 # include <stdio.h>
+# include <limits.h>
 # include <unistd.h>
 # include <stdlib.h>
 # include "libft.h"
 
 void	push_to_stack(char **argv, int argc, t_list **stack);
-int		negative_digit(char *argv);
+int		is_number(char *argv);
 int		args_checks(char *args, t_list *stack, int value);
 int		is_unique(t_list *stack, int value);
 void	first_push(t_list **stack, int value);
@@ -61,5 +59,4 @@ void	index_stack(t_list **stack);
 int		get_max_bits(t_list **stack);
 void	radix_sort(t_list **stack_a, t_list **stack_b);
 int		is_sorted(t_list **stack);
-void	print_list(t_list **stack);
 #endif

@@ -13,9 +13,9 @@
 #ifndef LIBFT_H
 # define LIBFT_H
 # include <stdio.h>
-# include<stdlib.h>
-# include<unistd.h>
-# include<limits.h>
+# include <stdlib.h>
+# include <unistd.h>
+# include <limits.h>
 
 typedef struct s_list
 {
@@ -23,6 +23,7 @@ typedef struct s_list
 	int				index;
 	struct s_list	*next;
 }t_list;
+
 int		ft_isalpha(int str);
 int		ft_isalnum(int c);
 int		ft_toupper(int str);
@@ -66,4 +67,5 @@ char	*ft_strmapi(char const *s, char (*f)(unsigned int, char));
 t_list	*ft_lstnew( int content);
 t_list	*ft_lstlast(t_list *lst);
 t_list	*ft_lstmap(t_list *lst, int *(*f)(int *), int (*del)(int *));
+
 #endif

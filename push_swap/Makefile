@@ -22,7 +22,7 @@ OBJ = $(patsubst $(SRC_DIR)%.c, $(OBJ_DIR)%.o, $(SRC))
 
 CC = clang
 HEAD = -I./inc -I./$(LIBFT_DIR)
-CFLAGS = -Wall -Werror -Wextra -g -fsanitize=address
+CFLAGS = -Wall -Werror -Wextra -g
 LFLAGS = -L ./$(LIBFT_DIR) -lft
 RM = /bin/rm -rf
 

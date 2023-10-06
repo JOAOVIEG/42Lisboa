@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 #include "libft.h"
-#include<string.h>
+#include <string.h>
 
 int	ft_strncmp(const char *sn1, const char *sn2, size_t nb)
 {

@@ -32,6 +32,5 @@ int	main(int argc, char **argv)
 		exit(EXIT_SUCCESS);
 	}
 	sort(&stack_a, &stack_b);
-	print_list(&stack_a);
 	free_stacks(&stack_a, &stack_b);
 }
