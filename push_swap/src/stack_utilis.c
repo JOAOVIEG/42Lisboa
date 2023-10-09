@@ -6,7 +6,7 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/17 20:39:58 by joaocard          #+#    #+#             */
-/*   Updated: 2023/10/02 11:44:56 by joaocard         ###   ########.fr       */
+/*   Updated: 2023/10/09 16:15:08 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ void	push_to_stack(char **argv, int argc, t_list **stack)
 		else
 		{
 			write(2, "ERROR\n", 6);
+			free_stacks(stack, NULL);
 			exit(EXIT_FAILURE);
 		}
 		i++;
