@@ -1,43 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   so_long.h                                          :+:      :+:    :+:   */
+/*   get_next_line_bonus.h                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/09 11:45:37 by joaocard          #+#    #+#             */
-/*   Updated: 2023/10/10 13:38:00 by joaocard         ###   ########.fr       */
+/*   Created: 2023/06/02 10:27:03 by joaocard          #+#    #+#             */
+/*   Updated: 2023/06/02 11:24:10 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SO_LONG_H
+#ifndef GET_NEXT_LINE_BONUS_H
+# define GET_NEXT_LINE_BONUS_H
 
-#define SO_LONG_H
+# include <unistd.h>
+# include <stdlib.h>
+# include <stdio.h>
 
-#include <sys/types.h>
-#include <sys/stat.h>
-#include <fcntl.h>
-#include <unistd.h>
-#include <stdio.h>
-#include "../libs/minilibx-linux/mlx.h"
-#include "../libs/libft/libft.h"
+# ifndef BUFFER_SIZE
+#  define BUFFER_SIZE	1
+# endif
 
-typedef struct s_pos
-{
-	int	x;
-	int	y;
-}	t_pos;
-
-typedef struct s_map
-{
-	char	**map;
-	int		width;
-	int		height;
-	int		collectible;
-	int		exit;
-	int		player;
-	t_pos	*pos;
-}	t_map;
-
-
+char	*get_next_line(int fd);
+char	*buffer_to_line_process(char *line, char *buffer);
+int		line_lenght(char *line);
+int		ft_buffer_shift(char *buffer);
 #endif
