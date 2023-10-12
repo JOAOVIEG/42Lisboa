@@ -6,7 +6,7 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/10 13:37:02 by joaocard          #+#    #+#             */
-/*   Updated: 2023/10/10 13:51:31 by joaocard         ###   ########.fr       */
+/*   Updated: 2023/10/12 11:46:19 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,25 +40,17 @@ void    check_file(char *file)
 
 void    map_checks(char *file)
 {
-    int     fd;
-    char    *line;
-    int     i;
-    int     j;
+	int fd;
 
-    i = 0;
-    j = 0;
-    fd = open(file, O_RDONLY);
-    while (get_next_line(fd, &line))
-    {
-        if (i == 0)
-            j = ft_strlen(line);
-        if (j != ft_strlen(line))
-        {
-            printf("Error\nMap is not rectangular\n");
-            return ;
-        }
-        i++;
-    }
-    printf("Map is rectangular\n");
-    close(fd);
+	fd = open(file, O_RDONLY);
+	if (fd == -1)
+	{
+		printf("Error\nFile not found\n");
+		return ;
+	}
+	if (!is_rectangle(fd))
+	{
+		printf("Error\nMap is not a rectangle\n");
+		return ;
+	}
 }

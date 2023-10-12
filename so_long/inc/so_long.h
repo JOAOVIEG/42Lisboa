@@ -6,7 +6,7 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 11:45:37 by joaocard          #+#    #+#             */
-/*   Updated: 2023/10/10 13:38:00 by joaocard         ###   ########.fr       */
+/*   Updated: 2023/10/12 15:56:25 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,11 @@
 #include <stdio.h>
 #include "../libs/minilibx-linux/mlx.h"
 #include "../libs/libft/libft.h"
+#include "../libs/get_next_line/get_next_line.h"
+#include <limits.h>
+#include "../libs/ft_printf/ft_printf.h"
+#include <stdlib.h>
+#include "../libs/get_next_line/get_next_line_bonus.h"
 
 typedef struct s_pos
 {
@@ -38,6 +43,8 @@ typedef struct s_map
 	int		player;
 	t_pos	*pos;
 }	t_map;
-
+void    check_file(char *file);
+void    map_checks(char *file);
+int		is_rectangle(int fd);
 
 #endif

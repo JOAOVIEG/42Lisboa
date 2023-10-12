@@ -1,28 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   map_checks.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/09 11:45:27 by joaocard          #+#    #+#             */
-/*   Updated: 2023/10/12 15:27:39 by joaocard         ###   ########.fr       */
+/*   Created: 2023/10/12 11:15:12 by joaocard          #+#    #+#             */
+/*   Updated: 2023/10/12 14:41:44 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/so_long.h"
 
-
-int	main(int ac, char **av)
+int	is_rectangle(int fd)
 {
-	if (ac != 2)
-    {
-        ft_printf("Error\nWrong number of arguments\n");
-        return (1);
-    }
-    if (ac ==2)
-    {
-        check_file(av[1]);
-        map_checks(av[1]);
-    }
+	char	*line;
+	int		i;
+	int		j;
+	int		ret;
+
+	i = 0;
+	j = 0;
+	ret = 1;
+	while (ret)
+	{
+		ret = get_next_line(fd);
+		if (i == 0)
+			j = ft_strlen(line);
+		else if (j != ft_strlen(line))
+			return (0);
+		i++;
+	}
+	return (1);
 }
