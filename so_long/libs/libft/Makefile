@@ -38,8 +38,7 @@ SRC = ft_isalpha.c \
 		ft_putstr_fd.c \
 		ft_putendl_fd.c \
 		ft_putnbr_fd.c \
-
-BONUS = ft_lstnew.c \
+		ft_lstnew.c \
 		ft_lstadd_front.c \
 		ft_lstsize.c \
 		ft_lstlast.c \
@@ -51,13 +50,8 @@ BONUS = ft_lstnew.c \
 
 OBJ = $(SRC:.c=.o)
 
-BONUS_OBJ = $(BONUS:.c=.o)
-
 $(NAME):	$(OBJ)
 	ar rcs $(NAME)	$(OBJ)
-
-bonus:	$(BONUS_OBJ)	
-	ar rcs $(NAME)	$(BONUS_OBJ)
 
 all:	$(NAME)
 

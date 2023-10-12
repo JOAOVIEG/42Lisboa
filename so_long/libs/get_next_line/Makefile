@@ -4,9 +4,7 @@ CC = cc
 
 CFLAGS = -Wall -Wextra -Werror -I.
 
-SRC = get_next_line_bonus.c \
-		get_next_line_utilis_bonus.c \
-		get_next_line_utilis.c \
+SRC = get_next_line_utils.c \
 		get_next_line.c \
 
 OBJ = $(SRC:.c=.o)
