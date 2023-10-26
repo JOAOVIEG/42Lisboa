@@ -8,7 +8,7 @@ FT_PRINTF = $(FT_PRINTF_DIR)/libftprintf.a
 GET_NEXT_LINE_DIR = libs/get_next_line
 GET_NEXT_LINE = $(GET_NEXT_LINE_DIR)/libftgetnextline.a
 
-SRC = $(addprefix $(SRC_DIR)/, main.c checks.c map_checks.c)
+SRC = $(addprefix $(SRC_DIR)/, main.c file_map_build.c map_read.c)
 OBJ = $(patsubst $(SRC_DIR)/%.c, $(OBJ_DIR)/%.o, $(SRC))
 
 CC = clang

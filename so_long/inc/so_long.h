@@ -6,7 +6,7 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 11:45:37 by joaocard          #+#    #+#             */
-/*   Updated: 2023/10/12 17:19:31 by joaocard         ###   ########.fr       */
+/*   Updated: 2023/10/26 14:56:22 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,13 +37,18 @@ typedef struct s_map
 	char	**map;
 	int		width;
 	int		height;
-	int		collectible;
-	int		exit;
-	int		player;
-	t_pos	*pos;
 }	t_map;
-void    check_file(char *file);
-void    map_checks(char *file);
-//int		is_rectangle(t_map **map);
+
+typedef	struct s_game
+{
+	t_map	*map;
+}	t_game;
+
+int		so_long(char *file);
+void	file_map_build(char *file, t_game *game);
+int		check_file_ext(char *file);
+void    free_map(t_map *map);
+void	map_read(int fd, t_game *game);
+int		is_rectangular(char **map, int height, int witdth);
 
 #endif
