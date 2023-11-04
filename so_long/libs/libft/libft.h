@@ -6,7 +6,7 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/08 21:59:33 by joaocard          #+#    #+#             */
-/*   Updated: 2023/05/02 00:32:11 by joaocard         ###   ########.fr       */
+/*   Updated: 2023/11/04 16:01:22 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ void	ft_lstadd_back(t_list **lst, t_list *new);
 void	ft_lstdelone(t_list *lst, void (*del)(void*));
 void	ft_lstclear(t_list **lst, void (*del)(void*));
 void	ft_lstiter(t_list *lst, void (*f)(void *));
+void	*ft_realloc(void *ptr, size_t original_size, size_t new_size);
 size_t	ft_strlcpy(char *dest, const char *src, size_t size);
 size_t	ft_strlcat(char *dest, const char *source, size_t	size_of_str);
 int		ft_strncmp(const char *sn1, const char *sn2, size_t nb);
