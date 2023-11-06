@@ -6,7 +6,7 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 11:45:27 by joaocard          #+#    #+#             */
-/*   Updated: 2023/11/04 21:41:38 by joaocard         ###   ########.fr       */
+/*   Updated: 2023/11/06 13:01:43 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,10 @@ void	so_long(char *file)
 		shut_game_down(game);	
 	}
 	else if ((open(file, O_RDONLY)) == -1)
+	{
 		game_error_msg("Error\nOpening file\n", NULL);
+		exit(EXIT_FAILURE);
+	}
 	
 	exit(EXIT_SUCCESS);
 }

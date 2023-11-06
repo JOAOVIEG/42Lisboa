@@ -6,7 +6,7 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/12 11:15:12 by joaocard          #+#    #+#             */
-/*   Updated: 2023/11/04 17:50:40 by joaocard         ###   ########.fr       */
+/*   Updated: 2023/11/06 13:14:22 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ void read_map(int fd, t_win *game)
 	if (!game->file_map)
 		game_error_msg("Error\nMalloc\n", game);
 	map_init(game, fd, line);
-	map_checks(game);
 }
 
 void map_init(t_win *game, int fd, char *line)

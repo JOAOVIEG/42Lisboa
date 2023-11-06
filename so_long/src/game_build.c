@@ -6,7 +6,7 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/10 13:37:02 by joaocard          #+#    #+#             */
-/*   Updated: 2023/11/04 21:38:53 by joaocard         ###   ########.fr       */
+/*   Updated: 2023/11/06 13:40:15 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,10 @@ void    game_build(char *file, t_win *game)
 	if(fd == -1)
 		game_error_msg("Error\nOpening file\n", NULL);
     read_map(fd, game);
+	if (map_checks(game) == 0)
+	{
+		
+	}
 }
 
 int	check_file_ext(char *file)

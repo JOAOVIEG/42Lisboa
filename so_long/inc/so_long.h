@@ -6,7 +6,7 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 11:45:37 by joaocard          #+#    #+#             */
-/*   Updated: 2023/11/04 18:08:39 by joaocard         ###   ########.fr       */
+/*   Updated: 2023/11/06 20:57:30 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,14 +34,19 @@ typedef struct s_pos
 	int		y;
 }			t_pos;
 
+typedef struct		s_pos_list
+{
+    t_pos				pos;
+    struct s_pos_list	*next;
+}						t_pos_list;
+
 typedef struct s_map
 {
 	int		width;
 	int		height;
-	//int		player;
-	//int 	exit;
-	//int 	collectible;
-	//t_pos	pos;
+	t_pos	player;
+	t_pos 	exit;
+	t_pos	collectible;
 }			t_map;
 
 typedef struct s_img
@@ -73,8 +78,14 @@ void	read_map(int fd, t_win *game);
 void	map_init(t_win *game, int fd, char *line);
 void	copy_lines(t_win *game, int fd, char *line);
 int		resize_map(t_win *game, int map_size);
-void	map_checks(t_win *game);
+int		map_checks(t_win *game);
 void	free_strdup(char **str);
 int		is_rectangular(char **map, int height, int witdth);
-
+int		is_closed(char **map, int height, int width);
+int		is_valid_chars(char **map, int height, int width);
+int		check_duplicate_char(char **map, int height, int width);
+int		count_exit(char **map, int height, int width);
+int		count_player(char **map, int height, int width);
+int		check_nbr_chrs(char **map, int height, int width);
+int		check_path(char **map, int height, int width);
 #endif
