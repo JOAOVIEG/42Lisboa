@@ -6,7 +6,7 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/03 15:24:05 by joaocard          #+#    #+#             */
-/*   Updated: 2023/11/06 15:30:42 by joaocard         ###   ########.fr       */
+/*   Updated: 2023/11/07 11:55:25 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void game_error_msg(char *message, t_win *game)
 void    shut_game_down(t_win *game)
 {
 	int i;
-
+	
 	i = 0;
 	while (i < game->map.height)
 	{
@@ -32,26 +32,27 @@ void    shut_game_down(t_win *game)
 	}
 	free(game->file_map);
 	i = 0;
-	/*while (i < game->map.height)
+	if(game->map_copy)
 	{
-		free(game->lines_n[i]);
-		i++;
-	}*/
+		while (i < game->map.height)
+		{
+			free(game->map_copy[i]);
+			i++;
+		}
+	}
 	game->map.height = 0;
 	game->map.width = 0;
-	free(game);
-	//exit(EXIT_SUCCESS);
-	//shut_game(game);
+	shut_game(game);
 }
 
-/*void	shut_game(t_win *game)
+void	shut_game(t_win *game)
 {
-	free(game->lines_n);
-	free(game->img->wall);
+	free(game->map_copy);
+	/*free(game->img->wall);
 	free(game->img->player);
 	free(game->img->collectible);
 	free(game->img->exit);
-	free(game->img);
+	free(game->img);*/
 	free(game);
 	exit(EXIT_SUCCESS);
-}*/
+}

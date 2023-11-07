@@ -6,7 +6,7 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 11:45:37 by joaocard          #+#    #+#             */
-/*   Updated: 2023/11/06 20:57:30 by joaocard         ###   ########.fr       */
+/*   Updated: 2023/11/07 18:08:19 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,11 +42,11 @@ typedef struct		s_pos_list
 
 typedef struct s_map
 {
-	int		width;
-	int		height;
-	t_pos	player;
-	t_pos 	exit;
-	t_pos	collectible;
+	int			width;
+	int			height;
+	t_pos		player;
+	t_pos 		exit;
+	t_pos_list	*collectibles;
 }			t_map;
 
 typedef struct s_img
@@ -60,7 +60,7 @@ typedef struct s_img
 typedef	struct s_win
 {
 	char	**file_map;
-	//char	**lines_n;
+	char	**map_copy;
 	//void	*mlx_ptr;
 	//void	*win_ptr;
 	//int		n_moves;
@@ -87,5 +87,15 @@ int		check_duplicate_char(char **map, int height, int width);
 int		count_exit(char **map, int height, int width);
 int		count_player(char **map, int height, int width);
 int		check_nbr_chrs(char **map, int height, int width);
-int		check_path(char **map, int height, int width);
+int		check_path_to_exit(t_win *game, int height, int width);
+int		check_path_to_collectibles(t_win *game, int height, int width);
+char	**copy_map(t_win *game);
+t_pos	get_player_pos(char **map, int height, int width);
+t_pos	get_exit_pos(char **map, int height, int width);
+t_pos_list	*get_collectible_pos(char **map, int height, int width);
+void		flood_fill(t_win map, t_pos start, t_pos target);
+int		listed_flood_fill(t_win	game, t_pos_list *collectibles, t_pos target);
+void	free_pos_list(t_pos_list *list);
+int 	check_if_visited(t_win game, t_pos target);
+int 	mark_if_visited(t_win game, t_pos target);
 #endif
