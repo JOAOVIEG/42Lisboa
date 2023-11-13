@@ -6,30 +6,27 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/10 13:37:02 by joaocard          #+#    #+#             */
-/*   Updated: 2023/11/06 13:40:15 by joaocard         ###   ########.fr       */
+/*   Updated: 2023/11/13 14:16:06 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/so_long.h"
 
-void    game_build(char *file, t_win *game)
+void	game_build(char *file, t_win *game)
 {
-    int fd;
-    
-    fd = open(file, O_RDONLY);
-	if(fd == -1)
+	int	fd;
+
+	fd = open(file, O_RDONLY);
+	if (fd == -1)
 		game_error_msg("Error\nOpening file\n", NULL);
-    read_map(fd, game);
-	if (map_checks(game) == 0)
-	{
-		
-	}
+	read_map(fd, game);
+	map_checks(game);
 }
 
 int	check_file_ext(char *file)
 {
 	char	*extension;
-	
+
 	extension = ft_strrchr(file, '.');
 	if (!extension || ft_strncmp(extension, ".ber", 5) != 0)
 	{
@@ -38,4 +35,3 @@ int	check_file_ext(char *file)
 	}
 	return (0);
 }
-

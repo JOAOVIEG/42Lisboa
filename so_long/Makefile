@@ -8,7 +8,8 @@ FT_PRINTF = $(FT_PRINTF_DIR)/libftprintf.a
 GET_NEXT_LINE_DIR = libs/get_next_line
 GET_NEXT_LINE = $(GET_NEXT_LINE_DIR)/libftgetnextline.a
 
-SRC = $(addprefix $(SRC_DIR)/, main.c game_build.c read_map.c error_msg.c map_checks.c)
+SRC = $(addprefix $(SRC_DIR)/, main.c game_build.c read_map.c \
+			error_msg.c map_checks.c checks_utilis.c checks_utilis1.c checks_utilis2.c)
 OBJ = $(patsubst $(SRC_DIR)/%.c, $(OBJ_DIR)/%.o, $(SRC))
 
 CC = cc
