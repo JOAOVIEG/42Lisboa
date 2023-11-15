@@ -1,72 +1,144 @@
-NAME = so_long
-SRC_DIR = src
-OBJ_DIR = .objs
-LIBFT_DIR = libs/libft
-LIBFT = $(LIBFT_DIR)/libft.a
-FT_PRINTF_DIR = libs/ft_printf
-FT_PRINTF = $(FT_PRINTF_DIR)/libftprintf.a
-GET_NEXT_LINE_DIR = libs/get_next_line
-GET_NEXT_LINE = $(GET_NEXT_LINE_DIR)/libftgetnextline.a
+################################################################################
+#                                     CONFIG                                   #
+################################################################################
 
-SRC = $(addprefix $(SRC_DIR)/, main.c game_build.c read_map.c \
-			error_msg.c map_checks.c checks_utilis.c checks_utilis1.c checks_utilis2.c)
-OBJ = $(patsubst $(SRC_DIR)/%.c, $(OBJ_DIR)/%.o, $(SRC))
+NAME        := so_long
+CC        := gcc
+FLAGS    := -Wall -Wextra -Werror 
+################################################################################
+#                                 PROGRAM'S SRCS                               #
+################################################################################
 
-CC = cc
-HEAD = -I./inc -I./$(LIBFT_DIR) -I./$(FT_PRINTF_DIR) -I./$(GET_NEXT_LINE_DIR)
-CFLAGS = -Wall -Werror -Wextra -g
-LFLAGS = -L $(LIBFT_DIR) -lft -L $(FT_PRINTF_DIR) -lftprintf -L $(GET_NEXT_LINE_DIR) -lftgetnextline
-RM = /bin/rm -rf
+SRCS        :=      src/game_build.c \
+                          src/checks_utilis2.c \
+                          src/map_checks.c \
+                          src/read_map.c \
+                          src/checks_utilis.c \
+                          src/checks_utilis1.c \
+                          src/main.c \
+                          src/error_msg.c \
+						  src/game_init.c \
+                          libs/get_next_line/get_next_line.c \
+                          libs/get_next_line/get_next_line_utils.c \
+                          libs/ft_printf/ft_printf.c \
+                          libs/ft_printf/print_functions.c \
+                          libs/libft/ft_lstmap.c \
+                          libs/libft/ft_memset.c \
+                          libs/libft/ft_split.c \
+                          libs/libft/ft_strtrim.c \
+                          libs/libft/ft_isprint.c \
+                          libs/libft/ft_strlen.c \
+                          libs/libft/ft_putstr_fd.c \
+                          libs/libft/ft_putendl_fd.c \
+                          libs/libft/ft_substr.c \
+                          libs/libft/ft_toupper.c \
+                          libs/libft/ft_tolower.c \
+                          libs/libft/ft_lstadd_back.c \
+                          libs/libft/ft_striteri.c \
+                          libs/libft/ft_isdigit.c \
+                          libs/libft/ft_putnbr_fd.c \
+                          libs/libft/ft_itoa.c \
+                          libs/libft/ft_strlcat.c \
+                          libs/libft/ft_memmove.c \
+                          libs/libft/ft_strncmp.c \
+                          libs/libft/ft_strdup.c \
+                          libs/libft/ft_lstlast.c \
+                          libs/libft/ft_isalpha.c \
+                          libs/libft/ft_lstdelone.c \
+                          libs/libft/ft_strcmp.c \
+                          libs/libft/ft_calloc.c \
+                          libs/libft/ft_memchr.c \
+                          libs/libft/ft_lstadd_front.c \
+                          libs/libft/ft_strchr.c \
+                          libs/libft/ft_strnstr.c \
+                          libs/libft/ft_isalnum.c \
+                          libs/libft/ft_lstclear.c \
+                          libs/libft/ft_memcpy.c \
+                          libs/libft/ft_memcmp.c \
+                          libs/libft/ft_atoi.c \
+                          libs/libft/ft_putchar_fd.c \
+                          libs/libft/ft_strrchr.c \
+                          libs/libft/ft_lstiter.c \
+                          libs/libft/ft_realloc.c \
+                          libs/libft/ft_isascii.c \
+                          libs/libft/ft_strjoin.c \
+                          libs/libft/ft_strlcpy.c \
+                          libs/libft/ft_strmapi.c \
+                          libs/libft/ft_lstsize.c \
+                          libs/libft/ft_lstnew.c \
+                          libs/libft/ft_bzero.c \
+                          
+OBJS        := $(SRCS:.c=.o)
 
-all: $(NAME)
+.c.o:
+	${CC} ${FLAGS} -c $< -o ${<:.c=.o}
 
-$(NAME): $(OBJ) $(LIBFT) $(FT_PRINTF) $(GET_NEXT_LINE)
-	$(CC) $(OBJ) $(HEAD) $(CFLAGS) $(LFLAGS) -o $(NAME)
+################################################################################
+#                                  Makefile  objs                              #
+################################################################################
 
-$(OBJ_DIR)/%.o: $(SRC_DIR)/%.c 
-	mkdir -p $(@D)
-	$(CC) $(CFLAGS) $(HEAD) -c $< -o $@
 
-$(OBJ_DIR)/%.o: $(LIBFT_DIR)/%.c
-	mkdir -p $(@D)
-	$(CC) $(CFLAGS) $(HEAD) -c $< -o $@
+CLR_RMV		:= \033[0m
+RED		    := \033[1;31m
+GREEN		:= \033[1;32m
+YELLOW		:= \033[1;33m
+BLUE		:= \033[1;34m
+CYAN 		:= \033[1;36m
+RM		    := rm -f
 
-$(OBJ_DIR)/%.o: $(GET_NEXT_LINE_DIR)/%.c
-	mkdir -p $(@D)
-	$(CC) $(CFLAGS) $(HEAD) -c $< -o $@
+UNAME		:=	$(shell uname)
 
-$(OBJ_DIR)/%.o:$(FT_PRINTF_DIR)/%.c
-	mkdir -p $(@D)
-	$(CC) $(CFLAGS) $(HEAD) -c $< -o $@
+ifeq ($(UNAME), Darwin)
+$(NAME): ${OBJS}
+			@echo "$(GREEN)Compilation ${CLR_RMV}of ${YELLOW}$(NAME) ${CLR_RMV}..."
+			@ $(MAKE) -C mlx all >/dev/null 2>&1
+			@ cp ./mlx/libmlx.a .
+			$(CC) $(CFLAGS) -g3 -Ofast -o $(NAME) -Imlx $(OBJS) -Lmlx -lmlx -lm -framework OpenGL -framework AppKit
+			@echo "$(GREEN)$(NAME) created[0m ✔️"
+endif
 
-$(LIBFT):
-	make -C $(LIBFT_DIR)
+ifeq ($(UNAME), Linux)
+$(NAME): ${OBJS}
+			@echo "$(GREEN)Linux compilation ${CLR_RMV}of ${YELLOW}$(NAME) ${CLR_RMV}..."
+			@chmod 777 mlx_linux/configure
+			@ $(MAKE) -C mlx_linux all
+			$(CC) $(CFLAGS) -g3 -o $(NAME) $(OBJS) -Imlx_linux -Lmlx_linux -lmlx -lmlx_Linux -L/usr/lib -lXext -lX11 -lm
+			@echo "$(GREEN)$(NAME) created[0m ✔️"
+endif
 
-$(FT_PRINTF):
-	make -C $(FT_PRINTF_DIR)
+all:		${NAME}
 
-$(GET_NEXT_LINE):
-	make -C $(GET_NEXT_LINE_DIR)
-
-$(SRC_DIR):
-	make -C $(SRC_DIR)
-
-debug: $(OBJ) $(LIBFT) $(FT_PRINTF) $(GET_NEXT_LINE)
-	$(CC) $(OBJ) $(HEAD) $(CFLAGS) $(LFLAGS) -o $(NAME)
-	ASAN_OPTIONS=halt_on_error=1 lldb $(NAME)
-
+ifeq ($(UNAME), Darwin)
 clean:
-	make clean -C $(LIBFT_DIR)
-	make clean -C $(FT_PRINTF_DIR)
-	make clean -C $(GET_NEXT_LINE_DIR)
-	$(RM) $(OBJ_DIR)
+			@ ${RM} *.o */*.o */*/*.o
+			@ rm -rf $(NAME).dSYM >/dev/null 2>&1
+			@ echo "$(RED)Deleting $(CYAN)$(NAME) $(CLR_RMV)objs ✔️"
+endif
 
-fclean: clean
-	make fclean -C $(LIBFT_DIR)
-	make fclean -C $(FT_PRINTF_DIR)
-	make fclean -C $(GET_NEXT_LINE_DIR)
-	$(RM) $(NAME)
+ifeq ($(UNAME), Linux)
+clean:
+			@ ${RM} *.o */*.o */*/*.o
+			@ rm -rf $(NAME).dSYM >/dev/null 2>&1
+			@ echo "$(RED)Deleting $(CYAN)$(NAME) $(CLR_RMV)objs ✔️"
+endif
 
-re: fclean all
 
-.PHONY: all clean fclean re
+ifeq ($(UNAME), Linux)
+fclean:		clean
+			@ ${RM} ${NAME}
+			@ $(MAKE) -C mlx_linux clean 
+			@ echo "$(RED)Deleting $(CYAN)$(NAME) $(CLR_RMV)binary ✔️"
+endif
+
+ifeq ($(UNAME), Darwin)
+fclean:		clean
+			@ ${RM} ${NAME}
+			@ rm libmlx.a
+			@ echo "$(RED)Deleting $(CYAN)$(NAME) $(CLR_RMV)binary ✔️"
+endif
+
+re:			fclean all
+
+.PHONY:		all clean fclean re
+
+

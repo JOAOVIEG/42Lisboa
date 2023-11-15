@@ -6,7 +6,7 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 11:45:37 by joaocard          #+#    #+#             */
-/*   Updated: 2023/11/13 22:09:50 by joaocard         ###   ########.fr       */
+/*   Updated: 2023/11/14 16:32:51 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,14 +18,22 @@
 # include <fcntl.h>
 # include <unistd.h>
 # include <stdio.h>
-# include "../libs/minilibx-linux/mlx.h"
 # include <X11/X.h>
 # include <X11/keysym.h>
 # include "../libs/libft/libft.h"
+# include "../mlx_linux/mlx.h"
 # include "../libs/get_next_line/get_next_line.h"
 # include <limits.h>
 # include "../libs/ft_printf/ft_printf.h"
 # include <stdlib.h>
+
+# define ESC 	65307
+# define W 		119
+# define A 		97
+# define S 		115
+# define D 		100
+# define Q 		113
+# define CROSS 	33
 
 typedef struct s_pos
 {
@@ -60,11 +68,11 @@ typedef struct s_win
 {
 	char	**file_map;
 	char	**map_copy;
-	//void	*mlx_ptr;
-	//void	*win_ptr;
+	void	*mlx;
+	void	*mlx_win;
 	//int		n_moves;
 	t_map	map;
-	//t_img	*img;
+	t_img	*img;
 }			t_win;
 
 void		so_long(char *file);
@@ -97,4 +105,9 @@ int			mark_if_visited(t_win game, t_pos target);
 void		char_msg(int check_nbr_chrs, t_win *game);
 void		free_collectibles(t_pos_list *collectibles);
 void		free_map_copy(t_win *game, int height);
+void		game_init(t_win *game);
+int			close_window(t_win *game);
+//void		so_long_init(t_win *game);
+void		events_handler(t_win * game);
+int			key_press(int keycode, t_win *game);
 #endif
