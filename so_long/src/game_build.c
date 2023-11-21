@@ -6,7 +6,7 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/10 13:37:02 by joaocard          #+#    #+#             */
-/*   Updated: 2023/11/14 16:18:43 by joaocard         ###   ########.fr       */
+/*   Updated: 2023/11/21 14:29:43 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ void	game_build(char *file, t_win *game)
 	read_map(fd, game);
 	map_checks(game);
 	game_init(game);
+	draw_game(game);
 }
 
 int	check_file_ext(char *file)

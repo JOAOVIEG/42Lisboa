@@ -6,7 +6,7 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 11:49:47 by joaocard          #+#    #+#             */
-/*   Updated: 2023/11/14 16:32:16 by joaocard         ###   ########.fr       */
+/*   Updated: 2023/11/21 15:23:42 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,16 @@ void	game_init(t_win *game)
 			game->map.height * 100);
 	game->mlx_win = mlx_new_window(game->mlx, game->map.width * 100, \
 			game->map.height * 100, "so_long");
+	load_images(game);
 	events_handler(game);
 	mlx_loop(game->mlx);
+}
+
+void	game_loop(t_win *game)
+{
+	while(1)
+		draw_game(game);
+	//to Handle events, update game state, etc.
 }
 
 void	events_handler(t_win *game)
