@@ -6,7 +6,7 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 11:45:37 by joaocard          #+#    #+#             */
-/*   Updated: 2023/11/14 16:32:51 by joaocard         ###   ########.fr       */
+/*   Updated: 2023/11/22 13:18:16 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ typedef struct s_img
 	void	*wall;
 	void	*player;
 	void	*collectible;
+	void	*tile;
 	void	*exit;
 }			t_img;
 
@@ -110,4 +111,7 @@ int			close_window(t_win *game);
 //void		so_long_init(t_win *game);
 void		events_handler(t_win * game);
 int			key_press(int keycode, t_win *game);
+void		load_images(t_win *game);
+void		game_loop(t_win *game);
+void		draw_game(t_win *game);
 #endif
