@@ -6,7 +6,7 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 11:45:37 by joaocard          #+#    #+#             */
-/*   Updated: 2023/11/22 13:18:16 by joaocard         ###   ########.fr       */
+/*   Updated: 2023/11/23 17:38:29 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,6 +112,7 @@ int			close_window(t_win *game);
 void		events_handler(t_win * game);
 int			key_press(int keycode, t_win *game);
 void		load_images(t_win *game);
-void		game_loop(t_win *game);
 void		draw_game(t_win *game);
+void		movement(int keycode, t_win *game);
+void		player_visit(t_win *game, t_pos start, t_pos target);
 #endif
