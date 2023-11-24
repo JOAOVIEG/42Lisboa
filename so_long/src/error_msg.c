@@ -6,7 +6,7 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/03 15:24:05 by joaocard          #+#    #+#             */
-/*   Updated: 2023/11/13 19:19:33 by joaocard         ###   ########.fr       */
+/*   Updated: 2023/11/24 16:17:14 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,16 +34,29 @@ void	shut_game_down(t_win *game)
 	i = 0;
 	game->map.height = 0;
 	game->map.width = 0;
-	shut_game(game);
+	if (game->img)
+		shut_game(game);
+	if (game->mlx_win)
+		mlx_destroy_window(game->mlx, game->mlx_win);
+	if (game->mlx)
+		free(game->mlx);
+	free(game);
 }
 
 void	shut_game(t_win *game)
 {
-	/*free(game->img->wall);
-	free(game->img->player);
-	free(game->img->collectible);
-	free(game->img->exit);
-	free(game->img);*/
-	free(game);
-	exit(EXIT_SUCCESS);
+	if (game->img)
+	{
+		if (game->img->collectible)
+			mlx_destroy_image(game->mlx, game->img->collectible);
+		if (game->img->wall)
+			mlx_destroy_image(game->mlx, game->img->wall);
+		if (game->img->player)
+			mlx_destroy_image(game->mlx, game->img->player);
+		if (game->img->tile)
+			mlx_destroy_image(game->mlx, game->img->tile);
+		if (game->img->exit)
+			mlx_destroy_image(game->mlx, game->img->exit);
+		free(game->img);	
+	}
 }

@@ -6,7 +6,7 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 10:02:08 by joaocard          #+#    #+#             */
-/*   Updated: 2023/11/13 12:24:14 by joaocard         ###   ########.fr       */
+/*   Updated: 2023/11/24 11:07:19 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ int	count_collectibles(char **map, int height, int width)
 		j = 0;
 		while (j < width)
 		{
-			if (map[i][j] == 'E')
+			if (map[i][j] == 'C')
 				collectible++;
 			j++;
 		}

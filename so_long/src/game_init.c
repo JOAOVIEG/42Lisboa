@@ -6,7 +6,7 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 11:49:47 by joaocard          #+#    #+#             */
-/*   Updated: 2023/11/23 17:56:29 by joaocard         ###   ########.fr       */
+/*   Updated: 2023/11/24 16:57:28 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ void	load_images(t_win *game)
 	{
 		game_error_msg("Error\nLoading images\n", game);
 	}
-	game->img->exit = mlx_xpm_file_to_image(game->mlx, "assets/exit.xpm", &img_width, &img_height);
+	game->img->exit = mlx_xpm_file_to_image(game->mlx, "assets/closed_home.xpm", &img_width, &img_height);
 	if(game->img->exit == NULL)
 	{
 		game_error_msg("Error\nLoading images\n", game);
@@ -112,59 +112,101 @@ void	events_handler(t_win *game)
 
 int	key_press(int keycode, t_win *game)
 {
+	char *moves;
+	
 	if (keycode == ESC || keycode == Q)
 		close_window(game);
-	// if (keycode == W)
-	// {
-	// 	player_visit(game, (t_pos){game->map.player.x, game->map.player.y}, 
-	// 		(t_pos){game->map.player.x, game->map.player.y - 1});
-	// }
-	// if (keycode == A)
-	// {
-	// 	player_visit(game, (t_pos){game->map.player.x, game->map.player.y}, 
-	// 		(t_pos){game->map.player.x - 1, game->map.player.y});
-	// }
-	// if (keycode == S)
-	// {
-	// 	player_visit(game, (t_pos){game->map.player.x, game->map.player.y}, 
-	// 		(t_pos){game->map.player.x, game->map.player.y + 1});
-	// }
-	// if (keycode == D)
-	// {
-	// 	player_visit(game, (t_pos){game->map.player.x, game->map.player.y}, 
-	// 		(t_pos){game->map.player.x + 1, game->map.player.y});
-	// }
+	else
+	{
+		movement(game, keycode);
+		moves = ft_itoa(game->moves);
+		mlx_string_put(game->mlx, game->mlx_win, 10, 10, 0x000000, "Moves: ");
+		mlx_string_put(game->mlx, game->mlx_win, 60, 10, 0x000000, moves);
+		ft_printf("Moves: %d\n", game->moves);
+		free(moves);
+	}
 	return (0);
 }
 
-
-/*void player_visit(t_win *game, t_pos start, t_pos target)
+void	movement(t_win *game, int keycode)
 {
+	t_pos player;
+
+	player = get_player_pos(game->file_map , game->map.height, game->map.width);
+	if (keycode == W)
+	{
+		player_visit(game, (t_pos){player.x, player.y}, \
+			(t_pos){player.x, player.y - 1});
+		update_game(game);
+	}
+	if (keycode == A)
+	{
+		int img_width;
+		int img_height;
+		
+		game->img->player = mlx_xpm_file_to_image(game->mlx, \
+			"assets/player_left.xpm", &img_width, &img_height);
+		player_visit(game, (t_pos){player.x, player.y}, \
+			(t_pos){player.x - 1, player.y});
+		update_game(game);
+	}
+	if (keycode == S)
+	{
+		player_visit(game, (t_pos){player.x, player.y}, \
+			(t_pos){player.x, player.y + 1});
+		update_game(game);
+	}
+	if (keycode == D)
+	{
+		int img_width;
+		int img_height;
+		
+		game->img->player = mlx_xpm_file_to_image(game->mlx, \
+			"assets/player_right.xpm", &img_width, &img_height);
+		player_visit(game, (t_pos){player.x, player.y}, \
+			(t_pos){player.x + 1, player.y});
+		update_game(game);
+	}
+}
+
+void player_visit(t_win *game, t_pos start, t_pos target)
+{
+	int img_width;
+	int img_height;
+	
 	if (game->file_map[target.y][target.x] != '1')
 	{
 		if (game->file_map[target.y][target.x] == '0' || game->file_map[target.y][target.x] == 'C')
     	{
         	game->file_map[start.y][start.x] = '0';
 			game->file_map[target.y][target.x] = 'P';
-			game->map.player.x = target.x;
-			game->map.player.y = target.y;
+			start.x = target.x;
+			start.y = target.y;
+			if (count_collectibles(game->file_map, game->map.height, game->map.width) == 0)
+			{
+				game->img->exit = mlx_xpm_file_to_image(game->mlx, "assets/open_home.xpm", &img_width, &img_height);
+			}
+			game->moves++;
     	}
 		if (game->file_map[target.y][target.x] == 'E')
 		{
-			game->file_map[start.y][start.x] = '0';
-			game->file_map[target.y][target.x] = 'E';
-			game->map.player.x = target.x;
-			game->map.player.y = target.y;
-			if (check_if_visited(*game, game->map.exit, game->map.collectibles) == 2)
+			if (count_collectibles(game->file_map, game->map.height, game->map.width) == 0)
 			{
-				shut_game(game);
-			}
+				game->file_map[start.y][start.x] = '0';
+				game->file_map[target.y][target.x] = 'E';
+				start.x = target.x;
+				start.y = target.y;
+				game->moves++;
+				shut_game_down(game);
+			}	
 		}
 	}
-
-
+}
+void	update_game(t_win *game)
+{
+	mlx_clear_window(game->mlx, game->mlx_win);
 	draw_game(game);
-}*/
+}
 
 int	close_window(t_win *game)
 {

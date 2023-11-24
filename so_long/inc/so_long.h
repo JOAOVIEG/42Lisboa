@@ -6,7 +6,7 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 11:45:37 by joaocard          #+#    #+#             */
-/*   Updated: 2023/11/23 17:38:29 by joaocard         ###   ########.fr       */
+/*   Updated: 2023/11/24 16:46:16 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ typedef struct s_win
 	char	**map_copy;
 	void	*mlx;
 	void	*mlx_win;
-	//int		n_moves;
+	int		moves;
 	t_map	map;
 	t_img	*img;
 }			t_win;
@@ -94,6 +94,7 @@ int			is_valid_chars(char **map, int height, int width);
 int			check_duplicate_char(char **map, int height, int width);
 int			count_exit(char **map, int height, int width);
 int			count_player(char **map, int height, int width);
+int			count_collectibles(char **map, int height, int width);
 int			check_nbr_chrs(char **map, int height, int width);
 int			check_path_to_exit(t_win *game, int height, int width);
 char		**copy_map(t_win *game);
@@ -108,11 +109,12 @@ void		free_collectibles(t_pos_list *collectibles);
 void		free_map_copy(t_win *game, int height);
 void		game_init(t_win *game);
 int			close_window(t_win *game);
-//void		so_long_init(t_win *game);
+void		start(t_win *game);
 void		events_handler(t_win * game);
 int			key_press(int keycode, t_win *game);
 void		load_images(t_win *game);
 void		draw_game(t_win *game);
-void		movement(int keycode, t_win *game);
+void		movement(t_win *game, int keycode);
 void		player_visit(t_win *game, t_pos start, t_pos target);
+void		update_game(t_win *game);
 #endif
