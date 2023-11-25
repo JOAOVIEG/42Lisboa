@@ -6,7 +6,7 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 11:45:37 by joaocard          #+#    #+#             */
-/*   Updated: 2023/11/24 16:46:16 by joaocard         ###   ########.fr       */
+/*   Updated: 2023/11/25 22:23:02 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,7 @@ typedef struct s_win
 	void	*mlx;
 	void	*mlx_win;
 	int		moves;
+	int		end;
 	t_map	map;
 	t_img	*img;
 }			t_win;
@@ -79,7 +80,7 @@ typedef struct s_win
 void		so_long(char *file);
 void		game_error_msg(char *message, t_win *game);
 void		shut_game_down(t_win *game);
-void		shut_game(t_win *game);
+void		exit_game(t_win *game);
 void		game_build(char *file, t_win *game);
 int			check_file_ext(char *file);
 void		read_map(int fd, t_win *game);
@@ -116,5 +117,5 @@ void		load_images(t_win *game);
 void		draw_game(t_win *game);
 void		movement(t_win *game, int keycode);
 void		player_visit(t_win *game, t_pos start, t_pos target);
-void		update_game(t_win *game);
+void 		get_image(t_win *game, int x, int y);
 #endif

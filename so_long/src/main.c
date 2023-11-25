@@ -6,7 +6,7 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 11:45:27 by joaocard          #+#    #+#             */
-/*   Updated: 2023/11/24 16:22:11 by joaocard         ###   ########.fr       */
+/*   Updated: 2023/11/25 22:13:45 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,18 +19,17 @@ void	so_long(char *file)
 	if (check_file_ext(file) == 0 && (open(file, O_RDONLY)) != -1)
 	{
 		game = (t_win *)malloc(sizeof(t_win));
-		if (game ==NULL)
+		if (game == NULL)
 			game_error_msg("Error\nMalloc\n", NULL);
 		start(game);
 		game_build(file, game);
-		shut_game_down(game);
+	
 	}
 	else if ((open(file, O_RDONLY)) == -1)
 	{
 		game_error_msg("Error\nOpening file\n", NULL);
 		exit(EXIT_FAILURE);
 	}
-	exit(EXIT_SUCCESS);
 }
 
 int	main(int ac, char **av)

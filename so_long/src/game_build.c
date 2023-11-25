@@ -6,7 +6,7 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/10 13:37:02 by joaocard          #+#    #+#             */
-/*   Updated: 2023/11/24 16:23:53 by joaocard         ###   ########.fr       */
+/*   Updated: 2023/11/25 21:44:04 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,6 @@ void	start(t_win *game)
 	game->map.height = 0;
 	game->map.width = 0;
 	game->file_map = NULL;
-	game->img = NULL;
-	game->mlx = NULL;
-	game->mlx_win = NULL;
 	game->moves = 0;
 }
 
