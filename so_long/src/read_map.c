@@ -6,29 +6,23 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/12 11:15:12 by joaocard          #+#    #+#             */
-/*   Updated: 2023/11/13 22:28:55 by joaocard         ###   ########.fr       */
+/*   Updated: 2023/11/26 10:44:37 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/so_long.h"
 
-void	read_map(int fd, t_win *game)
+int	check_file_ext(char *file)
 {
-	char	*line;
+	char	*extension;
 
-	line = 0;
-	game->file_map = (char **)malloc(sizeof(char *) * 1);
-	if (!game->file_map)
-		game_error_msg("Error\nMalloc\n", game);
-	map_init(game, fd, line);
-}
-
-void	map_init(t_win *game, int fd, char *line)
-{
-	game->map.width = 0;
-	game->map.height = 0;
-	copy_lines(game, fd, line);
-	game->map.width = ft_strlen(game->file_map[0]);
+	extension = ft_strrchr(file, '.');
+	if (!extension || ft_strncmp(extension, ".ber", 5) != 0)
+	{
+		game_error_msg("Error\nWrong file extension\n", NULL);
+		exit(EXIT_FAILURE);
+	}
+	return (0);
 }
 
 void	copy_lines(t_win *game, int fd, char *line)

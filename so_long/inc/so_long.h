@@ -6,7 +6,7 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 11:45:37 by joaocard          #+#    #+#             */
-/*   Updated: 2023/11/25 22:23:02 by joaocard         ###   ########.fr       */
+/*   Updated: 2023/11/26 17:12:36 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ typedef struct s_win
 
 void		so_long(char *file);
 void		game_error_msg(char *message, t_win *game);
-void		shut_game_down(t_win *game);
+void		free_game(t_win *game);
 void		exit_game(t_win *game);
 void		game_build(char *file, t_win *game);
 int			check_file_ext(char *file);
@@ -108,14 +108,19 @@ int			mark_if_visited(t_win game, t_pos target);
 void		char_msg(int check_nbr_chrs, t_win *game);
 void		free_collectibles(t_pos_list *collectibles);
 void		free_map_copy(t_win *game, int height);
-void		game_init(t_win *game);
+void		game_loop(t_win *game);
 int			close_window(t_win *game);
 void		start(t_win *game);
-void		events_handler(t_win * game);
+void		events_handler(t_win *game);
 int			key_press(int keycode, t_win *game);
 void		load_images(t_win *game);
 void		draw_game(t_win *game);
 void		movement(t_win *game, int keycode);
 void		player_visit(t_win *game, t_pos start, t_pos target);
-void 		get_image(t_win *game, int x, int y);
+void		get_image(t_win *game, int x, int y);
+void		visit(t_win *game, t_pos start, t_pos target);
+void		open_house(t_win *game);
+void		visit_exit(t_win *game, t_pos start, t_pos target);
+void		get_left_player(t_win *game);
+void		get_right_player(t_win *game);
 #endif

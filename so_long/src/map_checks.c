@@ -6,29 +6,11 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/04 17:49:02 by joaocard          #+#    #+#             */
-/*   Updated: 2023/11/13 16:23:55 by joaocard         ###   ########.fr       */
+/*   Updated: 2023/11/26 10:43:48 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/so_long.h"
-
-void	map_checks(t_win *game)
-{
-	if (!is_rectangular(game->file_map, game->map.height, game->map.width))
-		game_error_msg("Error\nMap is not rectangular\n", game);
-	if (!is_closed(game->file_map, game->map.height, game->map.width))
-		game_error_msg("Error\nMap has invalid boundaries\n", game);
-	if (!is_valid_chars(game->file_map, game->map.height, game->map.width))
-		game_error_msg("Error\nMap has invalid characters\n", game);
-	if (check_nbr_chrs(game->file_map, game->map.height, game->map.width) != 0)
-		char_msg(check_nbr_chrs(game->file_map, game->map.height, \
-												game->map.width), game);
-	if (!check_duplicate_char(game->file_map, game->map.height, \
-														game->map.width))
-		game_error_msg("Error\nMap has duplicate characters\n", game);
-	if (check_path_to_exit(game, game->map.height, game->map.width))
-		game_error_msg("Error\nMap has no possible path\n", game);
-}
 
 int	is_rectangular(char **map, int height, int width)
 {

@@ -10,7 +10,9 @@ SRCS        :=      src/game_build.c \
                           src/checks_utilis1.c \
                           src/main.c \
                           src/error_msg.c \
-						  src/game_init.c \
+						  src/game_loop.c \
+                          src/game_loop1.c \
+                          src/game_loop2.c \
                           libs/get_next_line/get_next_line.c \
                           libs/get_next_line/get_next_line_utils.c \
                           libs/ft_printf/ft_printf.c \

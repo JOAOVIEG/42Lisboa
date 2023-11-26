@@ -6,7 +6,7 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 11:45:27 by joaocard          #+#    #+#             */
-/*   Updated: 2023/11/25 22:13:45 by joaocard         ###   ########.fr       */
+/*   Updated: 2023/11/26 16:45:03 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ void	so_long(char *file)
 			game_error_msg("Error\nMalloc\n", NULL);
 		start(game);
 		game_build(file, game);
-	
 	}
 	else if ((open(file, O_RDONLY)) == -1)
 	{
