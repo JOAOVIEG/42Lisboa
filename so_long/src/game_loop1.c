@@ -6,14 +6,14 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/26 11:14:18 by joaocard          #+#    #+#             */
-/*   Updated: 2023/11/26 17:10:34 by joaocard         ###   ########.fr       */
+/*   Updated: 2023/11/28 11:00:08 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/so_long.h"
 
 int	key_press(int keycode, t_win *game)
-{	
+{
 	if (keycode == ESC || keycode == Q)
 		close_window(game);
 	else
@@ -70,7 +70,7 @@ void	get_right_player(t_win *game)
 }
 
 void	player_visit(t_win *game, t_pos start, t_pos target)
-{	
+{
 	if (game->file_map[target.y][target.x] != '1')
 	{
 		if (game->file_map[target.y][target.x] == '0' \

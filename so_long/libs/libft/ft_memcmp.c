@@ -6,12 +6,12 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/05 21:06:34 by joaocard          #+#    #+#             */
-/*   Updated: 2023/05/02 00:31:35 by joaocard         ###   ########.fr       */
+/*   Updated: 2023/11/28 10:43:14 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#include<string.h>
+#include <string.h>
 
 int	ft_memcmp(const void *sn1, const void *sn2, size_t nb)
 {

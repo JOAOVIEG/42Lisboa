@@ -6,7 +6,7 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/10 22:08:31 by joaocard          #+#    #+#             */
-/*   Updated: 2023/05/02 00:31:51 by joaocard         ###   ########.fr       */
+/*   Updated: 2023/11/28 10:43:06 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ char	*ft_strdup(const char *string)
 	{
 		*(ptr + i) = *(char *)(string + i);
 		i++;
-	}	
+	}
 	return (ptr);
 }
 

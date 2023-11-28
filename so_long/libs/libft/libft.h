@@ -6,16 +6,16 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/08 21:59:33 by joaocard          #+#    #+#             */
-/*   Updated: 2023/11/04 16:01:22 by joaocard         ###   ########.fr       */
+/*   Updated: 2023/11/28 10:44:01 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LIBFT_H
 # define LIBFT_H
 # include <stdio.h>
-# include<stdlib.h>
-# include<unistd.h>
-# include<limits.h>
+# include <stdlib.h>
+# include <unistd.h>
+# include <limits.h>
 
 typedef struct s_list
 {

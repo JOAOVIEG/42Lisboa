@@ -6,7 +6,7 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 11:49:47 by joaocard          #+#    #+#             */
-/*   Updated: 2023/11/26 16:44:04 by joaocard         ###   ########.fr       */
+/*   Updated: 2023/11/28 10:59:12 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ void	get_image(t_win *game, int x, int y)
 				game->img->collectible, x * 64, y * 64);
 	}
 	if (game->file_map[y][x] == 'P')
-	{		
+	{
 		mlx_put_image_to_window(game->mlx, game->mlx_win, \
 				game->img->player, x * 64, y * 64);
 	}
