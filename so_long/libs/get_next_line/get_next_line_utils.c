@@ -6,7 +6,7 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 23:22:02 by joaocard          #+#    #+#             */
-/*   Updated: 2023/05/31 15:15:12 by joaocard         ###   ########.fr       */
+/*   Updated: 2023/11/28 11:29:58 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ char	*buffer_to_line_process(char *line, char *buffer)
 		return (NULL);
 	while (line && line[i])
 	{
-	new_line[i] = line[i];
+		new_line[i] = line[i];
 		i++;
 	}
 	while (buffer[++j])
