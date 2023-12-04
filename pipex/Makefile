@@ -18,7 +18,7 @@ OBJ = $patsubst $(SRC_DIR)/%.c, $(OBJ_DIR)/%.o, $(SRC)
 
 CC = cc
 
-HEADER = -I includes -I $(LIB_DIR) -I $(FT_PRINTF_DIR)
+HEADER = -I inc -I $(LIB_DIR) -I $(FT_PRINTF_DIR)
 
 CFLAGS = -Wall -Wextra -Werror -g
 
