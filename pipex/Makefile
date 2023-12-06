@@ -2,57 +2,49 @@ NAME = pipex
 
 SRC_DIR = src
 
-OBJ_DIR = obj
+LIB_DIR = inc
 
-LIB_DIR = libft
+FT_PRINTF_DIR = $(LIB_DIR)/ft_printf
 
-FT_PRINTF_DIR = ft_printf
-
-LIBFT = $(LIB_DIR)/libft.a
+LIBFT = $(LIB_DIR)/libft/libft.a
 
 FT_PRINTF = $(FT_PRINTF_DIR)/libftprintf.a
 
-# SRC = $(SRC_DIR)/
+SRCS = $(SRC_DIR)/main.c \
+			$(SRC_DIR)/file_handler.c \
+			$(SRC_DIR)/pipex.c \
+			$(SRC_DIR)/command_handle.c \
 
-OBJ = $patsubst $(SRC_DIR)/%.c, $(OBJ_DIR)/%.o, $(SRC)
-
-CC = cc
-
-HEADER = -I inc -I $(LIB_DIR) -I $(FT_PRINTF_DIR)
+OBJS := $(SRCS:.c=.o)
 
 CFLAGS = -Wall -Wextra -Werror -g
 
-LF_FLAGS = -L $(LIB_DIR) -lft
-
-FT_PRINTF_FLAGS = -L $(FT_PRINTF_DIR) -lftprintf
-
-RM = /BIN/rm -rf
-
 all: $(NAME)
+		@echo "$(GREEN)$(NAME) is ready!$(DEFAULT)"
 
-$(NAME): $(OBJ) $(LIBFT) $(FT_PRINTF)
-	@$(CC) $(CFLAGS) $(HEADER) $(OBJ) $(LF_FLAGS) $(FT_PRINTF_FLAGS) -o $(NAME)
-
-$(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
-	@mkdir -p $(OBJ_DIR)
-	@$(CC) $(CFLAGS) $(HEADER) -c $< -o $@
-
-$(LIBFT):
-	@make -C $(LIB_DIR)
-
-$(FT_PRINTF):
-	@make -C $(FT_PRINTF_DIR)
+$(NAME): $(OBJS)
+		@echo "$(YELLOW)Compiling libraries...$(DEFAULT)"
+		@make -C $(LIB_DIR)/libft
+		@make -C $(FT_PRINTF_DIR)
+		@echo "$(YELLOW)Compiling $(NAME)...$(DEFAULT)"
+		@cc $(CFLAGS) $(OBJS) $(LIBFT) $(FT_PRINTF) -o $(NAME)
 
 clean:
-	@make clean -C $(LIB_DIR)
-	@make clean -C $(FT_PRINTF_DIR)
-	@$(RM) $(OBJ_DIR)
+		@echo "$(ORANGE)Cleaning object files...$(DEFAULT)"
+		@make clean -C $(LIB_DIR)/libft
+		@make clean -C $(FT_PRINTF_DIR)
+		@rm -f $(OBJS)
+		@rm -f $(LIBFT)
+		@rm -f $(FT_PRINTF)
 
 fclean: clean
-	@make fclean -C $(LIB_DIR)
-	@make fclean -C $(FT_PRINTF_DIR)
-	@$(RM) $(NAME)
-
+		@rm -f $(NAME)
+		@echo "$(RED)Cleaning $(NAME)...$(DEFAULT)"
 re: fclean all
-
 .PHONY: all clean fclean re
+
+GREEN = \033[0;32m
+RED = \033[0;31m
+ORANGE = \033[0;33m
+DEFAULT = \033[0m
+YELLOW = \033[1;33m

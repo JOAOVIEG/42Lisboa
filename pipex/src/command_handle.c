@@ -1,29 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   command_handle.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/04 13:32:18 by joaocard          #+#    #+#             */
-/*   Updated: 2023/12/06 23:13:09 by joaocard         ###   ########.fr       */
+/*   Created: 2023/12/05 17:15:57 by joaocard          #+#    #+#             */
+/*   Updated: 2023/12/06 21:48:20 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/pipex.h"
 
-int	main(int ac, char **av, char **envp)
+char	*get_path(char **envp)
 {
-	t_pipe	*pipe;
+	while (ft_strncmp("PATH", *envp, 4))
+		envp++;
+	return (*envp + 5);
+}
 
-	if (ac != 5)
+char	*get_cmd(char **cmd_paths, char *cmd)
+{
+	int		i;
+	char	*tmp;
+
+	i = 0;
+	while (cmd_paths[i])
 	{
-		ft_printf("Error: wrong number of arguments\n");
-		exit(EXIT_FAILURE);
+		tmp = ft_strjoin(cmd_paths[i], "/");
+		tmp = ft_strjoin(tmp, cmd);
+		if (access(tmp, F_OK) == 0)
+			return (tmp);
+		free(tmp);
+		i++;
 	}
-	ft_init_pipe(&pipe);
-	main_init(ac, av, pipe);
-	pipex(av, pipe, envp);
-	free_pipex(pipe);
-	return (0);
+	ft_printf("Error: command not found\n");
+	exit(EXIT_FAILURE);
 }
