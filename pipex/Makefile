@@ -17,30 +17,38 @@ SRCS = $(SRC_DIR)/main.c \
 
 OBJS := $(SRCS:.c=.o)
 
+HEAD = -I./inc
 CFLAGS = -Wall -Wextra -Werror -g
 
 all: $(NAME)
-		@echo "$(GREEN)$(NAME) is ready!$(DEFAULT)"
 
-$(NAME): $(OBJS)
-		@echo "$(YELLOW)Compiling libraries...$(DEFAULT)"
-		@make -C $(LIB_DIR)/libft
-		@make -C $(FT_PRINTF_DIR)
-		@echo "$(YELLOW)Compiling $(NAME)...$(DEFAULT)"
-		@cc $(CFLAGS) $(OBJS) $(LIBFT) $(FT_PRINTF) -o $(NAME)
+$(NAME): $(OBJS) $(LIBFT) $(FT_PRINTF)
+	@echo "$(YELLOW)Compiling $(NAME)...$(DEFAULT)"
+	@cc $(CFLAGS) $(OBJS) $(LIBFT) $(FT_PRINTF) -o $(NAME)
 
+$(LIBFT):
+	@echo "$(YELLOW)Compiling $(LIBFT)...$(DEFAULT)"
+	@make -C $(LIB_DIR)/libft
+
+$(FT_PRINTF):
+	@echo "$(YELLOW)Compiling $(FT_PRINTF)...$(DEFAULT)"
+	@make -C $(FT_PRINTF_DIR)
+
+val: $(NAME)
+		@echo "$(GREEN)Running valgrind...$(DEFAULT)"
+		@valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes ./$(NAME) Makefile "l -l" "wc -l" outfile.txt
 clean:
 		@echo "$(ORANGE)Cleaning object files...$(DEFAULT)"
 		@make clean -C $(LIB_DIR)/libft
 		@make clean -C $(FT_PRINTF_DIR)
 		@rm -f $(OBJS)
-		@rm -f $(LIBFT)
-		@rm -f $(FT_PRINTF)
 
 fclean: clean
 		@rm -f $(NAME)
 		@echo "$(RED)Cleaning $(NAME)...$(DEFAULT)"
+
 re: fclean all
+
 .PHONY: all clean fclean re
 
 GREEN = \033[0;32m

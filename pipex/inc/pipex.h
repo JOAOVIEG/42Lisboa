@@ -6,7 +6,7 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/04 11:06:46 by joaocard          #+#    #+#             */
-/*   Updated: 2023/12/06 23:15:20 by joaocard         ###   ########.fr       */
+/*   Updated: 2023/12/07 16:35:01 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,9 @@ typedef struct s_pipe
 {
 	char	*paths;
 	char	**cmd_paths;
-	char	**cmd_args;
-	char	*cmd;
+	char	**cmd1;
+	char	**cmd2;
+	char	*valid_path;
 	int		infile;
 	int		outfile;
 	int		end[2];
@@ -40,15 +41,19 @@ typedef struct s_pipe
 	pid_t	pid2;
 }	t_pipe;
 
-void	ft_init_pipe(t_pipe **pipe);
+void	ft_init_pipe(t_pipe **pipe, char **av);
 void	free_pipex(t_pipe *pipe);
+void	free_cmd1(t_pipe *pipe);
+void	free_cmd2(t_pipe *pipe);
 void	main_init(int ac, char **av, t_pipe *pipe);
-void	check_files(int infile, int outfile);
-void	pipex(char **av, t_pipe *content, char **envp);
-void	child_process(char **av, t_pipe *content, char **envp);
-void	child_process2(char **av, t_pipe *content, char **envp);
+void	check_files(int infile, int outfile, t_pipe *pipe);
+void	pipex(t_pipe *content, char **envp);
+void	child_process(t_pipe *content, char **envp);
+void	child_process2(t_pipe *content, char **envp);
 void	wait_and_close_childs(t_pipe *content);
 void	main_close(t_pipe *content);
 char	*get_path(char **envp);
-char	*get_cmd(char **cmd_paths, char *cmd);
+char	*get_cmd(char	**cmd_paths, char *cmd);
+void	check_path(t_pipe *pipe, char **envp);
+char	*validate_cmds(char **cmd_paths, char *cmd);
 #endif
