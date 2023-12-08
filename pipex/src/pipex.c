@@ -6,7 +6,7 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/06 20:11:42 by joaocard          #+#    #+#             */
-/*   Updated: 2023/12/08 11:51:06 by joaocard         ###   ########.fr       */
+/*   Updated: 2023/12/08 12:21:53 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ void	child_process(t_pipe *content, char **envp)
 			perror("Error: execve failed");
 			main_close(content);
 			free_pipex(content);
-			exit(EXIT_FAILURE);	
+			exit(EXIT_FAILURE);
 		}
 	}
 	else

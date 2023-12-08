@@ -34,9 +34,9 @@ $(FT_PRINTF):
 	@echo "$(YELLOW)Compiling $(FT_PRINTF)...$(DEFAULT)"
 	@make -C $(FT_PRINTF_DIR)
 
-val: $(NAME)
-		@echo "$(GREEN)Running valgrind...$(DEFAULT)"
-		@valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes ./$(NAME) assets/deepthought.txt cat not-executable outfile.txt
+# val: $(NAME)
+# 		@echo "$(GREEN)Running valgrind...$(DEFAULT)"
+# 		@valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes ./$(NAME) Makefile "ls -l" "wc -l" outfile.txt
 clean:
 		@echo "$(ORANGE)Cleaning object files...$(DEFAULT)"
 		@make clean -C $(LIB_DIR)/libft
