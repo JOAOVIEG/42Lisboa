@@ -6,7 +6,7 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/06 20:11:42 by joaocard          #+#    #+#             */
-/*   Updated: 2023/12/08 12:21:53 by joaocard         ###   ########.fr       */
+/*   Updated: 2023/12/08 17:36:10 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,9 @@ void	child_process(t_pipe *content, char **envp)
 	{
 		dup2(content->end[WRITE_END], STDOUT_FILENO);
 		close(content->end[READ_END]);
+		close(content->end[WRITE_END]);
 		dup2(content->infile, STDIN_FILENO);
+		close(content->infile);
 		if (execve(content->valid_path, content->cmd1, envp) < 0)
 		{
 			perror("Error: execve failed");
@@ -72,7 +74,9 @@ void	child_process2(t_pipe *content, char **envp)
 	{
 		dup2(content->end[READ_END], STDIN_FILENO);
 		close(content->end[WRITE_END]);
+		// close(content->end[READ_END]);
 		dup2(content->outfile, STDOUT_FILENO);
+		// close(content->outfile);
 		if (execve(content->valid_path, content->cmd2, envp) < 0)
 		{
 			perror("Error: execve failed");
@@ -102,6 +106,8 @@ void	wait_and_close_childs(t_pipe *content)
 
 void	main_close(t_pipe *content)
 {
+	// close(content->end[WRITE_END]);
+	// close(content->end[READ_END]);
 	close(content->infile);
 	close(content->outfile);
 }

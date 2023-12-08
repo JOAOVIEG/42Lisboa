@@ -36,7 +36,8 @@ $(FT_PRINTF):
 
 # val: $(NAME)
 # 		@echo "$(GREEN)Running valgrind...$(DEFAULT)"
-# 		@valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes ./$(NAME) Makefile "ls -l" "wc -l" outfile.txt
+# 		@valgrind --track-fds=yes ./pipex Makefile "ls -l" "wc -l" outfile.txt
+
 clean:
 		@echo "$(ORANGE)Cleaning object files...$(DEFAULT)"
 		@make clean -C $(LIB_DIR)/libft
