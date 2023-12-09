@@ -28,25 +28,25 @@ $(NAME): $(OBJS) $(LIBFT) $(FT_PRINTF)
 
 $(LIBFT):
 	@echo "$(YELLOW)Compiling $(LIBFT)...$(DEFAULT)"
-	@make -C $(LIB_DIR)/libft
+	@make -s -C $(LIB_DIR)/libft
 
 $(FT_PRINTF):
 	@echo "$(YELLOW)Compiling $(FT_PRINTF)...$(DEFAULT)"
-	@make -C $(FT_PRINTF_DIR)
+	@make -s -C $(FT_PRINTF_DIR)
 
-# val: $(NAME)
-# 		@echo "$(GREEN)Running valgrind...$(DEFAULT)"
-# 		@valgrind --track-fds=yes ./pipex Makefile "ls -l" "wc -l" outfile.txt
+val: $(NAME)
+	@echo "$(GREEN)Running valgrind...$(DEFAULT)"
+	@valgrind --track-fds=yes ./pipex sfw "ls -l" "wc -l" outfile.txt
 
 clean:
-		@echo "$(ORANGE)Cleaning object files...$(DEFAULT)"
-		@make clean -C $(LIB_DIR)/libft
-		@make clean -C $(FT_PRINTF_DIR)
-		@rm -f $(OBJS)
+	@echo "$(ORANGE)Cleaning object files...$(DEFAULT)"
+	@make clean -s -C $(LIB_DIR)/libft
+	@make clean -s -C $(FT_PRINTF_DIR)
+	@rm -f $(OBJS)
 
 fclean: clean
-		@rm -f $(NAME)
-		@echo "$(RED)Cleaning $(NAME)...$(DEFAULT)"
+	@rm -f $(NAME)
+	@echo "$(RED)Cleaning $(NAME)...$(DEFAULT)"
 
 re: fclean all
 

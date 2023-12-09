@@ -6,7 +6,7 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 17:15:57 by joaocard          #+#    #+#             */
-/*   Updated: 2023/12/07 16:40:03 by joaocard         ###   ########.fr       */
+/*   Updated: 2023/12/09 14:06:49 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,18 +26,14 @@ char	*get_cmd(char	**cmd_paths, char *cmd)
 		if (access(cmd, F_OK) == 0)
 			return (cmd);
 		else
-		{
-			ft_printf("Error:", strerror(errno));
-		}
+			perror("Error");
 	}
 	else 
 	{
 		if (cmd_paths)
-		{
 			return (validate_cmds(cmd_paths, cmd));
-		}
 		else
-			ft_printf("Error: %s\n", strerror(errno));
+			perror("Error");
 	}
 	return (NULL);
 }

@@ -6,7 +6,7 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/04 11:06:46 by joaocard          #+#    #+#             */
-/*   Updated: 2023/12/07 16:35:01 by joaocard         ###   ########.fr       */
+/*   Updated: 2023/12/09 14:20:03 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,4 +56,5 @@ char	*get_path(char **envp);
 char	*get_cmd(char	**cmd_paths, char *cmd);
 void	check_path(t_pipe *pipe, char **envp);
 char	*validate_cmds(char **cmd_paths, char *cmd);
+void	dup_error(t_pipe *pipe);
 #endif
