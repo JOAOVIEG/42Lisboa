@@ -6,7 +6,7 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 17:12:43 by joaocard          #+#    #+#             */
-/*   Updated: 2023/12/09 14:00:50 by joaocard         ###   ########.fr       */
+/*   Updated: 2023/12/10 16:54:32 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,9 +42,6 @@ void	main_init(int ac, char **av, t_pipe *pipe)
 	{
 		perror("Error ");
 		free_pipex(pipe);
-		close(0);
-		close(1);
-		close(2);
 		exit(EXIT_FAILURE);
 	}
 	else

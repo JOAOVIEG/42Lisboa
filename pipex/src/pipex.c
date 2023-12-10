@@ -6,7 +6,7 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/06 20:11:42 by joaocard          #+#    #+#             */
-/*   Updated: 2023/12/09 14:17:36 by joaocard         ###   ########.fr       */
+/*   Updated: 2023/12/10 16:53:43 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,7 +112,4 @@ void	main_close(t_pipe *content)
 	close(content->end[READ_END]);
 	close(content->infile);
 	close(content->outfile);
-	close(0);
-	close(1);
-	close(2);
 }

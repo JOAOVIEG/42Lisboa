@@ -36,7 +36,7 @@ $(FT_PRINTF):
 
 val: $(NAME)
 	@echo "$(GREEN)Running valgrind...$(DEFAULT)"
-	@valgrind --track-fds=yes ./pipex sfw "ls -l" "wc -l" outfile.txt
+	@valgrind --track-fds=yes ./pipex Makefile "ls -l" "sleep 5" outfile.txt
 
 clean:
 	@echo "$(ORANGE)Cleaning object files...$(DEFAULT)"
