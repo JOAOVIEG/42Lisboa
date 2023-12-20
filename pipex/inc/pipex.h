@@ -6,7 +6,7 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/04 11:06:46 by joaocard          #+#    #+#             */
-/*   Updated: 2023/12/09 14:20:03 by joaocard         ###   ########.fr       */
+/*   Updated: 2023/12/20 20:21:05 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ void	child_process(t_pipe *content, char **envp);
 void	child_process2(t_pipe *content, char **envp);
 void	wait_and_close_childs(t_pipe *content);
 void	main_close(t_pipe *content);
-char	*get_path(char **envp);
+char	*get_path(char **envp, t_pipe *pipe);
 char	*get_cmd(char	**cmd_paths, char *cmd);
 void	check_path(t_pipe *pipe, char **envp);
 char	*validate_cmds(char **cmd_paths, char *cmd);

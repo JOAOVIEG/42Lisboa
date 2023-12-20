@@ -6,17 +6,25 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 17:15:57 by joaocard          #+#    #+#             */
-/*   Updated: 2023/12/10 10:55:09 by joaocard         ###   ########.fr       */
+/*   Updated: 2023/12/20 20:23:23 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/pipex.h"
 
-char	*get_path(char **envp)
+char	*get_path(char **envp, t_pipe *pipe)
 {
-	while (ft_strncmp("PATH", *envp, 4))
+	while (*envp && ft_strncmp("PATH", *envp, 4))
 		envp++;
-	return (*envp + 5);
+	if (*envp)
+		return (*envp + 5);
+	else
+	{
+		perror("ERROR envp");
+		free_pipex(pipe);
+		exit(EXIT_FAILURE);	
+	}
+	// return (0);
 }
 
 char	*get_cmd(char	**cmd_paths, char *cmd)
@@ -60,7 +68,7 @@ char	*validate_cmds(char **cmd_paths, char *cmd)
 
 void	check_path(t_pipe *pipe, char **envp)
 {
-	pipe->paths = get_path(envp);
+	pipe->paths = get_path(envp, pipe);
 	if (pipe->paths)
 		pipe->cmd_paths = ft_split(pipe->paths, ':');
 }
