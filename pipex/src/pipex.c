@@ -6,7 +6,7 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/06 20:11:42 by joaocard          #+#    #+#             */
-/*   Updated: 2023/12/10 16:53:43 by joaocard         ###   ########.fr       */
+/*   Updated: 2023/12/21 17:14:45 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,8 @@ void	pipex(t_pipe *content, char **envp)
 	}
 	else if (content->pid2 == 0)
 		child_process2(content, envp);
-	wait_and_close_childs(content);
-	main_close(content);
+	// wait_and_close_childs(content);
+	// main_close(content);
 }
 
 void	child_process(t_pipe *content, char **envp)
@@ -48,6 +48,7 @@ void	child_process(t_pipe *content, char **envp)
 		if (dup2(content->end[WRITE_END], STDOUT_FILENO) < 0)
 			dup_error(content);
 		close(content->end[READ_END]);
+		close(content->end[WRITE_END]);
 		if (dup2(content->infile, STDIN_FILENO) < 0)
 			dup_error(content);
 		close(content->infile);
@@ -76,6 +77,7 @@ void	child_process2(t_pipe *content, char **envp)
 		if (dup2(content->end[READ_END], STDIN_FILENO) < 0)
 			dup_error(content);
 		close(content->end[WRITE_END]);
+		close(content->end[READ_END]);
 		if (dup2(content->outfile, STDOUT_FILENO) < 0)
 			dup_error(content);
 		close(content->outfile);

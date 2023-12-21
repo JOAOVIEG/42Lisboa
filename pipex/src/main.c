@@ -6,7 +6,7 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/04 13:32:18 by joaocard          #+#    #+#             */
-/*   Updated: 2023/12/09 14:17:40 by joaocard         ###   ########.fr       */
+/*   Updated: 2023/12/21 17:02:03 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ int	main(int ac, char **av, char **envp)
 	ft_init_pipe(&pipe, av);
 	main_init(ac, av, pipe);
 	pipex(pipe, envp);
+	wait_and_close_childs(pipe);
 	main_close(pipe);
 	free_pipex(pipe);
 	return (EXIT_SUCCESS);
