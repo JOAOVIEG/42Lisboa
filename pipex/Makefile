@@ -2,7 +2,11 @@ NAME = pipex
 
 SRC_DIR = src
 
+BONUS_SRC_DIR = pipex_bonus/src_bonus
+
 LIB_DIR = inc
+
+BONUS_LIB_DIR = pipex_bonus/inc_bonus
 
 FT_PRINTF_DIR = $(LIB_DIR)/ft_printf
 
@@ -18,13 +22,26 @@ SRCS = $(SRC_DIR)/main.c \
 OBJS := $(SRCS:.c=.o)
 
 HEAD = -I./inc
+
+CFLAGS = -Wall -Wextra -Werror -g
+
+BONUS_SRCS = $(BONUS_SRC_DIR)/main_bonus.c \
+			$(BONUS_SRC_DIR)/file_handler_bonus.c \
+			$(BONUS_SRC_DIR)/pipex_bonus.c \
+			$(BONUS_SRC_DIR)/command_handle_bonus.c \
+
+BONUS_OBJS := $(BONUS_SRCS:.c=.o)
+
+BONUS_HEAD = -I./pipex_bonus/inc_bonus
+
 CFLAGS = -Wall -Wextra -Werror -g
 
 all: $(NAME)
 
 $(NAME): $(OBJS) $(LIBFT) $(FT_PRINTF)
 	@echo "$(YELLOW)Compiling $(NAME)...$(DEFAULT)"
-	@cc $(CFLAGS) $(OBJS) $(LIBFT) $(FT_PRINTF) -o $(NAME)
+	@cc $(CFLAGS) $(HEAD) $(OBJS) $(LIBFT) $(FT_PRINTF) -o $(NAME)
+
 
 $(LIBFT):
 	@echo "$(YELLOW)Compiling $(LIBFT)...$(DEFAULT)"
@@ -33,6 +50,11 @@ $(LIBFT):
 $(FT_PRINTF):
 	@echo "$(YELLOW)Compiling $(FT_PRINTF)...$(DEFAULT)"
 	@make -s -C $(FT_PRINTF_DIR)
+
+bonus: $(BONUS_OBJS) $(LIBFT)
+	@echo "$(YELLOW)Compiling bonus...$(DEFAULT)"
+	@cc $(CFLAGS) $(BONUS_HEAD) $(BONUS_OBJS) $(LIBFT) -o $(NAME)
+
 
 val: $(NAME)
 	@echo "$(GREEN)Running valgrind...$(DEFAULT)"
@@ -43,6 +65,7 @@ clean:
 	@make clean -s -C $(LIB_DIR)/libft
 	@make clean -s -C $(FT_PRINTF_DIR)
 	@rm -f $(OBJS)
+	@rm -f $(BONUS_OBJS)
 
 fclean: clean
 	@rm -f $(NAME)
