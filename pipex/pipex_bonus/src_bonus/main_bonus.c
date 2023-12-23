@@ -6,7 +6,7 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 20:14:17 by joaocard          #+#    #+#             */
-/*   Updated: 2023/12/22 17:28:58 by joaocard         ###   ########.fr       */
+/*   Updated: 2023/12/23 16:55:40 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int	main(int ac, char **av, char **envp)
 		}
 		ft_init_xpipe(&pipe, av, ac);
 		main_init(ac, av, pipe);
-		pipex(pipe, envp, ac);
+		pipex(pipe, envp);
 		while (i < pipe->pipe_index)
 		{
 			close(pipe->end[i][READ_END]);
@@ -47,6 +47,6 @@ int	main(int ac, char **av, char **envp)
 		{
 			waitpid(pipe->pids[i], NULL, 0);
 		}
-		//free_pipex()
+		free_pipex(pipe);
 	}
 }

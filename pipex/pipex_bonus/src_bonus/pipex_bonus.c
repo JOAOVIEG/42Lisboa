@@ -6,13 +6,13 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/22 11:20:13 by joaocard          #+#    #+#             */
-/*   Updated: 2023/12/22 17:28:12 by joaocard         ###   ########.fr       */
+/*   Updated: 2023/12/23 17:56:15 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc_bonus/pipex_bonus.h"
 
-void	pipex(t_pipe *content, char **envp, int ac)
+void	pipex(t_pipe *content, char **envp)
 {
 	int		fd_index;
 	int 	i;
@@ -21,16 +21,20 @@ void	pipex(t_pipe *content, char **envp, int ac)
 	fd_index = 0;
 	/*This block creates pipes for each*/
 	/*cmd*/
+	check_path(content, envp);
 	while (fd_index < content->pipe_index)
 	{
 		if (pipe(content->end[fd_index]) < 0)
 		{
 			perror("pipe ERROR ");
-			main_close(content);
+			while (i < content->pipe_index)
+			{
+				close(content->end[i][READ_END]);
+				close(content->end[i][WRITE_END]);
+			}
 			free_pipex(content);
 			exit(EXIT_FAILURE);
 		}
-		check_path(content, envp);
 		fd_index++;
 	}
 	fd_index = 0;
@@ -40,6 +44,11 @@ void	pipex(t_pipe *content, char **envp, int ac)
 		if (content->pids[fd_index] < 0)
 		{
 			perror("fork error at child ");
+			while (i < content->pipe_index)
+			{
+				close(content->end[i][READ_END]);
+				close(content->end[i][WRITE_END]);
+			}
 			exit(EXIT_FAILURE);
 		}
 		else if (fd_index == 0 && content->pids[fd_index] == 0)
@@ -47,6 +56,11 @@ void	pipex(t_pipe *content, char **envp, int ac)
 			if(child_1(content, envp, fd_index) < 0)
 			{
 				perror("ERROR at child 1 ");
+				while (i < content->pipe_index)
+				{
+					close(content->end[i][READ_END]);
+					close(content->end[i][WRITE_END]);
+				}
 				exit(EXIT_FAILURE);
 			}
 		}
@@ -55,6 +69,11 @@ void	pipex(t_pipe *content, char **envp, int ac)
 			if (child_n(content, envp, fd_index) < 0)
 			{
 				perror("ERROR at child n ");
+				while (i < content->pipe_index)
+				{
+					close(content->end[i][READ_END]);
+					close(content->end[i][WRITE_END]);
+				}
 				exit(EXIT_FAILURE);
 			}
 		}
@@ -63,6 +82,11 @@ void	pipex(t_pipe *content, char **envp, int ac)
 			if (middle_child(content, envp, fd_index) < 0)
 			{
 				perror("ERROR at child n ");
+				while (i < content->pipe_index)
+				{
+					close(content->end[i][READ_END]);
+					close(content->end[i][WRITE_END]);
+				}
 				exit(EXIT_FAILURE);
 			}
 		}
@@ -83,9 +107,27 @@ pid_t	child_1(t_pipe *content, char **envp, int fd_index)
 	if (content->valid_path)
 	{
 		if (dup2(content->end[fd_index][WRITE_END], STDOUT_FILENO) < 0)
-			dup_error(content);
+		{
+			perror("dup ERROR ");
+			while (i < content->pipe_index)
+			{
+				close(content->end[i][READ_END]);
+				close(content->end[i][WRITE_END]);
+			}
+			free_pipex(content);
+			exit(EXIT_FAILURE);
+		}
 		if (dup2(content->infile, STDIN_FILENO) < 0)
-			dup_error(content);
+		{			
+			perror("dup ERROR ");
+			while (i < content->pipe_index)
+			{
+				close(content->end[i][READ_END]);
+				close(content->end[i][WRITE_END]);
+			}
+			free_pipex(content);
+			exit(EXIT_FAILURE);
+		}
 		close(content->infile);
 		while (i < content->pipe_index)
 		{
@@ -94,10 +136,14 @@ pid_t	child_1(t_pipe *content, char **envp, int fd_index)
 			close(content->end[i][READ_END]);
 			i++;
 		}
-		if (execve(content->valid_path, content->cmd[fd_index], envp) < 0)
+		if (execve(content->valid_path, &content->cmd[fd_index], envp) < 0)
 		{
 			perror("Error: execve failed");
-			main_close(content);
+			while (i < content->pipe_index)
+			{
+				close(content->end[i][READ_END]);
+				close(content->end[i][WRITE_END]);
+			}
 			free_pipex(content);
 			exit(EXIT_FAILURE);
 		}
@@ -105,7 +151,11 @@ pid_t	child_1(t_pipe *content, char **envp, int fd_index)
 	else
 	{
 		perror("Error: command not found");
-		main_close(content);
+		while (i < content->pipe_index)
+		{
+			close(content->end[i][READ_END]);
+			close(content->end[i][WRITE_END]);
+		}
 		free_pipex(content);
 		exit(EXIT_FAILURE);
 	}
@@ -115,13 +165,31 @@ pid_t	middle_child(t_pipe *content, char **envp, int fd_index)
 {
 	int i;
 	i = 0;
-	content->valid_path = get_cmd(content->cmd_paths, *content->cmd[fd_index]);
+	content->valid_path = get_cmd(content->cmd_paths, content->cmd[fd_index]);
 	if (content->valid_path)
 	{
 		if (dup2(content->end[fd_index - 1][READ_END], STDIN_FILENO) < 0)
-			dup_error(content);
+		{			
+			perror("dup ERROR ");
+			while (i < content->pipe_index)
+			{
+				close(content->end[i][READ_END]);
+				close(content->end[i][WRITE_END]);
+			}
+			free_pipex(content);
+			exit(EXIT_FAILURE);
+		}
 		if (dup2(content->end[fd_index][WRITE_END], STDOUT_FILENO) < 0)
-			dup_error(content);
+		{			
+			perror("dup ERROR ");
+			while (i < content->pipe_index)
+			{
+				close(content->end[i][READ_END]);
+				close(content->end[i][WRITE_END]);
+			}
+			free_pipex(content);
+			exit(EXIT_FAILURE);
+		}
 		while (i < content->pipe_index)
 		{
 			if (i != fd_index - 1)
@@ -130,10 +198,14 @@ pid_t	middle_child(t_pipe *content, char **envp, int fd_index)
 				close(content->end[i][WRITE_END]);
 			i++;
 		}
-		if (execve(content->valid_path, content->cmd[fd_index], envp) < 0)
+		if (execve(content->valid_path, &content->cmd[fd_index], envp) < 0)
 		{
 			perror("Error: execve failed");
-			main_close(content);
+			while (i < content->pipe_index)
+			{
+				close(content->end[i][READ_END]);
+				close(content->end[i][WRITE_END]);
+			}
 			free_pipex(content);
 			exit(EXIT_FAILURE);
 		}
@@ -141,7 +213,11 @@ pid_t	middle_child(t_pipe *content, char **envp, int fd_index)
 	else
 	{
 		perror("Error: command not found");
-		main_close(content);
+		while (i < content->pipe_index)
+		{
+			close(content->end[i][READ_END]);
+			close(content->end[i][WRITE_END]);
+		}
 		free_pipex(content);
 		exit(EXIT_FAILURE);
 	}
@@ -153,13 +229,31 @@ pid_t	child_n(t_pipe *content, char **envp, int fd_index)
 	int i;
 
 	i = 0;
-	content->valid_path = get_cmd(content->cmd_paths, *content->cmd[fd_index]);
+	content->valid_path = get_cmd(content->cmd_paths, content->cmd[fd_index]);
 	if (content->valid_path)
 	{
 		if (dup2(content->end[(fd_index - 1)][READ_END], STDIN_FILENO) < 0)
-			dup_error(content);
+		{			
+			perror("dup ERROR ");
+			while (i < content->pipe_index)
+			{
+				close(content->end[i][READ_END]);
+				close(content->end[i][WRITE_END]);
+			}
+			free_pipex(content);
+			exit(EXIT_FAILURE);
+		}
 		if (dup2(content->outfile, STDOUT_FILENO) < 0)
-			dup_error(content);
+		{			
+			perror("dup ERROR ");
+			while (i < content->pipe_index)
+			{
+				close(content->end[i][READ_END]);
+				close(content->end[i][WRITE_END]);
+			}
+			free_pipex(content);
+			exit(EXIT_FAILURE);
+		}
 		close(content->outfile);
 		while (i < content->pipe_index)
 		{
@@ -167,10 +261,14 @@ pid_t	child_n(t_pipe *content, char **envp, int fd_index)
 				close(content->end[i][READ_END]);
 			close(content->end[i][WRITE_END]);
 		}
-		if (execve(content->valid_path, content->cmd[fd_index], envp) < 0)
+		if (execve(content->valid_path, &content->cmd[fd_index], envp) < 0)
 		{
 			perror("Error: execve failed");
-			main_close(content);
+			while (i < content->pipe_index)
+			{
+				close(content->end[i][READ_END]);
+				close(content->end[i][WRITE_END]);
+			}
 			free_pipex(content);
 			exit(EXIT_FAILURE);
 		}
@@ -178,7 +276,11 @@ pid_t	child_n(t_pipe *content, char **envp, int fd_index)
 	else
 	{
 		perror("Error: command not found");
-		main_close(content);
+		while (i < content->pipe_index)
+		{
+			close(content->end[i][READ_END]);
+			close(content->end[i][WRITE_END]);
+		}
 		free_pipex(content);
 		exit(EXIT_FAILURE);
 	}
