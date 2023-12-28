@@ -6,7 +6,7 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 20:14:17 by joaocard          #+#    #+#             */
-/*   Updated: 2023/12/23 16:55:40 by joaocard         ###   ########.fr       */
+/*   Updated: 2023/12/28 14:55:36 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,9 @@
 int	main(int ac, char **av, char **envp)
 {
 	t_pipe	*pipe;
-	int i;
+	// int i;
 
-	i = 0;
+	// i = 0;
 	if (ac < 5)
 	{
 		perror("Error: wrong number of arguments");
@@ -35,18 +35,6 @@ int	main(int ac, char **av, char **envp)
 			//handle heredoc	
 		}
 		ft_init_xpipe(&pipe, av, ac);
-		main_init(ac, av, pipe);
-		pipex(pipe, envp);
-		while (i < pipe->pipe_index)
-		{
-			close(pipe->end[i][READ_END]);
-			close(pipe->end[i][WRITE_END]);
-		}
-		i = 0;
-		while (i < pipe->pipe_index)
-		{
-			waitpid(pipe->pids[i], NULL, 0);
-		}
-		free_pipex(pipe);
+		pipex(pipe, envp, av, ac);
 	}
 }

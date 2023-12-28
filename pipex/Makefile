@@ -52,9 +52,10 @@ $(FT_PRINTF):
 	@make -s -C $(FT_PRINTF_DIR)
 
 bonus: $(BONUS_OBJS) $(LIBFT)
-	@echo "$(YELLOW)Compiling bonus...$(DEFAULT)"
-	@cc $(CFLAGS) $(BONUS_HEAD) $(BONUS_OBJS) $(LIBFT) -o $(NAME)
-
+	@if [ ! -f $(NAME) ]; then \
+        echo "$(YELLOW)Compiling bonus...$(DEFAULT)"; \
+        cc $(CFLAGS) $(BONUS_HEAD) $(BONUS_OBJS) $(LIBFT) -o $(NAME); \
+    fi
 
 val: $(NAME)
 	@echo "$(GREEN)Running valgrind...$(DEFAULT)"
@@ -71,9 +72,9 @@ fclean: clean
 	@rm -f $(NAME)
 	@echo "$(RED)Cleaning $(NAME)...$(DEFAULT)"
 
-re: fclean all
+re: fclean all bonus
 
-.PHONY: all clean fclean re
+.PHONY: all bonus clean fclean re 
 
 GREEN = \033[0;32m
 RED = \033[0;31m
