@@ -6,7 +6,7 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 20:14:17 by joaocard          #+#    #+#             */
-/*   Updated: 2023/12/28 14:55:36 by joaocard         ###   ########.fr       */
+/*   Updated: 2023/12/29 12:30:44 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,5 +36,6 @@ int	main(int ac, char **av, char **envp)
 		}
 		ft_init_xpipe(&pipe, av, ac);
 		pipex(pipe, envp, av, ac);
+		return (0);
 	}
 }

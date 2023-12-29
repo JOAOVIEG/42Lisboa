@@ -6,7 +6,7 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/22 11:20:13 by joaocard          #+#    #+#             */
-/*   Updated: 2023/12/28 18:44:01 by joaocard         ###   ########.fr       */
+/*   Updated: 2023/12/29 12:47:07 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,8 @@ void	pipex(t_pipe *content, char **envp, char **av, int ac)
             perror("pipe ERROR ");
             while (i < content->pipe_index)
             {
-                close(content->end[i][READ_END]);
                 close(content->end[i][WRITE_END]);
+                close(content->end[i][READ_END]);
                 i++;
             }
             free_pipex(content);
@@ -103,34 +103,34 @@ void	pipex(t_pipe *content, char **envp, char **av, int ac)
         else
         {
             // Parent process
-            if (fd_index != 0)
-            {
-				if (content->end[fd_index - 1][WRITE_END] != -1)
-					close(content->end[fd_index - 1][WRITE_END]);
-				content->end[fd_index - 1][WRITE_END] = -1;
-            }
-            if (fd_index == 0)
-            {
+			if (fd_index != 0)
+			{
+				if (content->end[fd_index - 1][READ_END] != -1)
+					close(content->end[fd_index - 1][READ_END]);
+				content->end[fd_index - 1][READ_END] = -1;
+			}
+			if (content->end[fd_index][WRITE_END] != -1)
+				close(content->end[fd_index][WRITE_END]);
+			content->end[fd_index][WRITE_END] = -1;
+			if (fd_index == 0)
+			{
 				if (content->infile != -1)
-                	close(content->infile);
+					close(content->infile);
 				content->infile = -1;
-            }
-            if (fd_index == content->pipe_index - 1)
-            {
+			}
+			if (fd_index == content->pipe_index - 1)
+			{
 				if (content->outfile != -1)
-                	close(content->outfile);
+					close(content->outfile);
 				content->outfile = -1;
-            }
+			}
         }
         fd_index++;
     }
-	if (content->end[content->pipe_index - 1][READ_END] != -1)
-    	close(content->end[content->pipe_index - 1][READ_END]);
-	content->end[content->pipe_index - 1][READ_END] = -1;
-    for (int i = 0; i < content->pipe_index; i++)
-    {
-        waitpid(content->pids[i], NULL, 0);
-    }
+	for (int i = 0; i < content->pipe_index; i++)
+	{
+		waitpid(content->pids[i], NULL, 0);
+	}
 }
 
 void	ft_exec(t_pipe *content, char **envp, int fd_index)
