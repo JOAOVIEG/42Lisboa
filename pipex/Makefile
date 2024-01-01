@@ -1,61 +1,45 @@
 NAME = pipex
 
+LIBFT = libft.a
+
 SRC_DIR = src
 
-BONUS_SRC_DIR = pipex_bonus/src_bonus
-
-LIB_DIR = inc
-
-BONUS_LIB_DIR = pipex_bonus/inc_bonus
-
-FT_PRINTF_DIR = $(LIB_DIR)/ft_printf
-
-LIBFT = $(LIB_DIR)/libft/libft.a
-
-FT_PRINTF = $(FT_PRINTF_DIR)/libftprintf.a
+BONUS_SRC_DIR = src/bonus
 
 SRCS = $(SRC_DIR)/main.c \
 			$(SRC_DIR)/file_handler.c \
 			$(SRC_DIR)/pipex.c \
 			$(SRC_DIR)/command_handle.c \
 
-OBJS := $(SRCS:.c=.o)
-
-HEAD = -I./inc
-
-CFLAGS = -Wall -Wextra -Werror -g
-
 BONUS_SRCS = $(BONUS_SRC_DIR)/main_bonus.c \
 			$(BONUS_SRC_DIR)/file_handler_bonus.c \
 			$(BONUS_SRC_DIR)/pipex_bonus.c \
 			$(BONUS_SRC_DIR)/command_handle_bonus.c \
 
-BONUS_OBJS := $(BONUS_SRCS:.c=.o)
+OBJS := $(SRCS:.c=.o)
 
-BONUS_HEAD = -I./pipex_bonus/inc_bonus
+BONUS_OBJS := $(BONUS_SRCS:.c=.o)
 
 CFLAGS = -Wall -Wextra -Werror -g
 
 all: $(NAME)
+	@echo "$(GREEN)$(NAME) is ready!$(DEFAULT)"
 
-$(NAME): $(OBJS) $(LIBFT) $(FT_PRINTF)
-	@echo "$(YELLOW)Compiling $(NAME)...$(DEFAULT)"
-	@cc $(CFLAGS) $(HEAD) $(OBJS) $(LIBFT) $(FT_PRINTF) -o $(NAME)
+$(NAME): $(OBJS)
+	@echo "$(YELLOW)Compiling library...$(DEFAULT)"
+	@make -C ./libft
+	@mv ./libft/$(LIBFT) .
+	@cc $(CFLAGS) $(OBJS) -L. $(LIBFT) -o $(NAME)
 
+bonus: $(LIBFT) $(BONUS_OBJS)
+	@echo "$(YELLOW)Compiling library for bonus...$(DEFAULT)"
+	@cc $(CFLAGS) $(BONUS_OBJS) -L. $(LIBFT) -o $(NAME)
+	@echo "$(GREEN)Bonus is ready!$(DEFAULT)"
 
 $(LIBFT):
-	@echo "$(YELLOW)Compiling $(LIBFT)...$(DEFAULT)"
-	@make -s -C $(LIB_DIR)/libft
-
-$(FT_PRINTF):
-	@echo "$(YELLOW)Compiling $(FT_PRINTF)...$(DEFAULT)"
-	@make -s -C $(FT_PRINTF_DIR)
-
-bonus: $(BONUS_OBJS) $(LIBFT)
-	@if [ ! -f $(NAME) ]; then \
-        echo "$(YELLOW)Compiling bonus...$(DEFAULT)"; \
-        cc $(CFLAGS) $(BONUS_HEAD) $(BONUS_OBJS) $(LIBFT) -o $(NAME); \
-    fi
+	@echo "$(YELLOW)Compiling library...$(DEFAULT)"
+	@make -C ./libft
+	@mv ./libft/$(LIBFT) .
 
 val: $(NAME)
 	@echo "$(GREEN)Running valgrind...$(DEFAULT)"
@@ -63,18 +47,18 @@ val: $(NAME)
 
 clean:
 	@echo "$(ORANGE)Cleaning object files...$(DEFAULT)"
-	@make clean -s -C $(LIB_DIR)/libft
-	@make clean -s -C $(FT_PRINTF_DIR)
-	@rm -f $(OBJS)
+	@make clean -C ./libft
+	rm -f $(LIBFT)
 	@rm -f $(BONUS_OBJS)
+	@rm -f $(OBJS)
 
 fclean: clean
 	@rm -f $(NAME)
 	@echo "$(RED)Cleaning $(NAME)...$(DEFAULT)"
 
-re: fclean all bonus
+re: fclean all
 
-.PHONY: all bonus clean fclean re 
+.PHONY: all clean bonus fclean re 
 
 GREEN = \033[0;32m
 RED = \033[0;31m

@@ -6,11 +6,11 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 20:14:17 by joaocard          #+#    #+#             */
-/*   Updated: 2023/12/29 12:30:44 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/01/01 21:31:46 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc_bonus/pipex_bonus.h"
+#include "../../inc/pipex_bonus.h"
 
 int	main(int ac, char **av, char **envp)
 {
@@ -27,7 +27,7 @@ int	main(int ac, char **av, char **envp)
 	{
 		if (*envp == NULL)
 		{
-			perror("Error: no environment");
+			perror("no environment ERROR");
 			exit(EXIT_FAILURE);
 		}
 		if (ft_strcmp("here_doc", av[1]) == 0)
@@ -36,6 +36,7 @@ int	main(int ac, char **av, char **envp)
 		}
 		ft_init_xpipe(&pipe, av, ac);
 		pipex(pipe, envp, av, ac);
+		free_pipex(pipe);
 		return (0);
 	}
 }

@@ -6,11 +6,11 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/22 11:20:13 by joaocard          #+#    #+#             */
-/*   Updated: 2023/12/29 12:47:07 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/01/01 15:58:33 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc_bonus/pipex_bonus.h"
+#include "../../inc/pipex_bonus.h"
 
 void	pipex(t_pipe *content, char **envp, char **av, int ac)
 {

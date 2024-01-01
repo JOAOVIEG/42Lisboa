@@ -6,7 +6,7 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 17:15:57 by joaocard          #+#    #+#             */
-/*   Updated: 2023/12/20 20:23:23 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/01/01 21:25:48 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ char	*get_path(char **envp, t_pipe *pipe)
 		free_pipex(pipe);
 		exit(EXIT_FAILURE);	
 	}
-	// return (0);
 }
 
 char	*get_cmd(char	**cmd_paths, char *cmd)

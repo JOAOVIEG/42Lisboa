@@ -6,11 +6,11 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 21:55:53 by joaocard          #+#    #+#             */
-/*   Updated: 2023/12/28 18:09:05 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/01/01 21:18:53 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc_bonus/pipex_bonus.h"
+#include "../../inc/pipex_bonus.h"
 
 void	ft_init_xpipe(t_pipe **pipe, char **av, int ac)
 {
@@ -83,10 +83,10 @@ void	free_pipex(t_pipe *pipe)
 		}
 		free(pipe->cmd_paths);
 	}
+	if(pipe->cmd)
+		free_cmd(&(pipe->cmd), pipe);
 	if (pipe->valid_path)
 		free(pipe->valid_path);
-	if (pipe->cmd)
-		free_cmd(pipe);
 	if (pipe->pids)
 		free(pipe->pids);
 	if (pipe->end)
@@ -99,24 +99,32 @@ void	free_pipex(t_pipe *pipe)
 	free(pipe);
 }
 
-void	free_cmd(t_pipe *pipe)
+void	free_cmd(char ****cmd, t_pipe *pipe)
 {
 	int	i;
-
+	int	j;
+	
 	i = 0;
-	while (pipe->cmd[i])
+	while (i < pipe->pipe_index)
 	{
-		free(pipe->cmd[i]);
+		j = 0;
+		while ((*cmd)[i][j])
+		{
+			free((*cmd)[i][j]);
+			j++;
+		}
+		free((*cmd)[i]);
 		i++;
 	}
-	free(pipe->cmd);
+	free(*cmd);
+	*cmd = NULL;
 }
 void	free_end(t_pipe *pipe)
 {
 	int	i;
 
 	i = 0;
-	while (pipe->end[i])
+	while (i < pipe->pipe_index)
 	{
 		free(pipe->end[i]);
 		i++;

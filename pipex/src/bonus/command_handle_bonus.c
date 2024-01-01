@@ -6,11 +6,11 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/22 11:21:39 by joaocard          #+#    #+#             */
-/*   Updated: 2023/12/27 16:22:02 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/01/01 16:09:21 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc_bonus/pipex_bonus.h"
+#include "../../inc/pipex_bonus.h"
 
 char	*get_path(char **envp, t_pipe *pipe)
 {

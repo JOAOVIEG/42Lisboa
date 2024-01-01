@@ -6,7 +6,7 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 20:15:03 by joaocard          #+#    #+#             */
-/*   Updated: 2023/12/28 13:31:12 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/01/01 21:16:17 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 # include <fcntl.h>
 # include <sys/types.h>
 # include <sys/wait.h>
-# include "../../inc/libft/libft.h"
+# include "../libft/libft.h"
 # include <string.h>
 # include <errno.h>
 
@@ -41,7 +41,7 @@ typedef struct s_pipe
 
 void	ft_init_xpipe(t_pipe **pipe, char **av, int ac);
 void	free_pipex(t_pipe *pipe);
-void	free_cmd(t_pipe *pipe);
+void	free_cmd(char ****cmd, t_pipe *pipe);
 void	main_init(int ac, char **av, t_pipe *pipe);
 void	check_files(int infile, int outfile, t_pipe *pipe);
 void	pipex(t_pipe *content, char **envp, char **av, int ac);
