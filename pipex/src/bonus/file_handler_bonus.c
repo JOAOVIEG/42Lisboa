@@ -6,7 +6,7 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 21:55:53 by joaocard          #+#    #+#             */
-/*   Updated: 2024/01/01 21:18:53 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/01/02 10:53:09 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,7 @@
 void	ft_init_xpipe(t_pipe **pipe, char **av, int ac)
 {
     t_pipe	*content;
-    int		fd_index;
-    int		i;
-    int		j;
-
+	
     content = malloc(sizeof(t_pipe));
     if (!content)
     {
@@ -26,62 +23,29 @@ void	ft_init_xpipe(t_pipe **pipe, char **av, int ac)
         exit(EXIT_FAILURE);
     }
     content->pipe_index = ac - 3;
-    fd_index = 0;
-    i = 2;
-    j = 0;
     content->paths = NULL;
     content->cmd_paths = NULL;
     content->valid_path = NULL;
     content->pids = (pid_t *)malloc(sizeof(pid_t) * content->pipe_index);
-    content->end = malloc(sizeof(int*) * (content->pipe_index));
-    if (!content->end)
-    {
-        perror("end malloc ERROR ");
-        exit(EXIT_FAILURE);		
-    }
-    while (j < content->pipe_index)
-    {
-        content->end[j] = malloc(sizeof(int) * 2);
-        if (!content->end[j])
-        {
-            perror("end 2nd malloc ERROR ");
-            exit(EXIT_FAILURE);
-        }
-		content->end[j][WRITE_END] = -1;
-        content->end[j][READ_END] = -1;
-        j++;
-    }
-    content->cmd = (char ***)malloc(sizeof(char **) * content->pipe_index);
-    if(!content->cmd)
-    {
-        perror("cmd malloc ERROR ");
-        exit(EXIT_FAILURE);		
-    }
-    while (fd_index < content->pipe_index)
-    {
-        content->cmd[fd_index] = ft_split(av[i], ' ');
-        fd_index++;
-        i++;
-    }
+	if (!content->pids)
+	{
+		perror("end malloc ERROR");
+		free_pipex(content);
+        exit(EXIT_FAILURE);	
+	}
+	fd_end_alloc(content);
+	cmd_alloc(content, av);
     content->infile = -1;
     content->outfile = -1;
     *pipe = content;
 }
 void	free_pipex(t_pipe *pipe)
 {
-	int	i;
-
-	i = 0;
 	if (pipe->paths)
 		pipe->paths = NULL;
 	if (pipe->cmd_paths)
 	{
-		while (pipe->cmd_paths[i])
-		{
-			free(pipe->cmd_paths[i]);
-			i++;
-		}
-		free(pipe->cmd_paths);
+		free_cmd_paths(pipe);
 	}
 	if(pipe->cmd)
 		free_cmd(&(pipe->cmd), pipe);

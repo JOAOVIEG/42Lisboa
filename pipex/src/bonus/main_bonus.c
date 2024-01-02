@@ -6,7 +6,7 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 20:14:17 by joaocard          #+#    #+#             */
-/*   Updated: 2024/01/01 21:31:46 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/01/02 13:30:36 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,6 @@
 int	main(int ac, char **av, char **envp)
 {
 	t_pipe	*pipe;
-	// int i;
-
-	// i = 0;
 	if (ac < 5)
 	{
 		perror("Error: wrong number of arguments");
@@ -30,9 +27,9 @@ int	main(int ac, char **av, char **envp)
 			perror("no environment ERROR");
 			exit(EXIT_FAILURE);
 		}
-		if (ft_strcmp("here_doc", av[1]) == 0)
+		if (ft_strcmp("here_doc", av[1]))
 		{
-			//handle heredoc	
+			//handle heredoc
 		}
 		ft_init_xpipe(&pipe, av, ac);
 		pipex(pipe, envp, av, ac);

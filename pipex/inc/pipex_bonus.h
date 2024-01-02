@@ -6,7 +6,7 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 20:15:03 by joaocard          #+#    #+#             */
-/*   Updated: 2024/01/01 21:16:17 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/01/02 14:56:08 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,4 +51,17 @@ char	*get_cmd(char	**cmd_paths, char *cmd);
 void	check_path(t_pipe *pipe, char **envp);
 char	*validate_cmds(char **cmd_paths, char *cmd);
 void	ft_exec(t_pipe *content, char **envp, int fd_index);
+void	fd_end_alloc(t_pipe *pipe);
+void	cmd_alloc(t_pipe *pipe, char **av);
+void	free_cmd_paths(t_pipe *pipe);
+void	dup_error(t_pipe *pipe);
+void	pipe_construct(t_pipe *content);
+void	fork_error(t_pipe *content);
+void	input_redirect(t_pipe *content, int nr_pipes, char **av);
+void	dup_error(t_pipe * content);
+void	output_redirect(t_pipe *content, int nr_pipes, char **av, int ac);
+void	close_child_pipes(t_pipe *content);
+void	close_parent_pipes(t_pipe *content, int nr_pipes);
+void	wait_childs(t_pipe *content);
+void	exec_fail(t_pipe *content);
 #endif
