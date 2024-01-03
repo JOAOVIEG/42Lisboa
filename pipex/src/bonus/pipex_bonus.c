@@ -6,7 +6,7 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/22 11:20:13 by joaocard          #+#    #+#             */
-/*   Updated: 2024/01/02 14:59:14 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/01/03 16:40:57 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,33 +14,33 @@
 
 void	pipex(t_pipe *content, char **envp, char **av, int ac)
 {
-    int	nr_pipes;
+    int	cmd_i;
 
-    nr_pipes = 0;
+    cmd_i = 0;
     check_path(content, envp);
 	pipe_construct(content);
-    while (nr_pipes < content->pipe_index)
+    while (cmd_i < content->cmd_i)
     {
-        content->pids[nr_pipes] = fork();
-        if (content->pids[nr_pipes] < 0)
+        content->pids[cmd_i] = fork();
+        if (content->pids[cmd_i] < 0)
 			fork_error(content);
-        else if (content->pids[nr_pipes] == 0)
+        else if (content->pids[cmd_i] == 0)
         {
-			input_redirect(content, nr_pipes, av);
-			output_redirect(content, nr_pipes, av, ac);
+			input_redirect(content, cmd_i, av);
+			output_redirect(content, cmd_i, av, ac);
 			close_child_pipes(content);
-            ft_exec(content, envp, nr_pipes);
+            ft_exec(content, envp, cmd_i);
         }
         else
-			close_parent_pipes(content, nr_pipes);
-        nr_pipes++;
+			close_parent_pipes(content, cmd_i);
+        cmd_i++;
     }
 	wait_childs(content);
 }
 
-void	ft_exec(t_pipe *content, char **envp, int nr_pipes)
+void	ft_exec(t_pipe *content, char **envp, int cmd_i)
 {
-    content->valid_path = get_cmd(content->cmd_paths, *content->cmd[nr_pipes]);
-    if (execve(content->valid_path, content->cmd[nr_pipes], envp) < 0)
+    content->valid_path = get_cmd(content->cmd_paths, *content->cmd[cmd_i]);
+    if (execve(content->valid_path, content->cmd[cmd_i], envp) < 0)
 		exec_fail(content);
 }

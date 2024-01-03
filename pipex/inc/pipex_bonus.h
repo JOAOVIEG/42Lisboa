@@ -6,7 +6,7 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 20:15:03 by joaocard          #+#    #+#             */
-/*   Updated: 2024/01/02 14:56:08 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/01/03 16:37:57 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ typedef struct s_pipe
 	char	**cmd_paths;
 	char	***cmd;
 	char	*valid_path;
-	int		pipe_index;
+	int		cmd_i;
 	int		infile;
 	int		outfile;
 	int		**end;
