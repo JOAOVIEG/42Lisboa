@@ -18,6 +18,7 @@ BONUS_SRCS = $(BONUS_SRC_DIR)/main_bonus.c \
 			$(BONUS_SRC_DIR)/init_xpipe_utilis.c \
 			$(BONUS_SRC_DIR)/pipex_bonus_utilis.c \
 			$(BONUS_SRC_DIR)/pipex_bonus_utilis1.c \
+			$(BONUS_SRC_DIR)/here_doc_utilis.c \
 
 OBJS := $(SRCS:.c=.o)
 

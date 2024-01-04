@@ -6,7 +6,7 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/02 11:01:53 by joaocard          #+#    #+#             */
-/*   Updated: 2024/01/03 18:40:51 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/01/04 13:39:54 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,48 +77,7 @@ void	input_redirect(t_pipe *content, int cmd_i, char **av)
 	else if (cmd_i == 0)
 	{
 		if (ft_strcmp("here_doc", av[1]) == 0)
-		{
-			char	ch;
-			char	*buffer;
-			size_t	buffer_size;
-			int		here_doc_fd;
-
-			buffer = NULL;
-			buffer_size = 0;
-			here_doc_fd = open("in.txt", O_WRONLY | O_CREAT | O_TRUNC, 0644);
-			if (here_doc_fd < 0)
-			{
-				perror("Error opening here_doc file");
-				exit(EXIT_FAILURE);
-			}
-			while (read(STDIN_FILENO, &ch, 1) > 0)
-			{
-				// Temporarily add the character to the buffer
-				buffer = realloc(buffer, buffer_size + 2);
-				buffer[buffer_size++] = ch;
-				buffer[buffer_size] = '\0';  // Null-terminate the buffer after each character
-
-				// Check if the last line in the buffer matches the delimiter
-				char *last_line = strrchr(buffer, '\n');
-				if (last_line && ft_strcmp(last_line + 1, av[2]) == 0)
-				{
-					// If the last line is the delimiter, remove it and the preceding newline from the buffer
-					buffer_size -= strlen(av[2]) + 1;  // Remove the delimiter and the preceding newline from the buffer
-					buffer[buffer_size] = '\0';  // Null-terminate the buffer after removing the delimiter
-					break;
-				}
-			}
-			write(here_doc_fd, buffer, buffer_size);  // Write the entire buffer at once
-			close(here_doc_fd);
-			content->infile = open("in.txt", O_RDONLY);
-			if (content->infile < 0)
-			{
-				perror("infile ERROR ");
-				free_pipex(content);
-				exit(EXIT_FAILURE);
-			}
-			free(buffer);  // Free the buffer after use
-		}
+			here_doc(content, av);
 		else
 		{
 			content->infile = open(av[1], O_RDONLY);

@@ -6,7 +6,7 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 20:15:03 by joaocard          #+#    #+#             */
-/*   Updated: 2024/01/03 16:37:57 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/01/04 13:38:40 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,4 +64,6 @@ void	close_child_pipes(t_pipe *content);
 void	close_parent_pipes(t_pipe *content, int nr_pipes);
 void	wait_childs(t_pipe *content);
 void	exec_fail(t_pipe *content);
+char	*read_from_STDIN(char **av, char *buffer, size_t buffer_size);
+void	here_doc(t_pipe	*content, char **av);
 #endif
