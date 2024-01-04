@@ -6,7 +6,7 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 13:41:17 by joaocard          #+#    #+#             */
-/*   Updated: 2024/01/04 13:49:33 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/01/04 19:15:58 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ char	*read_from_STDIN(char **av, char *buffer, size_t buffer_size)
 	while (read(STDIN_FILENO, &ch, 1) > 0)
 	{
 		// Temporarily add the character to the buffer
-		buffer = realloc(buffer, buffer_size + 2);
+		buffer = ft_realloc(buffer, buffer_size + 2);
 		buffer[buffer_size++] = ch;
 		buffer[buffer_size] = '\0';  // Null-terminate the buffer after each character
 
