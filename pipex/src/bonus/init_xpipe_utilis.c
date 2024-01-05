@@ -6,7 +6,7 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/02 10:24:07 by joaocard          #+#    #+#             */
-/*   Updated: 2024/01/03 16:39:41 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/01/05 10:28:37 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,13 +17,13 @@ void	fd_end_alloc(t_pipe *pipe)
 	int	i;
 
 	i = 0;
-	pipe->end = malloc(sizeof(int*) * (pipe->cmd_i));
-    if (!pipe->end)
-    {
-        perror("end malloc ERROR");
+	pipe->end = malloc(sizeof(int *) * (pipe->cmd_i));
+	if (!pipe->end)
+	{
+		perror("end malloc ERROR");
 		free_pipex(pipe);
-        exit(EXIT_FAILURE);		
-    }
+		exit(EXIT_FAILURE);
+	}
 	while (i < pipe->cmd_i)
 	{
 		pipe->end[i] = malloc(sizeof(int) * 2);
@@ -42,26 +42,26 @@ void	fd_end_alloc(t_pipe *pipe)
 void	cmd_alloc(t_pipe *pipe, char **av)
 {
 	int	cmd_i;
-	int i;
-	
+	int	i;
+
 	cmd_i = 0;
 	if (ft_strcmp("here_doc", av[1]) == 0)
 		i = 3;
 	else
 		i = 2;
 	pipe->cmd = (char ***)malloc(sizeof(char **) * pipe->cmd_i);
-    if(!pipe->cmd)
-    {
-        perror("cmd malloc ERROR ");
+	if (!pipe->cmd)
+	{
+		perror("cmd malloc ERROR ");
 		free_pipex(pipe);
-        exit(EXIT_FAILURE);		
-    }
+		exit(EXIT_FAILURE);
+	}
 	while (cmd_i < pipe->cmd_i)
-    {
-        pipe->cmd[cmd_i] = ft_split(av[i], ' ');
-        cmd_i++;
-        i++;
-    }
+	{
+		pipe->cmd[cmd_i] = ft_split(av[i], ' ');
+		cmd_i++;
+		i++;
+	}
 }
 
 void	free_cmd_paths(t_pipe *pipe)

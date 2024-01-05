@@ -6,7 +6,7 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 20:14:17 by joaocard          #+#    #+#             */
-/*   Updated: 2024/01/03 16:33:16 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/01/05 10:12:34 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 int	main(int ac, char **av, char **envp)
 {
 	t_pipe	*pipe;
+
 	if (ac < 5)
 	{
 		perror("Error: wrong number of arguments");

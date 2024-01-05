@@ -6,7 +6,7 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/04 13:32:18 by joaocard          #+#    #+#             */
-/*   Updated: 2023/12/21 17:02:03 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/01/05 12:08:50 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,13 +25,12 @@ int	main(int ac, char **av, char **envp)
 
 	if (ac != 5)
 	{
-		perror("Error: wrong number of arguments");
-		perror("Usage: ./pipex file1 cmd1 cmd2 file2");
+		perror("Error usage: ./pipex file1 cmd1 cmd2 file2");
 		exit(EXIT_FAILURE);
 	}
-	if (!envp)
+	if (*envp == NULL)
 	{
-		perror("Error: no environment");
+		perror("No environment ERROR");
 		exit(EXIT_FAILURE);
 	}
 	ft_init_pipe(&pipe, av);

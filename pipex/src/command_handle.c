@@ -6,7 +6,7 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 17:15:57 by joaocard          #+#    #+#             */
-/*   Updated: 2024/01/01 21:25:48 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/01/05 12:31:30 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ char	*get_path(char **envp, t_pipe *pipe)
 	{
 		perror("ERROR envp");
 		free_pipex(pipe);
-		exit(EXIT_FAILURE);	
+		exit(EXIT_FAILURE);
 	}
 }
 

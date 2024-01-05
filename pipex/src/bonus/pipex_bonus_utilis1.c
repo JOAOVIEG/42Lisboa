@@ -6,7 +6,7 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/02 15:12:28 by joaocard          #+#    #+#             */
-/*   Updated: 2024/01/04 13:42:04 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/01/05 10:38:46 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,8 @@
 
 void	close_child_pipes(t_pipe *content)
 {
-	int i;
+	int	i;
+
 	i = 0;
 	while (i < content->cmd_i)
 	{
@@ -59,8 +60,8 @@ void	close_parent_pipes(t_pipe *content, int nr_pipes)
 
 void	wait_childs(t_pipe *content)
 {
-	int i;
-	
+	int	i;
+
 	i = 0;
 	while (i < content->cmd_i)
 	{
@@ -71,7 +72,8 @@ void	wait_childs(t_pipe *content)
 
 void	exec_fail(t_pipe *content)
 {
-	int i;
+	int	i;
+
 	i = 0;
 	perror("Error: execve failed");
 	while (i < content->cmd_i)

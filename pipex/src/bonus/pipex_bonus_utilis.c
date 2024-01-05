@@ -6,7 +6,7 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/02 11:01:53 by joaocard          #+#    #+#             */
-/*   Updated: 2024/01/04 13:39:54 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/01/05 13:07:51 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 void	pipe_construct(t_pipe *content)
 {
-	int 	i;
-	int		cmd_i;
+	int	i;
+	int	cmd_i;
 
 	cmd_i = 0;
 	while (cmd_i < content->cmd_i - 1)
@@ -40,7 +40,7 @@ void	pipe_construct(t_pipe *content)
 void	fork_error(t_pipe *content)
 {
 	int	i;
-	
+
 	i = 0;
 	perror("fork error at child ");
 	while (i < content->cmd_i)
@@ -49,13 +49,14 @@ void	fork_error(t_pipe *content)
 		close(content->end[i][WRITE_END]);
 		i++;
 	}
+	free_pipex(content);
 	exit(EXIT_FAILURE);
 }
 
-void	dup_error(t_pipe * content)
+void	dup_error(t_pipe *content)
 {
 	int	i;
-	
+
 	i = 0;
 	perror("dup error at child");
 	while (i < content->cmd_i)
@@ -64,6 +65,7 @@ void	dup_error(t_pipe * content)
 		close(content->end[i][WRITE_END]);
 		i++;
 	}
+	free_pipex(content);
 	exit(EXIT_FAILURE);
 }
 

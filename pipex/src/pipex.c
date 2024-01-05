@@ -6,7 +6,7 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/06 20:11:42 by joaocard          #+#    #+#             */
-/*   Updated: 2023/12/21 17:14:45 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/01/05 12:18:46 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ void	pipex(t_pipe *content, char **envp)
 	if (pipe(content->end) < 0)
 	{
 		perror("Error");
+		free_pipex(content);
 		exit(EXIT_FAILURE);
 	}
 	check_path(content, envp);
@@ -24,6 +25,7 @@ void	pipex(t_pipe *content, char **envp)
 	if (content->pid1 < 0)
 	{
 		perror("Error");
+		free_pipex(content);
 		exit(EXIT_FAILURE);
 	}
 	else if (content->pid1 == 0)
@@ -32,12 +34,11 @@ void	pipex(t_pipe *content, char **envp)
 	if (content->pid2 < 0)
 	{
 		perror("Error");
+		free_pipex(content);
 		exit(EXIT_FAILURE);
 	}
 	else if (content->pid2 == 0)
 		child_process2(content, envp);
-	// wait_and_close_childs(content);
-	// main_close(content);
 }
 
 void	child_process(t_pipe *content, char **envp)

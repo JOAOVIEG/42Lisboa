@@ -6,12 +6,11 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/04 13:41:17 by joaocard          #+#    #+#             */
-/*   Updated: 2024/01/04 19:15:58 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/01/05 13:13:20 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/pipex_bonus.h"
-
 
 void	here_doc(t_pipe	*content, char **av)
 {
@@ -25,45 +24,54 @@ void	here_doc(t_pipe	*content, char **av)
 	if (here_doc_fd < 0)
 	{
 		perror("Error opening here_doc file");
+		free_pipex(content);
 		exit(EXIT_FAILURE);
 	}
-	buffer = read_from_STDIN(av, buffer, buffer_size);
-	write(here_doc_fd, buffer, ft_strlen(buffer));  // Write the entire buffer at once
+	buffer = read_from_stdin(av, buffer, buffer_size);
+	if (buffer == NULL)
+		stdin_error(content);
+	write(here_doc_fd, buffer, ft_strlen(buffer));
 	close(here_doc_fd);
 	content->infile = open("in.txt", O_RDONLY);
 	unlink("in.txt");
 	if (content->infile < 0)
-	{
-		perror("infile ERROR ");
-		free_pipex(content);
-		exit(EXIT_FAILURE);
-	}
-	free(buffer);  // Free the buffer after use
+		infile_error(content);
+	free(buffer);
 }
 
-char	*read_from_STDIN(char **av, char *buffer, size_t buffer_size)
+char	*read_from_stdin(char **av, char *buffer, size_t buffer_size)
 {
 	char	ch;
-	char *delimiter_line;
+	char	*delimiter_line;
 
-	delimiter_line = NULL;
+	delimiter_line = ft_strjoin(av[2], "\n");
 	while (read(STDIN_FILENO, &ch, 1) > 0)
 	{
-		// Temporarily add the character to the buffer
 		buffer = ft_realloc(buffer, buffer_size + 2);
 		buffer[buffer_size++] = ch;
-		buffer[buffer_size] = '\0';  // Null-terminate the buffer after each character
-
-		// Check if the buffer ends with the delimiter followed by a newline
-		delimiter_line = ft_strjoin(av[2], "\n");
-		if (ft_strnstr(buffer, delimiter_line, buffer_size) == buffer + buffer_size - ft_strlen(delimiter_line))
+		buffer[buffer_size] = '\0';
+		if (ft_strnstr(buffer, delimiter_line, buffer_size) == \
+						buffer + buffer_size - ft_strlen(delimiter_line))
 		{
-			// If the buffer ends with the delimiter followed by a newline, remove it from the buffer
-			buffer_size -= ft_strlen(delimiter_line);  // Remove the delimiter and the newline from the buffer
-			buffer[buffer_size] = '\0';  // Null-terminate the buffer after removing the delimiter
-			break;
+			buffer_size -= ft_strlen(delimiter_line);
+			buffer[buffer_size] = '\0';
+			break ;
 		}
-		free(delimiter_line);
 	}
+	free(delimiter_line);
 	return (buffer);
+}
+
+void	stdin_error(t_pipe *content)
+{
+	perror("Read from STIN ERROR");
+	free_pipex(content);
+	exit(EXIT_FAILURE);
+}
+
+void	infile_error(t_pipe *content)
+{
+	perror("infile ERROR ");
+	free_pipex(content);
+	exit(EXIT_FAILURE);
 }

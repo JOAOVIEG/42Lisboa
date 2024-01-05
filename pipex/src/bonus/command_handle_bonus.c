@@ -6,7 +6,7 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/22 11:21:39 by joaocard          #+#    #+#             */
-/*   Updated: 2024/01/02 09:24:41 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/01/05 10:11:09 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,11 @@
 
 char	*get_path(char **envp, t_pipe *pipe)
 {
-	if ( *envp == NULL)
+	if (*envp == NULL)
 	{
 		perror("ERROR envp");
 		free_pipex(pipe);
-		exit(EXIT_FAILURE);	
+		exit(EXIT_FAILURE);
 	}
 	else
 	{
@@ -28,7 +28,7 @@ char	*get_path(char **envp, t_pipe *pipe)
 		{
 			perror("ERROR finding PATH");
 			free_pipex(pipe);
-			exit(EXIT_FAILURE);	
+			exit(EXIT_FAILURE);
 		}
 	}
 	return (*envp + 5);
