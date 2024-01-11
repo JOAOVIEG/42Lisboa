@@ -6,11 +6,26 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/04 13:32:18 by joaocard          #+#    #+#             */
-/*   Updated: 2024/01/05 12:08:50 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/01/09 14:43:58 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/pipex.h"
+
+void	check_args(int ac, char **av)
+{
+	int	i;
+
+	i = 0;
+	while (i < (ac - 1))
+	{
+		if (*av[i] == '\0')
+		{
+			perror("Error usage: invalid arguments");
+		}
+		i++;
+	}
+}
 
 void	dup_error(t_pipe *pipe)
 {
@@ -33,9 +48,9 @@ int	main(int ac, char **av, char **envp)
 		perror("No environment ERROR");
 		exit(EXIT_FAILURE);
 	}
+	check_args(ac, av);
 	ft_init_pipe(&pipe, av);
-	main_init(ac, av, pipe);
-	pipex(pipe, envp);
+	pipex(pipe, envp, av, ac);
 	wait_and_close_childs(pipe);
 	main_close(pipe);
 	free_pipex(pipe);

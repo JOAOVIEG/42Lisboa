@@ -6,7 +6,7 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 17:15:57 by joaocard          #+#    #+#             */
-/*   Updated: 2024/01/05 12:31:30 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/01/09 12:49:27 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,19 +28,19 @@ char	*get_path(char **envp, t_pipe *pipe)
 
 char	*get_cmd(char	**cmd_paths, char *cmd)
 {
-	if (cmd[0] == '/')
+	if (*cmd && cmd[0] == '/')
 	{
 		if (access(cmd, F_OK) == 0)
 			return (cmd);
 		else
-			perror("Error");
+			perror("Error:command not found");
 	}
 	else
 	{
 		if (cmd_paths)
 			return (validate_cmds(cmd_paths, cmd));
 		else
-			perror("Error");
+			perror("Error:command not found");
 	}
 	return (NULL);
 }
@@ -52,7 +52,7 @@ char	*validate_cmds(char **cmd_paths, char *cmd)
 	char	*tmp2;
 
 	i = 0;
-	while (cmd_paths[i])
+	while (*cmd && cmd_paths[i])
 	{
 		tmp = ft_strjoin(cmd_paths[i], "/");
 		tmp2 = ft_strjoin(tmp, cmd);

@@ -27,45 +27,34 @@ BONUS_OBJS := $(BONUS_SRCS:.c=.o)
 CFLAGS = -Wall -Wextra -Werror -g
 
 all: $(NAME)
-	@echo "$(GREEN)$(NAME) is ready!$(DEFAULT)"
 
 $(NAME): $(OBJS)
-	@echo "$(YELLOW)Compiling library...$(DEFAULT)"
 	@make -C ./libft
 	@mv ./libft/$(LIBFT) .
-	@cc $(CFLAGS) $(OBJS) -L. $(LIBFT) -o $(NAME)
+	cc $(CFLAGS) $(OBJS) -L. $(LIBFT) -o $(NAME)
 
-bonus: $(LIBFT) $(BONUS_OBJS)
-	@echo "$(YELLOW)Compiling library for bonus...$(DEFAULT)"
-	@cc $(CFLAGS) $(BONUS_OBJS) -L. $(LIBFT) -o $(NAME)
-	@echo "$(GREEN)Bonus is ready!$(DEFAULT)"
+bonus: $(LIBFT)
+	@make $(BONUS_OBJS)
+	@for file in $(BONUS_OBJS); do \
+        if [ ! -f $(NAME) ] || [ $$file -nt $(NAME) ]; then \
+        	cc $(CFLAGS) $(BONUS_OBJS) -L. $(LIBFT) -o $(NAME); \
+            break; \
+        fi \
+    done
 
 $(LIBFT):
-	@echo "$(YELLOW)Compiling library...$(DEFAULT)"
 	@make -C ./libft
 	@mv ./libft/$(LIBFT) .
 
-val: $(NAME)
-	@echo "$(GREEN)Running valgrind...$(DEFAULT)"
-	@valgrind --track-fds=yes ./pipex Makefile "ls -l" "sleep 5" outfile.txt
-
 clean:
-	@echo "$(ORANGE)Cleaning object files...$(DEFAULT)"
 	@make clean -C ./libft
-	rm -f $(LIBFT)
+	@rm -f $(LIBFT)
 	@rm -f $(BONUS_OBJS)
 	@rm -f $(OBJS)
 
 fclean: clean
 	@rm -f $(NAME)
-	@echo "$(RED)Cleaning $(NAME)...$(DEFAULT)"
 
 re: fclean all
 
-.PHONY: all clean bonus fclean re 
-
-GREEN = \033[0;32m
-RED = \033[0;31m
-ORANGE = \033[0;33m
-DEFAULT = \033[0m
-YELLOW = \033[1;33m
+.PHONY: all clean bonus fclean re

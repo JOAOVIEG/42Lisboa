@@ -6,7 +6,7 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/04 11:06:46 by joaocard          #+#    #+#             */
-/*   Updated: 2024/01/01 15:59:43 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/01/09 16:05:36 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,11 +44,9 @@ void	ft_init_pipe(t_pipe **pipe, char **av);
 void	free_pipex(t_pipe *pipe);
 void	free_cmd1(t_pipe *pipe);
 void	free_cmd2(t_pipe *pipe);
-void	main_init(int ac, char **av, t_pipe *pipe);
-void	check_files(int infile, int outfile, t_pipe *pipe);
-void	pipex(t_pipe *content, char **envp);
-void	child_process(t_pipe *content, char **envp);
-void	child_process2(t_pipe *content, char **envp);
+void	pipex(t_pipe *content, char **envp, char **av, int ac);
+void	child_process(t_pipe *content, char **envp, char **av);
+void	child_process2(t_pipe *content, char **envp, char **av, int ac);
 void	wait_and_close_childs(t_pipe *content);
 void	main_close(t_pipe *content);
 char	*get_path(char **envp, t_pipe *pipe);
@@ -56,4 +54,7 @@ char	*get_cmd(char	**cmd_paths, char *cmd);
 void	check_path(t_pipe *pipe, char **envp);
 char	*validate_cmds(char **cmd_paths, char *cmd);
 void	dup_error(t_pipe *pipe);
+void	check_args(int ac, char **av);
+void	open_error(t_pipe *content);
+void	command_error(t_pipe *content);
 #endif

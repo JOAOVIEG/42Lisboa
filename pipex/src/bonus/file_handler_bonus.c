@@ -6,7 +6,7 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 21:55:53 by joaocard          #+#    #+#             */
-/*   Updated: 2024/01/05 10:24:07 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/01/10 13:40:15 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	ft_init_xpipe(t_pipe **pipe, char **av, int ac)
 	content = malloc(sizeof(t_pipe));
 	if (!content)
 		malloc_error();
-	if (strcmp("here_doc", av[1]) == 0)
+	if (ft_strcmp("here_doc", av[1]) == 0)
 		content->cmd_i = ac - 4;
 	else
 		content->cmd_i = ac - 3;

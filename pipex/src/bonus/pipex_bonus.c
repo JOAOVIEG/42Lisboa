@@ -6,7 +6,7 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/22 11:20:13 by joaocard          #+#    #+#             */
-/*   Updated: 2024/01/05 13:08:01 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/01/08 17:32:58 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,11 @@ void	pipex(t_pipe *content, char **envp, char **av, int ac)
 void	ft_exec(t_pipe *content, char **envp, int cmd_i)
 {
 	content->valid_path = get_cmd(content->cmd_paths, *content->cmd[cmd_i]);
-	if (execve(content->valid_path, content->cmd[cmd_i], envp) < 0)
-		exec_fail(content);
+	if (!content->valid_path)
+		command_error(content);
+	else if (content->valid_path)
+	{
+		if (execve(content->valid_path, content->cmd[cmd_i], envp) < 0)
+			exec_fail(content);
+	}
 }

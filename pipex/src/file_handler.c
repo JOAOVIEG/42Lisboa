@@ -6,7 +6,7 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/05 17:12:43 by joaocard          #+#    #+#             */
-/*   Updated: 2023/12/10 16:54:32 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/01/09 16:03:56 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,48 +30,6 @@ void	ft_init_pipe(t_pipe **pipe, char **av)
 	content->infile = -1;
 	content->outfile = -1;
 	*pipe = content;
-}
-
-void	main_init(int ac, char **av, t_pipe *pipe)
-{
-	int	infile;
-	int	outfile;
-
-	infile = open(av[1], O_RDONLY);
-	if (infile < 0)
-	{
-		perror("Error ");
-		free_pipex(pipe);
-		exit(EXIT_FAILURE);
-	}
-	else
-		pipe->infile = infile;
-	outfile = open(av[ac - 1], O_WRONLY | O_CREAT | O_TRUNC, 0644);
-	if (outfile < 0)
-	{
-		perror("Error ");
-		free_pipex(pipe);
-		exit(EXIT_FAILURE);
-	}
-	else
-		pipe->outfile = outfile;
-	check_files(pipe->infile, pipe->outfile, pipe);
-}
-
-void	check_files(int infile, int outfile, t_pipe *pipe)
-{
-	if (infile < 0)
-	{
-		perror("Error");
-		free_pipex(pipe);
-		exit(EXIT_FAILURE);
-	}
-	if (outfile < 0)
-	{
-		perror("Error");
-		free_pipex(pipe);
-		exit(EXIT_FAILURE);
-	}
 }
 
 void	free_pipex(t_pipe *pipe)
@@ -110,4 +68,21 @@ void	free_cmd1(t_pipe *pipe)
 		i++;
 	}
 	free(pipe->cmd1);
+}
+
+void	open_error(t_pipe *content)
+{
+	perror("Error opening file");
+	close(content->end[READ_END]);
+	close(content->end[WRITE_END]);
+	free_pipex(content);
+	exit(EXIT_FAILURE);
+}
+
+void	command_error(t_pipe *content)
+{
+	perror("Error: command not found");
+	main_close(content);
+	free_pipex(content);
+	exit(EXIT_FAILURE);
 }

@@ -6,7 +6,7 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 20:15:03 by joaocard          #+#    #+#             */
-/*   Updated: 2024/01/05 13:12:45 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/01/09 17:05:41 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,6 @@ void	ft_init_xpipe(t_pipe **pipe, char **av, int ac);
 void	malloc_error(void);
 void	free_pipex(t_pipe *pipe);
 void	free_cmd(char ****cmd, t_pipe *pipe);
-void	main_init(int ac, char **av, t_pipe *pipe);
-void	check_files(int infile, int outfile, t_pipe *pipe);
 void	pipex(t_pipe *content, char **envp, char **av, int ac);
 void	free_end(t_pipe *pipe);
 char	*get_path(char **envp, t_pipe *pipe);
@@ -69,4 +67,7 @@ void	wait_childs(t_pipe *content);
 void	exec_fail(t_pipe *content);
 char	*read_from_stdin(char **av, char *buffer, size_t buffer_size);
 void	here_doc(t_pipe	*content, char **av);
+void	command_error(t_pipe *content);
+void	check_args(int ac, char **av);
+void	outfile_error(t_pipe *content);
 #endif

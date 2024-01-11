@@ -6,7 +6,7 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/02 15:12:28 by joaocard          #+#    #+#             */
-/*   Updated: 2024/01/05 10:38:46 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/01/09 15:52:01 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,12 +76,25 @@ void	exec_fail(t_pipe *content)
 
 	i = 0;
 	perror("Error: execve failed");
-	while (i < content->cmd_i)
-	{
-		close(content->end[i][READ_END]);
-		close(content->end[i][WRITE_END]);
-		i++;
-	}
+	if (content->infile != -1)
+		close(content->infile);
+	if (content->outfile != -1)
+		close(content->outfile);
+	close(0);
+	close(1);
+	free_pipex(content);
+	exit(EXIT_FAILURE);
+}
+
+void	command_error(t_pipe *content)
+{
+	int	i;
+
+	i = 0;
+	perror("Error getting command");
+	close_child_pipes(content);
+	close(STDIN_FILENO);
+	close(STDOUT_FILENO);
 	free_pipex(content);
 	exit(EXIT_FAILURE);
 }
