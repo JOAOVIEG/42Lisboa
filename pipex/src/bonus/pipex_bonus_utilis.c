@@ -6,7 +6,7 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/02 11:01:53 by joaocard          #+#    #+#             */
-/*   Updated: 2024/01/09 16:58:09 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/01/12 09:43:46 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,11 @@
 
 void	pipe_construct(t_pipe *content)
 {
-	int	i;
 	int	cmd_i;
 
 	cmd_i = 0;
 	while (cmd_i < content->cmd_i - 1)
 	{
-		i = 0;
 		if (pipe(content->end[cmd_i]) < 0)
 		{
 			perror("pipe ERROR ");
