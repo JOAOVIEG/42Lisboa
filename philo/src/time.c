@@ -6,7 +6,7 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/22 10:50:10 by joaocard          #+#    #+#             */
-/*   Updated: 2024/02/22 10:50:54 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/04/19 14:29:11 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,11 +33,24 @@ long int	ft_atol(const char *av)
 	return (sign * integer);
 }
 
-int	gettimeofday_ms(void)
+size_t	get_current_time(size_t start)
 {
-	struct timeval tv;
-	
-	if (gettimeofday(&tv, NULL) == 0)
+	struct timeval	tv;
+	size_t			current_time;
+
+	if (gettimeofday(&tv, NULL) != 0)
+		printf("Error\n gettimeofday()\n");
+	else
+		current_time = (tv.tv_sec * 1000) + (tv.tv_usec / 1000);
+	return (current_time - start);
+}
+
+size_t			gettimeofday_ms(void)
+{
+	struct timeval	tv;
+
+	if (gettimeofday(&tv, NULL) != 0)
+		return (printf("Error\n gettimeofday()\n"));
+	else
 		return ((tv.tv_sec * 1000) + (tv.tv_usec / 1000));
-	return (-1);
 }

@@ -1,0 +1,6 @@
+{
+	"files.associations": {
+		"Makefile": "c",
+		"philo.h": "c"
+	}
+}

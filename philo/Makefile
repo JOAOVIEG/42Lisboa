@@ -3,10 +3,12 @@ NAME = philo
 SRC_DIR = src
 
 SRCS = $(SRC_DIR)/main.c \
+		$(SRC_DIR)/init_args.c \
+		$(SRC_DIR)/time.c \
 
-OBJS := $(SRCS:.c=.o)
+OBJS := $(SRCS:%.c=%.o)
 
-CFLAGS = -Wall -Wextra -Werror -g
+CFLAGS = -Wall -Wextra -Werror -g -pthread -I./inc
 
 all: $(NAME)
 
@@ -14,7 +16,6 @@ $(NAME): $(OBJS)
 	cc $(CFLAGS) $(OBJS) -o $(NAME)
 
 clean:
-	@make clean -C
 	@rm -f $(OBJS)
 
 fclean: clean
