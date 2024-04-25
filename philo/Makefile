@@ -3,7 +3,8 @@ NAME = philo
 SRC_DIR = src
 
 SRCS = $(SRC_DIR)/main.c \
-		$(SRC_DIR)/init_args.c \
+		$(SRC_DIR)/parsing_and_init.c \
+		$(SRC_DIR)/philo_dinner.c \
 		$(SRC_DIR)/time.c \
 
 OBJS := $(SRCS:%.c=%.o)

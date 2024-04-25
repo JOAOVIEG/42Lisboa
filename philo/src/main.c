@@ -6,7 +6,7 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/27 10:55:29 by joaocard          #+#    #+#             */
-/*   Updated: 2024/04/18 15:26:41 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/04/25 14:23:26 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,23 +14,18 @@
 
 int	main(int ac, char **av)
 {
-	t_input_info	*info;
-	t_fork			*forks;
-	t_philo			*philos;
+	t_table		table;
 	
 	if (ac < 5 || ac > 6)
 		return (printf("Wrong number of arguments\n"));
-	if (!(info = init_args(av)))
-		return (printf("Arg init error\n"));
-	if (!(forks = get_forks(info)))
-		return (printf("Forks init error\n"));
-	if (!(philos = philos_data(info, forks)))
-		return (printf("Philos init error\n"));
-	init_dinner(philos, info);
-	take_forks(info, forks);
-	free(info);
-	info = NULL;
-	free(philos);
-	philos = NULL;
+	else
+	{
+		if (parse_args(&table, av) != 0)
+			return (printf("Error parsing arguments\n"));
+		if (init_table(&table) != 0)
+			return (printf("Error initializing program\n"));
+		dinner_init(&table);//TODO
+		clean_table(&table);//TODO
+	}
 	return (0);
 }
