@@ -6,7 +6,7 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/27 10:55:45 by joaocard          #+#    #+#             */
-/*   Updated: 2024/04/25 15:17:42 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/05/13 15:32:35 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,16 @@
 # include <stdio.h>
 # include <stdlib.h>
 # include <sys/time.h>
+
+
+typedef enum e_status
+{
+	EAT,
+	THINK,
+	SLEEP,
+	TAKE_FORK,
+	DIE,
+}			t_status;
 
 typedef	struct s_fork
 {
@@ -47,6 +57,7 @@ typedef struct s_table
 	size_t			time_to_sleep;
 	size_t			nb_times_must_eat;
 	size_t			start;
+	size_t			nbr_threads_running;
 	bool			dinner_end;
 	bool			dinner_is_synchro;
 	t_philo			*philos;
@@ -57,16 +68,20 @@ typedef struct s_table
 }					t_table;
 
 
-int	parse_args(t_table *table, char **av);
-size_t	ft_atol(const char *av);
+/*parsing_and_init.c*/
+int		philo_init(t_table *table);
+int		parse_args(t_table *table, char **av);
 int		init_table(t_table	*table);
 void	give_forks(t_philo *philo, t_fork *forks, int pos);
-// t_philo			*philos_data(t_input_info *info, t_fork *forks);
-// void			init_dinner(t_philo *philos, t_input_info *info);
-// void			*routine(void *arg);
-// void			*monitor(void *arg);
-// void			take_forks(t_input_info *info, t_fork *forks);
-
-// size_t			get_current_time(size_t start);
-// size_t			gettimeofday_ms(void);
+size_t	ft_atol(const char *av);
+/*philo_diner.c*/
+int		dinner_init(t_table *table);
+void	*dinner(void *arg);
+void	wait_philo_sync(t_table *table);
+bool	get_dinner_state(pthread_mutex_t *mutex, bool is_sync);
+void	set_dinner_state(pthread_mutex_t *mutex, size_t	*to_set, size_t state);
+void	de_sync_philo(t_philo *philo);
+/*Time functions*/
+size_t	gettimeofday_ms(void);
+void	my_usleep(size_t time, t_table *table);
 #endif

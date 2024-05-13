@@ -6,11 +6,86 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 14:21:04 by joaocard          #+#    #+#             */
-/*   Updated: 2024/04/25 15:21:49 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/05/13 15:49:53 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
+
+void	*dinner(void *arg)
+{
+	t_philo	*philo;
+	
+	philo = (t_philo *)arg;
+	wait_philo_sync(philo->table);
+	set_dinner_state(&philo->philo_lock, &philo->last_meal, gettimeofday_ms);
+	if (pthread_mutex_lock(&philo->table->dinner_lock) != 0)
+		printf("Error locking mutex\n");
+	philo->table->nbr_threads_running++;
+	if (pthread_mutex_unlock(&philo->table->dinner_lock) != 0)
+		printf("Error unlocking mutex\n");
+	de_sync_philo_start(philo);
+	while (get_dinner_state(&philo->table->dinner_lock, philo->table->dinner_end) == false)
+	{
+		if (get_dinner_state(&philo->philo_lock, philo->full) == true)
+			break;
+		//eat
+		eating_routine(philo); //TODO
+		//sleep
+		print_status(philo, SLEEP);
+		//thinking
+		thinking_routine(philo); //TODO
+	}
+}
+
+void	wait_philo_sync(t_table *table)
+{
+	while (get_dinner_state(&table->dinner_lock, table->dinner_is_synchro) != true)
+		;
+}
+void	set_dinner_state(pthread_mutex_t *mutex, size_t	*to_set, size_t state)
+{
+	if (pthread_mutex_lock(mutex) != 0)
+		printf("Error locking mutex\n");
+	to_set = state;
+	if (pthread_mutex_unlock(mutex) != 0)
+		printf("Error unlocking mutex\n");
+}
+
+bool	get_dinner_state(pthread_mutex_t *mutex, bool is_sync)
+{
+	bool	value;
+
+	if (pthread_mutex_lock(mutex) != 0)
+		printf("Error locking mutex\n");
+	value = is_sync;
+	if (pthread_mutex_unlock(mutex) != 0)
+		printf("Error unlocking mutex\n");
+	return (value);
+}
+
+void	de_sync_philo(t_philo *philo)
+{
+	if (philo->id % 2 != 0)
+		thinking_routine(philo); //TODO
+	else if (philo->id % 2 == 0)
+		my_usleep(30000, philo->table);
+}
+
+void	print_status(t_philo *philo, t_status action)
+{
+	size_t	elapsed;
+	
+	elapsed = gettimeofday_ms() - philo->table->start;
+	if (get_dinner_state(&philo->philo_lock, &philo->full))
+		return ;
+	if (pthread_mutex_lock(&philo->table->print_lock) != 0)
+		printf("Error locking mutex\n");
+		/*TODO: I am here. have to create getter function for state.*/
+	printf("");
+	if (pthread_mutex_unlock(&philo->table->print_lock) != 0)
+		printf("Error unlocking mutex\n");
+}
 
 int	dinner_init(t_table *table)
 {
