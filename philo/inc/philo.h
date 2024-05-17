@@ -6,7 +6,7 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/27 10:55:45 by joaocard          #+#    #+#             */
-/*   Updated: 2024/05/13 15:32:35 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/05/17 09:37:12 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,8 @@ typedef enum e_status
 	EAT,
 	THINK,
 	SLEEP,
-	TAKE_FORK,
+	TAKE_FORK_1,
+	TAKE_FORK_2,
 	DIE,
 }			t_status;
 

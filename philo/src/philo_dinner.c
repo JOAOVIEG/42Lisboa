@@ -6,7 +6,7 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 14:21:04 by joaocard          #+#    #+#             */
-/*   Updated: 2024/05/13 15:49:53 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/05/17 10:18:27 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ void	*dinner(void *arg)
 		eating_routine(philo); //TODO
 		//sleep
 		print_status(philo, SLEEP);
+		my_usleep(philo->table->time_to_sleep, philo->table);
 		//thinking
 		thinking_routine(philo); //TODO
 	}
@@ -74,17 +75,41 @@ void	de_sync_philo(t_philo *philo)
 
 void	print_status(t_philo *philo, t_status action)
 {
-	size_t	elapsed;
-	
+	size_t		elapsed;
+	char		*philo_action;
+
 	elapsed = gettimeofday_ms() - philo->table->start;
 	if (get_dinner_state(&philo->philo_lock, &philo->full))
+	{
+		philo_action = NULL;
 		return ;
+	}
 	if (pthread_mutex_lock(&philo->table->print_lock) != 0)
 		printf("Error locking mutex\n");
-		/*TODO: I am here. have to create getter function for state.*/
-	printf("");
+	philo_action = get_action(action);
+	if (philo_action && get_dinner_state(&philo->table->dinner_lock, \
+			philo->table->dinner_end) == false)
+	printf("%d %d %s", time, philo->id, philo_action);
 	if (pthread_mutex_unlock(&philo->table->print_lock) != 0)
 		printf("Error unlocking mutex\n");
+}
+
+char	*get_action(t_status action)
+{
+	char	*p_action;
+	if (action == EAT )
+		p_action = " is eating\n";
+	else if ((action == TAKE_FORK_1 || action == TAKE_FORK_2))
+		p_action = " has taken a fork\n";
+	else if (action == THINK )
+		p_action = " is thinking\n";
+	else if (action == SLEEP )
+		p_action = " is sleeping\n";
+	else if (action == DIE)
+		p_action = " died\n";
+	else
+		p_action = NULL;
+	return (p_action);
 }
 
 int	dinner_init(t_table *table)
