@@ -6,7 +6,7 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/27 10:55:45 by joaocard          #+#    #+#             */
-/*   Updated: 2024/05/18 10:15:15 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/05/18 13:33:43 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,8 +80,9 @@ int		dinner_init(t_table *table);
 void	*dinner(void *arg);
 void	sync_threads(t_table *table);
 bool	get_dinner_state(pthread_mutex_t *mutex, bool is_sync);
-void	set_dinner_state(pthread_mutex_t *mutex, size_t	*to_set, size_t state);
-void	de_sync_philo(t_philo *philo);
+void	set_last_meal(pthread_mutex_t *mutex, size_t	*to_set, size_t state);
+void	set_dinner_state(pthread_mutex_t *mutex, bool *state, bool value);
+void	de_sync_threads(t_philo *philo);
 /*Time functions*/
 long	gettimeofday_ms(void);
 void	my_usleep(long time, t_table *table);
@@ -89,4 +90,8 @@ long	get_current_time(size_t start);
 /*Action logs*/
 void	print_status(t_philo *philo, t_action action);
 char	*get_action(t_action action);
+void	thinking_routine(t_philo *philo);
+void	eating_routine(t_philo *philo);
+void	use_forks(t_philo *philo);
+void	disuse_forks(t_philo *philo);
 #endif
