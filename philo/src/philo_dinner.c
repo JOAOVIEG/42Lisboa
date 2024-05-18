@@ -6,7 +6,7 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 14:21:04 by joaocard          #+#    #+#             */
-/*   Updated: 2024/05/18 13:18:34 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/05/18 15:47:21 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,13 +24,12 @@ void	*dinner(void *arg)
 	philo->table->nbr_threads_running++;
 	if (pthread_mutex_unlock(&philo->table->dinner_lock) != 0)
 		printf("Error unlocking mutex\n");
-	de_sync_threads(philo);
+	sync_rout_start(philo);
 	while (get_dinner_state(&philo->table->dinner_lock, philo->table->dinner_end) == false)
 	{
 		if (get_dinner_state(&philo->philo_lock, philo->full) == true)
 			break;
-		//eat
-		eating_routine(philo); //TODO
+		eating_routine(philo);
 		print_status(philo, SLEEP);
 		my_usleep(philo->table->time_to_sleep, philo->table);
 		print_status(philo, THINK);
@@ -38,33 +37,7 @@ void	*dinner(void *arg)
 	}
 }
 
-void	sync_threads(t_table *table)
-{
-	while (get_dinner_state(&table->dinner_lock, table->dinner_is_synchro) != true)
-		;
-}
-void	set_last_meal(pthread_mutex_t *mutex, size_t	*to_set, size_t state)
-{
-	if (pthread_mutex_lock(mutex) != 0)
-		printf("Error locking mutex\n");
-	to_set = state;
-	if (pthread_mutex_unlock(mutex) != 0)
-		printf("Error unlocking mutex\n");
-}
-
-bool	get_dinner_state(pthread_mutex_t *mutex, bool is_sync)
-{
-	bool	value;
-
-	if (pthread_mutex_lock(mutex) != 0)
-		printf("Error locking mutex\n");
-	value = is_sync;
-	if (pthread_mutex_unlock(mutex) != 0)
-		printf("Error unlocking mutex\n");
-	return (value);
-}
-
-void	de_sync_threads(t_philo *philo)
+void	sync_rout_start(t_philo *philo)
 {
 	if (philo->id % 2 != 0)
 		thinking_routine(philo);
@@ -110,12 +83,7 @@ int	dinner_init(t_table *table)
 			return (printf("ERROR joining thread for philo nr %d\n", i));
 		i++;
 	}
-	if (pthread_mutex_lock(&table->dinner_lock) != 0)
-		return (printf("Unable to lock dinner_lock\n"));
-	table->dinner_end = true;
-	if (pthread_mutex_unlock(&table->dinner_lock) != 0)
-		return (printf("Unable to unlock dinner_lock\n"));
-
+	set_dinner_state(&table->dinner_lock, &table->dinner_end, true);
 	if (pthread_join(&table->monitor_th, NULL) != 0)
 		return (printf("ERROR joining thread for monitor \n"));
 	return (0);
