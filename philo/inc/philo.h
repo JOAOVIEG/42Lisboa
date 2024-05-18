@@ -6,7 +6,7 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/27 10:55:45 by joaocard          #+#    #+#             */
-/*   Updated: 2024/05/17 09:37:12 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/05/18 10:15:15 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@
 # include <sys/time.h>
 
 
-typedef enum e_status
+typedef enum e_action
 {
 	EAT,
 	THINK,
@@ -30,7 +30,7 @@ typedef enum e_status
 	TAKE_FORK_1,
 	TAKE_FORK_2,
 	DIE,
-}			t_status;
+}			t_action;
 
 typedef	struct s_fork
 {
@@ -53,9 +53,9 @@ typedef struct s_philo
 typedef struct s_table
 {
 	size_t			nbr_philos;
-	size_t			time_to_die;
-	size_t			time_to_eat;
-	size_t			time_to_sleep;
+	long			time_to_die;
+	long			time_to_eat;
+	long			time_to_sleep;
 	size_t			nb_times_must_eat;
 	size_t			start;
 	size_t			nbr_threads_running;
@@ -78,11 +78,15 @@ size_t	ft_atol(const char *av);
 /*philo_diner.c*/
 int		dinner_init(t_table *table);
 void	*dinner(void *arg);
-void	wait_philo_sync(t_table *table);
+void	sync_threads(t_table *table);
 bool	get_dinner_state(pthread_mutex_t *mutex, bool is_sync);
 void	set_dinner_state(pthread_mutex_t *mutex, size_t	*to_set, size_t state);
 void	de_sync_philo(t_philo *philo);
 /*Time functions*/
-size_t	gettimeofday_ms(void);
-void	my_usleep(size_t time, t_table *table);
+long	gettimeofday_ms(void);
+void	my_usleep(long time, t_table *table);
+long	get_current_time(size_t start);
+/*Action logs*/
+void	print_status(t_philo *philo, t_action action);
+char	*get_action(t_action action);
 #endif

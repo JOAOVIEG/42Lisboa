@@ -6,13 +6,13 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/22 10:50:10 by joaocard          #+#    #+#             */
-/*   Updated: 2024/05/13 14:58:51 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/05/18 10:09:28 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-size_t	get_current_time(size_t start)
+long	get_current_time(size_t start)
 {
 	struct timeval	tv;
 	size_t			current_time;
@@ -24,19 +24,19 @@ size_t	get_current_time(size_t start)
 	return (current_time - start);
 }
 
-void	my_usleep(size_t time, t_table *table)
+void	my_usleep(long time, t_table *table)
 {
-	size_t	start;
-	size_t	elapsed;
-	size_t	remaining;
+	long	start;
+	long	delta_t;
+	long	remaining;
 
 	start = gettimeofday_ms();
 	while (gettimeofday_ms() - start < time)
 	{
-		if (get_dinner_state(&table->dinner_lock, &table->dinner_end))
+		if (get_dinner_state(&table->dinner_lock, &table->dinner_end) == true)
 			break ;
-		elapsed = gettimeofday_ms() - start;
-		remaining  = time - elapsed;
+		delta_t = gettimeofday_ms() - start;
+		remaining  = time - delta_t;
 		if (remaining > 1000)
 			usleep(remaining / 2);
 		else
@@ -47,7 +47,7 @@ void	my_usleep(size_t time, t_table *table)
 	}
 }
 
-size_t	gettimeofday_ms(void)
+long	gettimeofday_ms(void)
 {
 	struct timeval	tv;
 

@@ -6,7 +6,7 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 14:21:04 by joaocard          #+#    #+#             */
-/*   Updated: 2024/05/17 10:18:27 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/05/18 10:13:34 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void	*dinner(void *arg)
 	}
 }
 
-void	wait_philo_sync(t_table *table)
+void	sync_threads(t_table *table)
 {
 	while (get_dinner_state(&table->dinner_lock, table->dinner_is_synchro) != true)
 		;
@@ -73,12 +73,12 @@ void	de_sync_philo(t_philo *philo)
 		my_usleep(30000, philo->table);
 }
 
-void	print_status(t_philo *philo, t_status action)
+void	print_status(t_philo *philo, t_action action)
 {
-	size_t		elapsed;
+	long		delta_t;
 	char		*philo_action;
 
-	elapsed = gettimeofday_ms() - philo->table->start;
+	delta_t = gettimeofday_ms() - philo->table->start;
 	if (get_dinner_state(&philo->philo_lock, &philo->full))
 	{
 		philo_action = NULL;
@@ -89,12 +89,12 @@ void	print_status(t_philo *philo, t_status action)
 	philo_action = get_action(action);
 	if (philo_action && get_dinner_state(&philo->table->dinner_lock, \
 			philo->table->dinner_end) == false)
-	printf("%d %d %s", time, philo->id, philo_action);
+	printf("%d %d %s", delta_t, philo->id, philo_action);
 	if (pthread_mutex_unlock(&philo->table->print_lock) != 0)
 		printf("Error unlocking mutex\n");
 }
 
-char	*get_action(t_status action)
+char	*get_action(t_action action)
 {
 	char	*p_action;
 	if (action == EAT )
