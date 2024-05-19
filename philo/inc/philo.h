@@ -6,7 +6,7 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/27 10:55:45 by joaocard          #+#    #+#             */
-/*   Updated: 2024/05/18 13:33:43 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/05/19 13:48:16 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,9 +56,9 @@ typedef struct s_table
 	long			time_to_die;
 	long			time_to_eat;
 	long			time_to_sleep;
+	long			nbr_threads_running;
 	size_t			nb_times_must_eat;
 	size_t			start;
-	size_t			nbr_threads_running;
 	bool			dinner_end;
 	bool			dinner_is_synchro;
 	t_philo			*philos;
@@ -82,11 +82,10 @@ void	sync_threads(t_table *table);
 bool	get_dinner_state(pthread_mutex_t *mutex, bool is_sync);
 void	set_last_meal(pthread_mutex_t *mutex, size_t	*to_set, size_t state);
 void	set_dinner_state(pthread_mutex_t *mutex, bool *state, bool value);
-void	de_sync_threads(t_philo *philo);
+void	sync_rout_start(t_philo *philo);
 /*Time functions*/
 long	gettimeofday_ms(void);
 void	my_usleep(long time, t_table *table);
-long	get_current_time(size_t start);
 /*Action logs*/
 void	print_status(t_philo *philo, t_action action);
 char	*get_action(t_action action);
@@ -94,4 +93,9 @@ void	thinking_routine(t_philo *philo);
 void	eating_routine(t_philo *philo);
 void	use_forks(t_philo *philo);
 void	disuse_forks(t_philo *philo);
+/*Monitor functions*/
+void	*monitor(void *arg);
+bool	all_threads_running(pthread_mutex_t *mutex, long *th_nbr, size_t ph_nbr);
+bool	death_event(t_philo *philo);
+long	get_last_meal(pthread_mutex_t *mutex, size_t *last_meal);
 #endif
