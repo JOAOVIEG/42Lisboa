@@ -6,7 +6,7 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/27 10:55:45 by joaocard          #+#    #+#             */
-/*   Updated: 2024/05/19 19:59:53 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/05/20 14:57:40 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ typedef enum e_action
 	DIE,
 }			t_action;
 
-typedef	struct s_fork
+typedef struct s_fork
 {
 	pthread_mutex_t	lock;
 }					t_fork;
@@ -64,7 +64,7 @@ typedef struct s_table
 	bool			dinner_is_synchro;
 	t_philo			*philos;
 	t_fork			*forks;
-	pthread_mutex_t dinner_lock;
+	pthread_mutex_t	dinner_lock;
 	pthread_mutex_t	print_lock;
 	pthread_t		monitor_th;
 }					t_table;
@@ -77,6 +77,7 @@ void	give_forks(t_philo *philo, t_fork *forks, int pos);
 size_t	ft_atol(const char *av);
 /*Diner init and routine*/
 int		dinner_init(t_table *table);
+int		init_threads(t_table *table, size_t i);
 void	*dinner(void *arg);
 void	*dinner_for_one(void *arg);
 void	sync_threads(t_table *table);
@@ -97,7 +98,8 @@ void	use_forks(t_philo *philo);
 void	disuse_forks(t_philo *philo);
 /*Monitor functions*/
 void	*monitor(void *arg);
-bool	all_threads_running(pthread_mutex_t *mutex, size_t *th_nbr, size_t ph_nbr);
+bool	all_threads_running(pthread_mutex_t *mutex, \
+						size_t *th_nbr, size_t ph_nbr);
 bool	death_event(t_philo *philo);
 long	get_last_meal(pthread_mutex_t *mutex, size_t *last_meal);
 /*Clean function*/

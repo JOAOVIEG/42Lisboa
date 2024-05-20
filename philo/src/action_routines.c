@@ -6,7 +6,7 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/18 10:48:26 by joaocard          #+#    #+#             */
-/*   Updated: 2024/05/19 20:28:49 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/05/20 14:30:55 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,14 @@
 char	*get_action(t_action action)
 {
 	char	*p_action;
-	if (action == EAT )
+
+	if (action == EAT)
 		p_action = " is eating\n";
 	else if ((action == TAKE_FORK_1 || action == TAKE_FORK_2))
 		p_action = " has taken a fork\n";
-	else if (action == THINK )
+	else if (action == THINK)
 		p_action = " is thinking\n";
-	else if (action == SLEEP )
+	else if (action == SLEEP)
 		p_action = " is sleeping\n";
 	else if (action == DIE)
 		p_action = " died\n";
@@ -46,7 +47,7 @@ void	print_status(t_philo *philo, t_action action)
 	philo_action = get_action(action);
 	if (philo_action && get_dinner_state(&philo->table->dinner_lock, \
 			&philo->table->dinner_end) == false)
-	printf("%ld %d %s", delta_t, philo->id, philo_action);
+		printf("%ld %d %s", delta_t, philo->id, philo_action);
 	if (pthread_mutex_unlock(&philo->table->print_lock) != 0)
 		printf("Error unlocking mutex\n");
 }
@@ -74,22 +75,4 @@ void	eating_routine(t_philo *philo)
 		&& philo->meals_count == philo->table->nb_times_must_eat)
 		set_dinner_state(&philo->philo_lock, &philo->full, true);
 	disuse_forks(philo);
-}
-
-void	use_forks(t_philo *philo)
-{
-	if (pthread_mutex_lock(&philo->prio_fork->lock) != 0)
-		printf("Error locking mutex\n");
-	print_status(philo, TAKE_FORK_1);
-	if (pthread_mutex_lock(&philo->sec_fork->lock) != 0)
-		printf("Error locking mutex\n");
-	print_status(philo, TAKE_FORK_2);
-}
-
-void	disuse_forks(t_philo *philo)
-{
-	if (pthread_mutex_unlock(&philo->prio_fork->lock) != 0)
-		printf("Error locking mutex\n");
-	if (pthread_mutex_unlock(&philo->sec_fork->lock) != 0)
-		printf("Error locking mutex\n");
 }

@@ -6,16 +6,37 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/27 10:55:29 by joaocard          #+#    #+#             */
-/*   Updated: 2024/05/19 16:09:02 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/05/20 14:54:08 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
+int	init_threads(t_table *table, size_t i)
+{
+	if (table->nbr_philos == 1)
+	{
+		if (pthread_create(&table->philos[0].thread_id, NULL, \
+							dinner_for_one, &table->philos[0]) != 0)
+			return (printf("ERROR creating thread for philo nr %ld\n", i));
+	}
+	else
+	{
+		while (i < table->nbr_philos)
+		{
+			if (pthread_create(&table->philos[i].thread_id, \
+							NULL, dinner, &table->philos[i]) != 0)
+				return (printf("ERROR creating thread for philo nr %ld\n", i));
+			i++;
+		}
+	}
+	return (0);
+}
+
 int	main(int ac, char **av)
 {
 	t_table		table;
-	
+
 	if (ac < 5 || ac > 6)
 		return (printf("Wrong number of arguments\n"));
 	else if (ac == 5 || ac == 6)

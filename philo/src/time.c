@@ -6,7 +6,7 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/22 10:50:10 by joaocard          #+#    #+#             */
-/*   Updated: 2024/05/19 21:08:19 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/05/20 14:51:27 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,13 +24,17 @@ void	my_usleep(long time, t_table *table)
 		if (get_dinner_state(&table->dinner_lock, &table->dinner_end) == true)
 			break ;
 		delta_t = (gettimeofday_ms() * 1000) - start;
-		remaining  = time - delta_t;
+		remaining = time - delta_t;
 		if (remaining > 10000)
-			usleep(remaining / 2);
+			usleep(10000);
 		else
 		{
 			while (((gettimeofday_ms() * 1000) - start) < time)
-				;
+			{
+				if (get_dinner_state(&table->dinner_lock, \
+									&table->dinner_end) == true)
+					break ;
+			}
 		}
 	}
 }
