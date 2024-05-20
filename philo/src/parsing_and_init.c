@@ -6,7 +6,7 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/27 11:12:38 by joaocard          #+#    #+#             */
-/*   Updated: 2024/04/25 14:36:35 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/05/19 20:52:08 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,8 +53,8 @@ int	parse_args(t_table *table, char **av)
 
 int	philo_init(t_table *table)
 {
-	t_philo *philo;
-	int		pos;
+	t_philo	*philo;
+	size_t	pos;
 
 	pos = 0;
 	while ( pos < table->nbr_philos)
@@ -62,6 +62,7 @@ int	philo_init(t_table *table)
 		philo = &table->philos[pos];
 		philo->id = pos + 1;
 		philo->meals_count = 0;
+		// philo->last_meal = 0;
 		philo->full = false;
 		if (pthread_mutex_init(&philo->philo_lock, NULL) != 0)
 			return (printf("ERROR initializing philo_lock"));
@@ -82,18 +83,16 @@ void	give_forks(t_philo *philo, t_fork *forks, int pos)
 		philo->prio_fork = &forks[pos];
 		philo->sec_fork = &forks[(pos + 1) % nbr_forks];
 	}
-	else if (philo->id % 2)
-	{
-		philo->prio_fork = &forks[(pos + 1) % nbr_forks];
-		philo->sec_fork = &forks[pos];
-	}
+	philo->prio_fork = &forks[(pos + 1) % nbr_forks];
+	philo->sec_fork = &forks[pos];
 }
 
 int	init_table(t_table	*table)
 {
-	int i;
+	size_t	i;
 
 	i = 0;
+	table->nbr_threads_running = 0;
 	table->dinner_end = false;
 	table->dinner_is_synchro = false;
 	table->philos = (t_philo *)malloc(sizeof(t_philo) * table->nbr_philos);

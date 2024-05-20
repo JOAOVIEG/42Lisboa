@@ -7,7 +7,7 @@ SRCS = $(SRC_DIR)/main.c \
 		$(SRC_DIR)/philo_dinner.c \
 		$(SRC_DIR)/time.c \
 		$(SRC_DIR)/action_routines.c \
-		$(SRC_DIR)/dinner_utilis.c \
+		$(SRC_DIR)/diner_utilis.c \
 
 OBJS := $(SRCS:%.c=%.o)
 

@@ -6,7 +6,7 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/27 10:55:45 by joaocard          #+#    #+#             */
-/*   Updated: 2024/05/19 13:48:16 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/05/19 19:59:53 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 # include <stdlib.h>
 # include <sys/time.h>
 
+typedef struct s_table	t_table;
 
 typedef enum e_action
 {
@@ -53,10 +54,10 @@ typedef struct s_philo
 typedef struct s_table
 {
 	size_t			nbr_philos;
+	size_t			nbr_threads_running;
 	long			time_to_die;
 	long			time_to_eat;
 	long			time_to_sleep;
-	long			nbr_threads_running;
 	size_t			nb_times_must_eat;
 	size_t			start;
 	bool			dinner_end;
@@ -68,21 +69,22 @@ typedef struct s_table
 	pthread_t		monitor_th;
 }					t_table;
 
-
 /*parsing_and_init.c*/
 int		philo_init(t_table *table);
 int		parse_args(t_table *table, char **av);
 int		init_table(t_table	*table);
 void	give_forks(t_philo *philo, t_fork *forks, int pos);
 size_t	ft_atol(const char *av);
-/*philo_diner.c*/
+/*Diner init and routine*/
 int		dinner_init(t_table *table);
 void	*dinner(void *arg);
+void	*dinner_for_one(void *arg);
 void	sync_threads(t_table *table);
-bool	get_dinner_state(pthread_mutex_t *mutex, bool is_sync);
+bool	get_dinner_state(pthread_mutex_t *mutex, bool *is_sync);
 void	set_last_meal(pthread_mutex_t *mutex, size_t	*to_set, size_t state);
 void	set_dinner_state(pthread_mutex_t *mutex, bool *state, bool value);
 void	sync_rout_start(t_philo *philo);
+
 /*Time functions*/
 long	gettimeofday_ms(void);
 void	my_usleep(long time, t_table *table);
@@ -95,7 +97,9 @@ void	use_forks(t_philo *philo);
 void	disuse_forks(t_philo *philo);
 /*Monitor functions*/
 void	*monitor(void *arg);
-bool	all_threads_running(pthread_mutex_t *mutex, long *th_nbr, size_t ph_nbr);
+bool	all_threads_running(pthread_mutex_t *mutex, size_t *th_nbr, size_t ph_nbr);
 bool	death_event(t_philo *philo);
 long	get_last_meal(pthread_mutex_t *mutex, size_t *last_meal);
+/*Clean function*/
+void	clean_table(t_table *table);
 #endif

@@ -6,7 +6,7 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/18 10:48:26 by joaocard          #+#    #+#             */
-/*   Updated: 2024/05/18 13:33:46 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/05/19 20:28:49 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,8 @@ void	print_status(t_philo *philo, t_action action)
 		printf("Error locking mutex\n");
 	philo_action = get_action(action);
 	if (philo_action && get_dinner_state(&philo->table->dinner_lock, \
-			philo->table->dinner_end) == false)
-	printf("%d %d %s", delta_t, philo->id, philo_action);
+			&philo->table->dinner_end) == false)
+	printf("%ld %d %s", delta_t, philo->id, philo_action);
 	if (pthread_mutex_unlock(&philo->table->print_lock) != 0)
 		printf("Error unlocking mutex\n");
 }
@@ -66,7 +66,7 @@ void	thinking_routine(t_philo *philo)
 void	eating_routine(t_philo *philo)
 {
 	use_forks(philo);
-	set_last_meal(&philo->philo_lock, &philo->last_meal, gettimeofday_ms);
+	set_last_meal(&philo->philo_lock, &philo->last_meal, gettimeofday_ms());
 	philo->meals_count++;
 	print_status(philo, EAT);
 	my_usleep(philo->table->time_to_eat, philo->table);
