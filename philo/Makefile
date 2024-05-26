@@ -9,6 +9,7 @@ SRCS = $(SRC_DIR)/main.c \
 		$(SRC_DIR)/action_routines.c \
 		$(SRC_DIR)/diner_utilis.c \
 		$(SRC_DIR)/diner_utilis_1.c \
+		$(SRC_DIR)/ft_atoi_utilis.c \
 
 OBJS := $(SRCS:%.c=%.o)
 

@@ -6,7 +6,7 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/27 11:12:38 by joaocard          #+#    #+#             */
-/*   Updated: 2024/05/26 13:49:23 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/05/26 14:06:21 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,29 +25,16 @@ int	ft_atoi(const char *av, int *error)
 			sign = -1;
 		av++;
 	}
-	if (*(char *)av && (*(char *)av < '0' || *(char *)av > '9'))
-	{
-		printf("Wrong input: only integers allowed\n");
-		*error = 1;
-		return (*error);
-	}
+	if (non_digit(av, error) != 0)
+		return (1);
 	while (*(char *)av && *(char *)av >= '0' && *(char *)av <= '9')
 	{
-		if (integer > INT_MAX / 10 || \
-			(integer == INT_MAX / 10 && *(char *)av - '0' > INT_MAX % 10))
-		{
-			printf("Wrong input: Max int reached. Overflow is on!\n");
-			*error = 1;
-			return (*error);
-		}
+		if (overflow(integer, av, error) != 0)
+			return (1);
 		integer = (integer * 10) + *(char *)av - '0';
 		av++;
-		if (*(char *)av && (*(char *)av < '0' || *(char *)av > '9'))
-		{
-			printf("Wrong input: only integers allowed\n");
-			*error = 1;
-			return (*error);
-		}
+		if (non_digit(av, error) != 0)
+			return (1);
 	}
 	return (sign * integer);
 }

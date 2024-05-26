@@ -6,7 +6,7 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/27 10:55:45 by joaocard          #+#    #+#             */
-/*   Updated: 2024/05/26 13:23:21 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/05/26 14:06:50 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,8 @@ int		parse_args(t_table *table, char **av);
 int		init_table(t_table	*table);
 void	give_forks(t_philo *philo, t_fork *forks, int pos);
 int		ft_atoi(const char *av, int *error);
+int		non_digit(const char *av, int *error);
+int		overflow(int integer, const char *av, int *error);
 /*Diner init and routine*/
 int		dinner_init(t_table *table);
 int		init_threads(t_table *table, size_t i);
