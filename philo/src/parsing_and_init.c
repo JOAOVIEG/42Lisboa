@@ -6,16 +6,16 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/27 11:12:38 by joaocard          #+#    #+#             */
-/*   Updated: 2024/05/20 17:05:35 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/05/26 13:49:23 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-size_t	ft_atol(const char *av)
+int	ft_atoi(const char *av, int *error)
 {
 	int		sign;
-	size_t	integer;
+	int		integer;
 
 	sign = 1;
 	integer = 0;
@@ -25,28 +25,54 @@ size_t	ft_atol(const char *av)
 			sign = -1;
 		av++;
 	}
+	if (*(char *)av && (*(char *)av < '0' || *(char *)av > '9'))
+	{
+		printf("Wrong input: only integers allowed\n");
+		*error = 1;
+		return (*error);
+	}
 	while (*(char *)av && *(char *)av >= '0' && *(char *)av <= '9')
 	{
+		if (integer > INT_MAX / 10 || \
+			(integer == INT_MAX / 10 && *(char *)av - '0' > INT_MAX % 10))
+		{
+			printf("Wrong input: Max int reached. Overflow is on!\n");
+			*error = 1;
+			return (*error);
+		}
 		integer = (integer * 10) + *(char *)av - '0';
 		av++;
+		if (*(char *)av && (*(char *)av < '0' || *(char *)av > '9'))
+		{
+			printf("Wrong input: only integers allowed\n");
+			*error = 1;
+			return (*error);
+		}
 	}
 	return (sign * integer);
 }
 
 int	parse_args(t_table *table, char **av)
 {
-	table->nbr_philos = ft_atol(av[1]);
+	int	error;
+
+	error = 0;
+	table->nbr_philos = ft_atoi(av[1], &error);
+	if (error != 0)
+		return (1);
 	if ((int)table->nbr_philos <= 0 || (int)table->nbr_philos > 200)
 		return (printf("Set at least 1 philo and less than 200\n"));
-	table->time_to_die = ft_atol(av[2]) * 1e3;
-	table->time_to_eat = ft_atol(av[3]) * 1e3;
-	table->time_to_sleep = ft_atol(av[4]) * 1e3;
+	table->time_to_die = ft_atoi(av[2], &error) * 1e3;
+	table->time_to_eat = ft_atoi(av[3], &error) * 1e3;
+	table->time_to_sleep = ft_atoi(av[4], &error) * 1e3;
 	if (table->time_to_die < 60e3 || table->time_to_eat < 60e3 \
 							||table->time_to_sleep < 60e3)
 		return (printf("Wrong input: time has to more than 60 ms\n"));
 	if (av[5])
 	{
-		table->nb_times_must_eat = ft_atol(av[5]);
+		table->nb_times_must_eat = ft_atoi(av[5], &error);
+		if (error != 0)
+			return (error);
 		if ((int)table->nb_times_must_eat <= 0)
 			return (printf("Wrong input: Set a positive for nr meals\n"));
 	}

@@ -6,7 +6,7 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/27 10:55:29 by joaocard          #+#    #+#             */
-/*   Updated: 2024/05/20 14:54:08 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/05/26 13:56:55 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ int	main(int ac, char **av)
 		if (parse_args(&table, av) != 0)
 			return (printf("Error parsing arguments\n"));
 		if (init_table(&table) != 0)
-			return (printf("Error initializing tavle\n"));
+			return (printf("Error initializing table\n"));
 		if (dinner_init(&table) != 0)
 			return (printf("Error initializing dinner\n"));
 		clean_table(&table);

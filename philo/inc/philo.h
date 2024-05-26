@@ -6,7 +6,7 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/27 10:55:45 by joaocard          #+#    #+#             */
-/*   Updated: 2024/05/20 14:57:40 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/05/26 13:23:21 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # include <stdio.h>
 # include <stdlib.h>
 # include <sys/time.h>
+# include <limits.h>
 
 typedef struct s_table	t_table;
 
@@ -74,7 +75,7 @@ int		philo_init(t_table *table);
 int		parse_args(t_table *table, char **av);
 int		init_table(t_table	*table);
 void	give_forks(t_philo *philo, t_fork *forks, int pos);
-size_t	ft_atol(const char *av);
+int		ft_atoi(const char *av, int *error);
 /*Diner init and routine*/
 int		dinner_init(t_table *table);
 int		init_threads(t_table *table, size_t i);
