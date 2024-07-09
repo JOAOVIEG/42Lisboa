@@ -6,7 +6,7 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 16:50:34 by joaocard          #+#    #+#             */
-/*   Updated: 2024/07/08 18:34:47 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/07/09 21:15:04 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,8 @@ class PhoneBook
 		PhoneBook() : contact_count(0) {};
 		~PhoneBook() {std::cout<<"PhoneBook destroyed"<<std::endl;};
 		void Add();
-		// void Search();
-		// void Exi();
+		void Search();
+		void Exit();
 };
 
 #endif

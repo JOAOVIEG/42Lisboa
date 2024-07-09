@@ -6,7 +6,7 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 17:11:00 by joaocard          #+#    #+#             */
-/*   Updated: 2024/07/08 17:15:45 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/07/09 23:43:14 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,4 +77,60 @@ void	PhoneBook::CheckLastContact()
 	std::cout << "Enter darkest secret ;P : ";
 	std::getline(std::cin, darkest_secret);
 	PhoneBook::contacts[7].SetDarkestSecret(darkest_secret);
+}
+
+
+void	PhoneBook::Search()
+{
+	int index;
+	
+	for (int i = 0; i < PhoneBook::contact_count; i++)
+	{
+		std::cout << std::setw(10) << i << "|";
+		if (PhoneBook::contacts[i].GetFirstName().length() > 10)
+			std::cout << PhoneBook::contacts[i].GetFirstName().substr(0, 9) << ".|";
+		else
+			std::cout << std::setw(10) << PhoneBook::contacts[i].GetFirstName() << "|";
+		if (PhoneBook::contacts[i].GetLastName().length() > 10)
+			std::cout << PhoneBook::contacts[i].GetLastName().substr(0, 9) << ".|";
+		else
+			std::cout << std::setw(10) << PhoneBook::contacts[i].GetLastName() << "|";
+		if (PhoneBook::contacts[i].GetNickname().length() > 10)
+			std::cout << PhoneBook::contacts[i].GetNickname().substr(0, 9) << ".|";
+		else
+		std::cout << std::setw(10) << PhoneBook::contacts[i].GetNickname() << std::endl;
+	}
+	std::cout << "ENTER CONTACT INDEX OR ANY KEY TO GO BACK TO MENU: ";
+	std::cin >> index;
+	while (true)
+	{
+		if (std::cin.fail())
+		{
+			std::cin.clear();
+			std::cin.ignore(10000, '\n');
+			std::cout << "INVALID INDEX. SELECT A VALID INDEX OR ANY KEY TO GO BACK TO MENU: ";
+			std::cin >> index;
+			if (std::cin.fail() || (index < 0 || index >= PhoneBook::contact_count) || index == '\n')
+				break;
+		}
+		else if (index >= 0 && index < PhoneBook::contact_count)
+		{
+			std::cout << "FIRST NAME    | " << PhoneBook::contacts[index].GetFirstName() << std::endl;
+			std::cout << "LAST NAME     | " << PhoneBook::contacts[index].GetLastName() << std::endl;
+			std::cout << "NICKNAME      | " << PhoneBook::contacts[index].GetNickname() << std::endl;
+			std::cout << "PHONE NUMBER  | " << PhoneBook::contacts[index].GetPhoneNumber() << std::endl;
+			std::cout << "DARKEST SECRET| " << PhoneBook::contacts[index].GetDarkestSecret() << std::endl;
+			break;
+		}
+		else
+		{
+			std::cout << "NO CONTACT EXISTS FOR THIS INDEX." << std::endl;
+			std::cout << "ENTER CONTACT INDEX OR ANY KEY TO GO BACK TO MENU: ";
+			std::cin >> index;
+			if (std::cin.fail() || (index < 0 || index >= PhoneBook::contact_count))
+				break;
+		}
+	}
+	std::cin.clear();
+	std::cin.ignore(10000, '\n');
 }
