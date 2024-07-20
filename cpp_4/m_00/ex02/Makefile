@@ -4,7 +4,7 @@ CXX = c++
 
 CXXFLAGS = -Wall -Wextra -Werror -std=c++98 -g
 
-SRC = tests.cpp Account.cpp
+SRC = tests.cpp Account.cpp AccountGetters.cpp
 
 OBJ = $(SRC:.cpp=.o)
 

@@ -6,7 +6,7 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/12 15:32:09 by joaocard          #+#    #+#             */
-/*   Updated: 2024/07/12 19:46:01 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/07/20 18:00:37 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,8 @@ void Account::displayStatus(void) const {
 
 void Account::displayAccountsInfos(void) {
     _displayTimestamp();
-    std::cout << "accounts:" << _nbAccounts << ";total:" << _totalAmount << ";deposits:" << _totalNbDeposits << ";withdrawals:" << _totalNbWithdrawals << std::endl;
+	
+    std::cout << "accounts:" << Account::getNbAccounts() << ";total:" << Account::getTotalAmount() << ";deposits:" << Account::getNbDeposits()  << ";withdrawals:" << Account::getNbWithdrawals() << std::endl;
 }
 
 void Account::_displayTimestamp(void) {
