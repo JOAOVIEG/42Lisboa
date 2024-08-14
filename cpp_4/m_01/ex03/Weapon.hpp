@@ -6,7 +6,7 @@
 /*   By: joaocard <joaocard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/23 17:43:20 by joaocard          #+#    #+#             */
-/*   Updated: 2024/07/23 19:11:12 by joaocard         ###   ########.fr       */
+/*   Updated: 2024/08/14 13:56:13 by joaocard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,12 @@
 
 class Weapon{
 	public:
-		Weapon(std::string Weapon_type) : type(Weapon_type) {}
-		~Weapon() { std::cout << "Weapon destroyed" << std::endl ;}
+		Weapon() {}
+		Weapon(const std::string& weapon_type) : type(weapon_type) {}
+		~Weapon() {std::cout << "Weapon destroyed" << std::endl;};
 		
-	 	const std::string& 		getType() 	const;
-		void					setType(std::string Weapon_type);
+	 	const std::string&		getType();
+		void					setType(std::string weapon_type);
 	
 	private:
 		std::string type;
